@@ -1,0 +1,53 @@
+@import 'breakpoints.scss';
+
+.main {
+  text-align: center;
+}
+.home {
+  text-align:center;
+}
+.main h1 {
+  text-align:center;
+  font-size:48px;
+  text-transform: unset;
+  max-width:700px;
+  margin:50px auto 0;
+}
+
+.homeRow {
+  margin-top:20px;
+  display: grid;
+  grid-template-columns: 48% 48%;
+  text-align:left;
+  row-gap: 30px;
+  column-gap: 6%;
+  justify-items: center;
+
+  ol {
+    margin:0;
+    padding:0;
+    list-style-position: inside;
+  }
+  a {
+
+    border-bottom: 1px dashed var(--main-color2);
+    &:hover {
+      color:var(--main-color3);
+      border-bottom-color:var(--main-color-3)
+    }
+  }
+  li {
+    padding:0;
+    margin: 10px 0;
+  }
+  span {
+    padding-left:30px;
+  }
+}
+
+
+@include mobile {
+  .homeRow {
+    grid-template-columns: 100%;
+  }
+}

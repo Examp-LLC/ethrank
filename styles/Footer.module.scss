@@ -1,0 +1,115 @@
+@import 'breakpoints.scss';
+
+.footer {
+  min-height: 750px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 150px;
+  position: relative;
+}
+
+.topRow, .secondRow {
+  display:grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+}
+
+.form input, .form .btn {
+  color: var(--white);
+  padding:10px;
+  border:1px solid rgba(255, 255, 255, .5);
+  border-radius:4px;
+  background:var(--main-color5)
+}
+
+.form input {
+  width:70%;
+  &:focus {
+    background:var(--main-color5)
+  }
+}
+
+.form .btn {
+  background:var(--main-color3);
+  width:auto;
+  margin-left:10px;
+  cursor: pointer;
+  &:hover {
+    background:var(--main-color2)
+  }
+}
+
+.secondRow {
+  border-top:1px solid rgba(255, 255, 255, .5);
+  margin-top:100px;
+  padding-top:60px;
+}
+
+.links, .social {
+  justify-self: end;
+}
+
+.social ul {
+  margin:0;
+  padding:0;
+  text-align:right;
+}
+
+.social li {
+  display:inline-block; 
+  margin:0 10px 0 0;
+  &.twitter a {
+    background:url(../public/twitter.svg) no-repeat;
+  }
+  &.telegram a {
+    background:url(../public/telegram.svg) no-repeat;
+  }
+  &.github a {
+    background:url(../public/github.svg) no-repeat;
+  }
+  span {
+    visibility: hidden;;
+  }
+}
+
+.social li a {
+  background:url(../public/discord.svg) no-repeat;
+  height:62px;
+  width:62px;
+  display: block;
+  padding:0;
+}
+
+.links {
+  text-align:right;
+  li {
+    margin: 10px 0;
+    list-style: none;
+  }
+
+}
+
+.copyright {
+  position: absolute;
+  bottom:0;
+  text-align:center;
+  width:100%;
+  font-weight:lighter;
+  font-size:10px;
+  opacity:.5
+}
+
+
+@include mobile {
+  .footer {
+    padding:200px 0px 20px;
+  }
+  .topRow {
+    grid-template-columns: 100%;
+    padding:20px;
+  }
+  .secondRow {
+    padding:20px;
+    margin-top:50px;
+  }
+}

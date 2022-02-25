@@ -1,0 +1,15 @@
+.outer {
+    border:1px solid var(--main-color1);
+    width:100%;
+    height:20px;
+    position:relative;
+    background: linear-gradient(to right, var(--main-color1), var(--main-color2),  var(--main-color3), var(--main-color4), var(--main-color5));
+}
+.inner {
+    border: 1px solid transparent;
+    background: var(--black);
+    height:100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

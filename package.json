@@ -1,0 +1,37 @@
+{
+  "name": "ethrank-temp",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ensdomains/eth-ens-namehash": "^2.0.15",
+    "@prisma/client": "^3.7.0",
+    "@uauth/js": "^0.7.9",
+    "@uauth/web3modal": "^0.7.9",
+    "@walletconnect/web3-provider": "^1.7.1",
+    "animate.css": "^4.1.1",
+    "chart.js": "^3.7.0",
+    "next": "12.0.8",
+    "react": "17.0.2",
+    "react-chartjs-2": "^4.0.0",
+    "react-dom": "17.0.2",
+    "react-query": "^3.34.7",
+    "sass": "^1.45.2",
+    "walletlink": "^2.4.5",
+    "web3": "^1.6.1",
+    "web3modal": "^1.9.5"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.5",
+    "@types/react": "17.0.38",
+    "eslint": "8.5.0",
+    "eslint-config-next": "12.0.7",
+    "prisma": "^3.7.0",
+    "typescript": "4.5.4"
+  }
+}

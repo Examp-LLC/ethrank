@@ -1,0 +1,60 @@
+@import 'breakpoints.scss';
+
+
+.header {
+    padding:20px;
+}
+
+.header .btn {
+  position: absolute;
+  right:20px;
+  
+  top: 25px;
+  text-align: right;
+}
+
+.header ul {
+    list-style:none;
+    padding:0;
+    margin:-30px 0 0 0;
+    text-align:center;
+    position: relative;
+    li {
+        display:inline;
+        padding:0 20px;
+        text-transform: uppercase;
+        opacity: .5;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.pill {
+    background-color: var(--main-color3);
+    font-size:10px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    padding:3px 10px;
+    position: relative;
+    top:-8px;
+    left:20px;
+    font-weight:lighter;
+    color: rgb(255, 255, 255, .75);
+}
+
+@include mobile {
+  .header ul {
+      margin-top:50px;
+  }
+
+  .pill {
+      display:none;
+  }
+}
+@include tablet {
+
+  .pill {
+      display:none;
+  }
+}

@@ -1,0 +1,87 @@
+.btn { 
+    background:linear-gradient(to right, var(--main-color2),  var(--main-color3), var(--main-color4));
+    color:var(--white);
+    padding:10px 20px;
+    text-transform: uppercase;
+    font-size:14px;
+    border-bottom:none;
+    &:hover {
+        border-bottom-color:transparent !important;
+    }
+}
+
+.btnWrapper span {
+    display:block;
+    margin-top:20px;
+    opacity:.5;
+    font-weight:lighter;
+    font-size:14px;
+}
+
+.connect .manualAddressInput {
+    input, button {
+        color: var(--white);
+        padding:10px;
+        border:1px solid rgba(255, 255, 255, .5);
+        border-radius:4px;
+        background:var(--main-color5);
+        &::placeholder {
+          color:var(--white)
+        }
+    }
+    input {
+      width:70%;
+      &:focus {
+        background:var(--main-color5)
+      }
+    }
+    
+    button {
+      background:var(--main-color3);
+      width:auto;
+      margin-left:5px;
+      cursor: pointer;
+      &:hover {
+        background:var(--main-color2)
+      }
+    }
+}
+
+.tooltip {
+  margin:10px auto;
+  text-align:center;
+  position:relative;
+  font-size: 10px;
+  strong {
+    opacity:.5;
+    cursor:help;
+    font-weight:normal;
+    border-bottom:1px dashed var(--main-color3);
+    &:hover {
+      opacity:1;
+    }
+  }
+  div {
+    display:none;
+  }
+  &:hover div {
+    display:block;
+    opacity:1;
+  }
+}
+
+.supported {
+  background-color: var(--black);
+  margin:10px auto;
+  max-width:220px;
+  text-align:left;
+  color:var(--main-color3);
+  ol {
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  li span {
+    color: #ccc
+  }
+}

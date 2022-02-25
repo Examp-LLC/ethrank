@@ -1,0 +1,74 @@
+
+
+@import 'breakpoints.scss';
+
+.cellParent, .categoryRow {
+    display: grid;
+    grid-template-columns: 48% 48%;
+    text-align:center;
+    row-gap: 30px;
+    column-gap: 6%;
+    justify-items: center;
+    box-sizing:content-box;
+}
+
+.cellParent h3 {
+    margin:0;
+    font-size:55px;
+}
+.cellParent h5 {
+    margin:0;
+    font-size:24px;
+    color:var(--white);
+    opacity:.5;
+}
+
+.achievement {
+    cursor:pointer;
+    border:1px solid var(--main-color3);
+    padding:10px;
+    text-align:left;
+    box-shadow: -5px -5px 0 0 var(--main-color3);
+    width: 100%;
+}
+
+.achievement h4 {
+    margin: 0 0 20px 0;
+    font-size:24px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.address {
+    text-align:center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-bottom:40px;
+    position: relative;
+    overflow:hidden;
+    height:40px;
+}
+
+.address h2 {
+    padding: 10px;
+    display:inline;
+}
+
+.categoryRow {
+    margin-top:30px;
+    grid-template-columns: 50% 50%;
+    column-gap: 0
+}
+
+.stats, .radar {
+    width:100%;
+    text-align: left;
+}
+
+@include mobile {
+    .cellParent, .categoryRow {
+      grid-template-columns: 100%;
+    }
+  }

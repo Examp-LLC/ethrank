@@ -1,0 +1,147 @@
+@import 'rubik.font.scss';
+@import 'animate.css';
+
+:root {
+  --main-color1: #59022B;
+  --main-color2: #D90479;
+  --main-color3: #D9048E;
+  --main-color4: #BC04BF;
+  --main-color5: #6503A6;
+  --white: #fff;
+  --black: #000;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  background-color: black;
+  color: var(--white);
+  height:100%;
+}
+
+@keyframes slide {
+  from{
+      background-position:0 100%;
+  }
+  to{
+      background-position:-1437px 100%;
+  }
+}
+
+
+body {
+  background:url('../public/bg.png') 0 100% repeat-x;
+  background-size:size;
+  height:auto;
+  animation: slide 100s linear infinite;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 {
+  margin:0;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h1, h2, h3, h4, h5 {
+  text-transform: uppercase;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 800px;
+  min-height:200px;
+  margin:0 auto;
+  padding:50px 20px 0;
+  text-align: left;
+  .connect {
+    height:100px;
+    .btn { 
+      background:linear-gradient(to right, var(--main-color2),  var(--main-color3), var(--main-color4));
+      color:white;
+      padding:15px 25px;
+      text-transform: uppercase;
+      font-size:18px;
+      margin:0 auto;
+      display:inline-block;
+    }
+  }
+}
+
+.header .connect span {
+  font-size:10px !important;
+  text-align: center;
+  a {
+    border-bottom: 1px dashed var(--main-color2);
+    &:hover {
+      border-bottom-color:var(--white)
+    }
+  }
+}
+
+$border: 1px;
+
+.gradient-box {
+  border-style:solid;
+  border-image-slice: 1;
+  border-width: $border;
+  border-image-source: linear-gradient(to right, var(--main-color1), var(--main-color2),  var(--main-color3), var(--main-color4));
+}
+
+.gradient-bottom-only {
+  border-bottom-width: $border;
+  border-top-width:0;
+  border-left-width:0;
+  border-right-width:0;
+}
+
+.achievement:hover {
+  animation: pulse; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: .2s; /* don't forget to set a duration! */
+}
+
+.breadcrumbs {
+  list-style:none;
+  margin:30px 0 -10px 0;
+  padding:0;
+  li {
+    display:inline;
+    padding: 5px 0px;
+    border-bottom: 1px dashed var(--main-color2);
+    margin-right:10px;
+    font-size:14px;
+    font-weight:lighter;
+    color:#808080;
+    a {
+      border-bottom: none;;
+    }
+    &:hover:not(.on) {
+      color:var(--white);
+    }
+    &.on {
+      border-bottom-color:transparent;
+    }
+  }
+}
+.content a {
+  border-bottom: 1px dashed var(--main-color2);
+  &:hover {
+    border-bottom-color:var(--white)
+  }
+}
+
+pre {
+  padding:20px;
+  border:1px solid var(--main-color2)
+}

@@ -1,0 +1,1119 @@
+[
+    {
+        "name": "The Enthusiast",
+        "points": 100,
+        "slug": "the-enthusiast",
+        "goals": [
+          {
+              "name": "Send ETH to 100 wallets",
+              "category": "social",
+              "slug": "send-100-eth",
+              "points": 60,
+              "steps": [
+                  {
+                      "name": "Send ETH to >= 25 unique addresses",
+                      "points": 10,
+                      "type": "transaction_to_address_count",
+                      "params": {
+                          "count": 25
+                      }
+                  },
+                  {
+                      "name": "Send ETH to >= 50 unique addresses",
+                      "points": 10,
+                      "type": "transaction_to_address_count",
+                      "params": {
+                          "count": 50
+                      }
+                  },
+                  {
+                      "name": "Send ETH to >= 75 unique addresses",
+                      "points": 10,
+                      "type": "transaction_to_address_count",
+                      "params": {
+                          "count": 75
+                      }
+                  },
+                  {
+                      "name": "Send ETH to >= 100 unique addresses",
+                      "points": 10,
+                      "type": "transaction_to_address_count",
+                      "params": {
+                          "count": 100
+                      }
+                  }
+              ]
+          },
+          {
+              "name": "Receive ETH from 100 wallets",
+              "slug": "receive-100-eth",
+              "category": "social",
+              "points": 60,
+              "steps": [
+                {
+                    "name": "Receive ETH from >= 25 unique addresses",
+                    "points": 10,
+                    "type": "transaction_from_address_count",
+                    "params": {
+                        "count": 25
+                    }
+                },
+                {
+                    "name": "Receive ETH from >= 50 unique addresses",
+                    "points": 10,
+                    "type": "transaction_from_address_count",
+                    "params": {
+                        "count": 50
+                    }
+                },
+                {
+                    "name": "Receive ETH from >= 75 unique addresses",
+                    "points": 10,
+                    "type": "transaction_from_address_count",
+                    "params": {
+                        "count": 75
+                    }
+                },
+                {
+                    "name": "Receive ETH from >= 100 unique addresses",
+                    "points": 10,
+                    "type": "transaction_from_address_count",
+                    "params": {
+                        "count": 100
+                    }
+                }
+              ]
+          },
+          {
+              "name": "Send 100 ETH in a single transaction",
+              "category": "finance",
+              "slug": "send-100-eth-single",
+              "points": 60,
+              "steps": [
+                  {
+                      "name": "Send >= 25 ETH in a single transaction",
+                      "points": 10,
+                      "type": "send_eth_amount",
+                      "params": {
+                          "amount": 25
+                      }
+                  },
+                  {
+                      "name": "Send >= 50 ETH in a single transaction",
+                      "points": 10,
+                      "type": "send_eth_amount",
+                      "params": {
+                          "amount": 50
+                      }
+                  },
+                  {
+                      "name": "Send >= 75 ETH in a single transaction",
+                      "points": 10,
+                      "type": "send_eth_amount",
+                      "params": {
+                          "amount": 75
+                      }
+                  },
+                  {
+                      "name": "Send >= 100 ETH in a single transaction",
+                      "points": 10,
+                      "type": "send_eth_amount",
+                      "params": {
+                          "amount": 100
+                      }
+                  }
+              ]
+          },
+          {
+              "name": "Own 100 different tokens",
+              "slug": "own-100-tokens",
+              "category": "collecting",
+              "points": 60,
+              "steps": [
+                  {
+                      "name": "Own >= 25 ERC-20 or ERC-721 tokens",
+                      "points": 10,
+                      "type": "own_token_count",
+                      "params": {
+                          "count": 25
+                      }
+                  },
+                  {
+                      "name": "Own >= 50 ERC-20 or ERC-721 tokens",
+                      "points": 10,
+                      "type": "own_token_count",
+                      "params": {
+                          "count": 50
+                      }
+                  },
+                  {
+                      "name": "Own >= 75 ERC-20 or ERC-721 tokens",
+                      "points": 10,
+                      "type": "own_token_count",
+                      "params": {
+                          "count": 75
+                      }
+                  },
+                  {
+                      "name": "Own >= 100 ERC-20 or ERC-721 tokens",
+                      "points": 10,
+                      "type": "own_token_count",
+                      "params": {
+                          "count": 100
+                      }
+                  }
+              ]
+          }
+        ]
+      },
+
+      {
+        "name": "The Merchant",
+        "points": 300,
+        "slug": "the-merchant",
+        "goals": [
+            {
+                "name": "Swap Meet",
+                "category": "finance",
+                "slug": "swap-meet",
+                "points": 30,
+                "steps": [
+                    {
+
+                        "name": "Interact with the Polygon (MATIC) Bridge contract",
+                        "points": 30,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77"
+                        }
+                    },
+                    {
+                        "name": "Interact with the Metamask Swap Router contract",
+                        "points": 30,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0x881D40237659C251811CEC9c364ef91dC08D300C"
+                        }
+                    },
+                    {
+                        "name": "Interact with the Uniswap V2 Router contract",
+                        "points": 30,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D","0xf164fc0ec4e93095b804a4795bbe1e041497b92a"]
+                        }
+                    },
+                    {
+                        "name": "Interact with the Uniswap V3 Router contract",
+                        "points": 30,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45", "0xE592427A0AEce92De3Edee1F18E0157C05861564"]
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "KYC doesnt scare me",
+                "category": "finance",
+                "slug": "kyc-doesnt-scare-me",
+                "points": 30,
+                "steps": [
+                    {
+                        "name": "Interact with Binance",
+                        "points": 30,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be",
+                                "0x85b931a32a0725be14285b66f1a22178c672d69b",
+                                "0x708396f17127c42383e3b9014072679b2f60b82f",
+                                "0xe0f0cfde7ee664943906f17f7f14342e76a5cec7",
+                                "0x8f22f2063d253846b53609231ed80fa571bc0c8f",
+                                "0x28c6c06298d514db089934071355e5743bf21d60",
+                                "0x21a31ee1afc51d94c2efccaa2092ad1028285549",
+                                "0xdfd5293d8e347dfe59e90efd55b2956a1343963d",
+                                "0x56eddb7aa87536c09ccc2793473599fd21a8b17f",
+                                "0x9696f59e4d72e237be84ffd425dcad154bf96976",
+                                "0x4d9ff50ef4da947364bb9650892b2554e7be5e2b",
+                                "0xd551234ae421e3bcba99a0da6d736074f22192ff",
+                                "0x4976a4a02f38326660d17bf34b431dc6e2eb2327",
+                                "0xd88b55467f58af508dbfdc597e8ebd2ad2de49b3",
+                                "0x7dfe9a368b6cf0c0309b763bb8d16da326e8f46e",
+                                "0x345d8e3a1f62ee6b1d483890976fd66168e390f2",
+                                "0xc3c8e0a39769e2308869f7461364ca48155d1d9e",
+                                "0x2e581a5ae722207aa59acd3939771e7c7052dd3d",
+                                "0x44592b81c05b4c35efb8424eb9d62538b949ebbf",
+                                "0xd5fd1bc99d5801278345e9d29be2225d06c26e93",
+                                "0xbb3fd383d1c5540e52ef0a7bcb9433375793aeaf",
+                                "0x06a0048079ec6571cd1b537418869cde6191d42d",
+                                "0x564286362092d8e7936f0549571a803b203aaced",
+                                "0x892e9e24aea3f27f4c6e9360e312cce93cc98ebe",
+                                "0x00799bbc833d5b168f0410312d2a8fd9e0e3079c",
+                                "0x141fef8cd8397a390afe94846c8bd6f4ab981c48",
+                                "0x0681d8db095565fe8a346fa0277bffde9c0edbbf",
+                                "0xfe9e8709d3215310075d67e3ed32a380ccf451c8",
+                                "0x4e9ce36e442e55ecd9025b9a6e0d88485d628a67",
+                                "0xbe0eb53f46cd790cd13851d5eff43d12404d33e8",
+                                "0xf977814e90da44bfa03b6295a0616a897441acec",
+                                "0x001866ae5b3de6caa5a51543fd9fb64f524f5478"]                              
+                        }
+                    },
+                    {
+                        "name": "Interact with Bittrex",
+                        "points": 30,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0xFBb1b73C4f0BDa4f67dcA266ce6Ef42f520fBB98",
+                                "0xE94b04a0FeD112f3664e45adb2B8915693dD5FF3",
+                                "0x66f820a414680B5bcda5eECA5dea238543F42054",
+                                "0xa3c1e324ca1ce40db73ed6026c4a177f099b5770"]
+                        }
+                    },
+                    {
+                        "name": "Interact with Coinbase",
+                        "points": 10,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x71660c4005BA85c37ccec55d0C4493E66Fe775d3",
+                                "0x503828976D22510aad0201ac7EC88293211D23Da",
+                                "0xddfAbCdc4D8FfC6d5beaf154f18B778f892A0740",
+                                "0x3cD751E6b0078Be393132286c442345e5DC49699",
+                                "0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511",
+                                "0xeB2629a2734e272Bcc07BDA959863f316F4bD4Cf",
+                                "0xA090e606E30bD747d4E6245a1517EbE430F0057e",
+                                "0xD688AEA8f7d450909AdE10C47FaA95707b0682d9",
+                                "0x02466E547BFDAb679fC49e96bBfc62B9747D997C",
+                                "0x6b76F8B1e9E59913BfE758821887311bA1805cAB"]
+                        }
+                    },
+                    {
+                        "name": "Interact with Crypto.com",
+                        "points": 30,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x6262998ced04146fa42253a5c0af90ca02dfd2a3",
+                                "0x46340b20830761efd32832a74d7169b29feb9758"
+                                ] 
+                        
+                        }
+                    },
+                    {    
+                        "name": "Interact with Gate.io",
+                        "points": 30,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x0d0707963952f2fba59dd06f2b425ace40b492fe",
+                                "0x7793cd85c11a924478d358d49b05b37e91b5810f",
+                                "0x1c4b70a3968436b9a0a9cf5205c787eb81bb558c"
+                                ]                              
+                        } 
+                    },
+                    {    
+                        "name": "Interact with FTX Exchange",
+                        "points": 30,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x2FAF487A4414Fe77e2327F0bf4AE2a264a776AD2",
+                                "0xC098B2a3Aa256D2140208C3de6543aAEf5cd3A94"
+                                ]                              
+                            } 
+                        },
+                    {    
+                        "name": "Interact with KuCoin",
+                        "points": 30,
+                        "type": "transaction_from_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x2b5634c42055806a59e9107ed44d43c426e58258",
+                                "0x689c56aef474df92d44a1b70850f808488f9769c",
+                                "0xa1d8d972560c2f8144af871db508f0b0b10a3fbf",
+                                "0x4ad64983349c49defe8d7a4686202d24b25d0ce8",
+                                "0x1692e170361cefd1eb7240ec13d048fd9af6d667",
+                                "0xd6216fc19db775df9774a6e33526131da7d19a2c",
+                                "0xe59cd29be3be4461d79c0881d238cbe87d64595a",
+                                "0x899b5d52671830f567bf43a14684eb14e1f945fe"
+                                ]                              
+                            } 
+                        },
+                        {    
+                            "name": "Interact with Poloniex",
+                            "points": 30,
+                            "type": "transaction_from_address_count",
+                            "params": {
+                                "count": 1,
+                                "address": ["0x32be343b94f860124dc4fee278fdcbd38c102d88",
+                                    "0x209c4784ab1e8183cf58ca33cb740efbf3fc18ef",
+                                    "0xb794f5ea0ba39494ce839613fffba74279579268",
+                                    "0xa910f92acdaf488fa6ef02174fb86208ad7722ba",
+                                    "0xaa9fa73dfe17ecaa2c89b39f0bb2779613c5fc3b",
+                                    "0x2fa2bc2ce6a4f92952921a4caa46b3727d24a1ec",
+                                    "0x31a2feb9b5d3b5f4e76c71d6c92fc46ebb3cb1c1",
+                                    "0x6b71834d65c5c4d8ed158d54b47e6ea4ff4e5437",
+                                    "0x48d466b7c0d32b61e8a82cd2bcf060f7c3f966df",
+                                    "0x0536806df512d6cdde913cf95c9886f65b1d3462",
+                                    "0x8d451ae5ee8f557a9ce7a9d7be8a8cb40002d5cb",
+                                    "0xbd2ec7c608a06fe975dbdca729e84dedb34ecc21",
+                                    "0xc0e30823e5e628df8bc9bf2636a347e1512f0ecb",
+                                    "0x65f9b2e4d7aaeb40ffea8c6f5844d5ad7da257e0",
+                                    "0x36b01066b7fa4a0fdb2968ea0256c848e9135674",
+                                    "0xab11204cfeaccffa63c2d23aef2ea9accdb0a0d5",
+                                    "0x6795cf8eb25585eadc356ae32ac6641016c550f2",
+                                    "0xfbf2173154f7625713be22e0504404ebfe021eae",
+                                    "0x6f803466bcd17f44fa18975bf7c509ba64bf3825",
+                                    "0xead6be34ce315940264519f250d8160f369fa5cd"
+                                    ]                              
+                                } 
+                            }            
+                    ]                    
+            },        
+            {               
+                "name": "Buy/Sell Some NFTs",
+                "slug": "buy-sell-nfts",
+                "category": "collecting",
+                "points": 30,
+                "steps": [
+                    {
+                        "name": "Interact with the OpenSea contract",
+                        "points": 30,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Stablecoiner",
+                "slug": "stablecoiner",
+                "category": "finance",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own >=1 $DAI",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x6b175474e89094c44da98b954eedeac495271d0f"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $USDC",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $CRO",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $BUSD",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x4fabb145d64652a948d72533023f6e7a623c7c53"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $USDT",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+                        }
+                    }
+                ]
+            }, {
+                "name": "Do Some DeFi",
+                "slug": "do-some-defi",
+                "category": "finance",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own >=1 $MATIC",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $LINK",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x514910771af9ca656af840dff83e8264ecf986ca"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $TRX (TRON)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xe1be5d3f34e89de342ee97e6e90d405884da6c67"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $FTM",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x4e15361fd6b4bb609fa63c81a2be19d873717870"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $cDAI",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $COMP",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xc00e94cb662c3520282e6f5717214004a7f26888"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $GRT",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xc944e90c64b2c07662a292be6244bdf05cda44a7"
+                        }
+                    },
+                    {
+                        "name": "Own >=1 $SUSHI",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "name": "The Collector",
+        "slug": "the-collector",
+        "points": 3000,
+        "goals": [
+            {
+                "name": "The Dog Lover",
+                "slug": "dog-lover",
+                "category": "collecting",
+                "points": 100,
+                "steps": [
+                    {
+                        "name": "Own >= 1 Dogelon",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x761d38e5ddf6ccf6cf7c55759d5210750b5d60f3"
+                        }
+                    },
+                    {
+                        "name": "Own >= 1 DogeToken",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x8b9c35c79af5319c70dd9a3e3850f368822ed64e"
+                        }
+                    },{
+                        "name": "Own >= 1 The Doge NFT",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xbaac2b4491727d78d2b78815144570b9f2fe8899"
+                        }
+                    },{
+                        "name": "Own >= 1 DOGG Token",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x559Efe1d7A54fb1C7f25a036952F8498CdF02EDB"
+                        }
+                    },{
+                        "name": "Own >= 1 EtherDoge",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x8a7b7b9b2f7d0c63f66171721339705a6188a7d5"
+                        }
+                    },{
+                        "name": "Own >= 1 CoinDogg",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x620389053d327a103b573b414be1aab0fbed32b8"
+                        }
+                    },{
+                        "name": "Own >= 1 Shiba Inu",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE"
+                        }
+                    },{
+                        "name": "Own >= 1 Baby Doge",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xAC57De9C1A09FeC648E93EB98875B212DB0d460B"
+                        }
+                    },{
+                        "name": "Own >= 1 Saitama Inu",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x8b3192f5eebd8579568a2ed41e6feb402f93f73f"
+                        }
+                    }
+                ]
+            },
+            {       
+                "name": "NFT Collector",
+                "slug": "nft-collector",
+                "category": "collecting",
+                "points": 1000,
+                "steps": [
+                    {
+                        "name": "Own >= 1 Cryptopunk",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"
+                        }
+                    },
+                    {
+                        "name": "Own >= 1 Mutant Ape",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x60E4d786628Fea6478F785A6d7e704777c86a7c6"
+                        }
+                    },{
+                        "name": "Own >= 1 BAYC",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+                        }
+                    },{
+                        "name": "Own >= 1 Omnimorph",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xb5f3dEE204cA76E913bb3129BA0312b9f0f31D82"
+                        }
+                    },{
+                        "name": "Own >= 1 Cool Cats",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x1a92f7381b9f03921564a437210bb9396471050c"
+                        }
+                    },{
+                        "name": "Own >= 1 FVCK_CRYSTAL//",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x7afeda4c714e1c0a2a1248332c100924506ac8e6"
+                        }
+                    },{
+                        "name": "Own >= 1 Arabian Camels",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x3b3bc9b1dd9f3c8716fff083947b8769e2ff9781"
+                        }
+                    },{
+                        "name": "Own >= 1 Coodles",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x9c38bc76f282eb881a387c04fb67e9fc60aecf78"
+                        }
+                    },{
+                        "name": "Own >= 1 Space Bulls",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x07a8ba3F4fd4Db7f3381C07ee5a309c1aacE9C59"
+                        }
+                    },{
+                        "name": "Own >= 1 Woodles",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x39c43989cc41ed858b582a47aa7ec913c453965a"
+                        }
+                    },{
+                        "name": "Own >= 1 Imps",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x3cd859effbb3375acde3e2941c7e8e833221dfb1"
+                        }
+                    }
+                ]
+            }, {
+                "name": "Fine Art Collector",
+                "slug": "fine-art-collector",
+                "category": "collecting",
+                "points": 1000,
+                "steps": [{
+                        "name": "Own >= 1 Beeple Spring Collection",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xdd012153e008346591153fff28b0dd6724f0c256"
+                        }
+                    },{
+                        "name": "Own >= 1 Beeple Round 2 Open Edition",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xd92e44ac213b9ebda0178e1523cc0ce177b7fa96"
+                        }
+                    },{
+                        "name": "Own >= 1 Beeple Round 2",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xc170384371494b2a8f6ba20f4d085c4dde763d96"
+                        }
+                    },{
+                        "name": "Own >= 1 Beeple Special Edition",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x12f28e2106ce8fd8464885b80ea865e98b465149"
+                        }
+                    },{
+                        "name": "Own >= 1 Samurai Saga",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x345c2fa23160c63218dfaa25d37269f26c85ca47"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Digital Prospector",
+                "slug": "digital-prospector",
+                "category": "social",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own >=1 $MANA",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x0f5d2fb29fb7d3cfee444a200298f468908cc942"
+                        }
+                    },{
+                        "name": "Own >=1 $AXS",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xbb0e17ef65f82ab018d8edd776e8dd940327b28b"
+                        }
+                    },{
+                        "name": "Own >=1 $ENJ",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xf629cbd94d3791c9250152bd8dfbdf380e2a3b9c"
+                        }
+                    },{
+                        "name": "Own >=1 $LAND (TheLandDAO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xea25e2b3e35c67876957ee00a28cd912ff113f54"
+                        }
+                    },{
+                        "name": "Own >=1 $N3D (Nouns3D)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x28f3acc53cc541a5e159ddc7c73a29f96679d873"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "DAO Organizooor",
+                "slug": "dao-organizer",
+                "category": "social",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own >=1 $PEOPLE (PeopleDAO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x7a58c0be72be218b41c608b7fe7c5bb630736c71"
+                        }
+                    },{
+                        "name": "Own >=1 $BIT (BitDAO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x1a4b46696b2bb4794eb3d4c26f1c55f9170fa4c5"
+                        }
+                    },{
+                        "name": "Own >=1 $MKR (Maker)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2"
+                        }
+                    },{
+                        "name": "Own >=1 $CRV (Curve DAO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xD533a949740bb3306d119CC777fa900bA034cd52"
+                        }
+                    },{
+                        "name": "Own >=1 $NEWO (New Order)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x1b890fD37Cd50BeA59346fC2f8ddb7cd9F5Fabd5"
+                        }
+                    },{
+                        "name": "Own >=1 $LEX (LexDAO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x63125c0d5Cd9071de9A1ac84c400982f41C697AE"
+                        }
+                    },{
+                        "name": "Own >=1 $GAS (Gas DAO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x6bba316c48b49bd1eac44573c5c871ff02958469"
+                        }
+                    },{
+                        "name": "Own >=1 $FWB",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "POAP Collector",
+                "slug": "poap-Collector",
+                "category": "social",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own >=1 POAPs",
+                        "points": 10,
+                        "type": "own_poap_count",
+                        "params": {
+                            "count": 1
+                        }
+                    },{
+                        "name": "Own >=10 POAPs",
+                        "points": 10,
+                        "type": "own_poap_count",
+                        "params": {
+                            "count": 10
+                        }
+                    },{
+                        "name": "Own >=50 POAPs",
+                        "points": 10,
+                        "type": "own_poap_count",
+                        "params": {
+                            "count": 50
+                        }
+                    },{
+                        "name": "Own >=100 POAPs",
+                        "points": 10,
+                        "type": "own_poap_count",
+                        "params": {
+                            "count": 100
+                        }
+                    }
+                ]
+            },
+            {
+              "name": "Domain Collector",
+              "slug": "domain-collector",
+              "category": "technology",
+              "points": 50,
+              "steps": [
+                  {
+                      "name": "Own >= 1 .eth ENS domain",
+                      "points": 20,
+                      "type": "own_token_by_address",
+                      "params": {
+                          "count": 1,
+                          "address": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
+                      }
+                  },
+                  {
+                      "name": "Own >= 10 .eth ENS domains",
+                      "points": 20,
+                      "type": "own_token_by_address",
+                      "params": {
+                          "count": 10,
+                          "address": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
+                      }
+                  },
+                  {
+                      "name": "Own >= 100 .eth ENS domains",
+                      "points": 20,
+                      "type": "own_token_by_address",
+                      "params": {
+                          "count": 100,
+                          "address": "0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85"
+                      }
+                  },
+                  {
+                      "name": "Own >= 1 Unstoppable Domain",
+                      "points": 20,
+                      "type": "own_token_by_address",
+                      "params": {
+                          "count": 1,
+                          "address": "0xd1e5b0ff1287aa9f9a268759062e4ab08b9dacbe"
+                      }
+                  },
+                  {
+                      "name": "Own >= 10 Unstoppable Domains",
+                      "points": 20,
+                      "type": "own_token_by_address",
+                      "params": {
+                          "count": 10,
+                          "address": "0xd1e5b0ff1287aa9f9a268759062e4ab08b9dacbe"
+                      }
+                  },
+                  {
+                      "name": "Own >= 100 Unstoppable Domains",
+                      "points": 20,
+                      "type": "own_token_by_address",
+                      "params": {
+                          "count": 100,
+                          "address": "0xd1e5b0ff1287aa9f9a268759062e4ab08b9dacbe"
+                      }
+                  }
+              ]
+          }
+          ]
+    },
+
+    {
+        "name": "The Technologist",
+        "slug": "the-technologist",
+        "points": 3000,
+        "goals": [
+            {
+                "name": "Proof-of-Work Miner",
+                "slug": "pow-miner",
+                "category": "technology",
+                "points": 200,
+                "steps": [
+                    {
+                        "name": "Mine >= 1 Block",
+                        "points": 50,
+                        "type": "mine_blocks_count",
+                        "params": {
+                            "count": 1
+                        }
+                    },
+                    {
+                        "name": "Mine >= 50 Blocks",
+                        "points": 50,
+                        "type": "mine_blocks_count",
+                        "params": {
+                            "count": 50
+                        }
+                    },
+                    {
+                        "name": "Mine >= 500 Blocks",
+                        "points": 50,
+                        "type": "mine_blocks_count",
+                        "params": {
+                            "count": 500
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Intro to Zero Knowledge Proofs",
+                "slug": "zk-intro",
+                "category": "technology",
+                "points": 0,
+                "steps": [
+                    {
+                        "name": "Interact with the zkSync contract",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Gas Guzzler",
+                "slug": "gas-guzzler",
+                "category": "technology",
+                "points": 0,
+                "steps": [
+                    {
+                        "name": "Spend >= .5 ETH on gas",
+                        "points": 10,
+                        "type": "spend_gas_amount",
+                        "params": {
+                            "amount": ".5"
+                        }
+                    },
+                    {
+                        "name": "Spend >= 1 ETH on gas",
+                        "points": 10,
+                        "type": "spend_gas_amount",
+                        "params": {
+                            "amount": "1"
+                        }
+                    },    
+                    {
+                        "name": "Spend >= 5 ETH on gas",
+                        "points": 10,
+                        "type": "spend_gas_amount",
+                        "params": {
+                            "amount": "5"
+                        }    
+                    },
+                    {
+                        "name": "Spend >= 10 ETH on gas",
+                        "points": 10,
+                        "type": "spend_gas_amount",
+                        "params": {
+                            "amount": "10"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "The Stakes Are High",
+                "slug": "eth2-depositor",
+                "category": "technology",
+                "points": 200,
+                "steps": [
+                    {
+                        "name": "Start 1 ETH2 Validator",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0x00000000219ab540356cbb839cbe05303d7705fa"
+                        }
+                    },
+                    {
+                        "name": "Start 10 ETH2 Validators",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 10,
+                            "address": "0x00000000219ab540356cbb839cbe05303d7705fa"
+                        }
+                    },
+                    {
+                        "name": "Start 50 ETH2 Validators",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 50,
+                            "address": "0x00000000219ab540356cbb839cbe05303d7705fa"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+
+  ]
