@@ -24,15 +24,16 @@
         padding:10px;
         border:1px solid rgba(255, 255, 255, .5);
         border-radius:4px;
-        background:var(--main-color5);
+        background:var(--black);
         &::placeholder {
-          color:var(--white)
+          color:var(--white);
         }
     }
     input {
       width:70%;
       &:focus {
-        background:var(--main-color5)
+        background:var(--main-color5);
+        color:var(--white);
       }
     }
     

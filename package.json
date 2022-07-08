@@ -1,6 +1,6 @@
 {
-  "name": "ethrank-temp",
-  "license": "UNLICENSED",
+  "name": "ethrank",
+  "license": "GPL 3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

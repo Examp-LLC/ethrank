@@ -1,3 +1,19 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
 import Page from '../components/Page';
 
 const Faqs = ({  }) => {
@@ -12,7 +28,7 @@ const Faqs = ({  }) => {
             </li>
             <li>
                 <h4>When does Season 1 end and/or when does Season 2 begin?</h4>
-                <p>This is still being determined. Please stay tuned and join the community if you have any suggestions. We welcome your feedback!</p>
+                <p>Season One ends on June 30, 2022. Season Two begins the next day, on July 1, 2022.</p>
             </li>
             <li>
                 <h4>Why did my score/rank change?</h4>

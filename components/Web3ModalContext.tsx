@@ -1,12 +1,27 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
 import type UAuthSPA from '@uauth/js'
-import * as UAuthWeb3Modal from '@uauth/web3modal'
+// import * as UAuthWeb3Modal from '@uauth/web3modal'
 import React, {useContext, useEffect, useMemo, useState} from 'react'
 import Web3 from 'web3'
-import Web3Modal, { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT, ICoreOptions } from 'web3modal'
+import * as Web3Modal from 'web3modal'
 import Router from 'next/router';
 
 export interface Web3ModalContextValue {
-  web3modal: Web3Modal
+  web3modal: Web3Modal.default
   connect: (id?: string, redirect?: boolean) => Promise<void>
   disconnect: () => Promise<void>
   networkId?: number
@@ -25,8 +40,9 @@ export const Web3ModalContext = React.createContext<Web3ModalContextValue>(
   null as any,
 )
 
-export interface Web3ModalProviderProps extends Partial<ICoreOptions> {
+export interface Web3ModalProviderProps extends Partial<Web3Modal.ICoreOptions> {
   onNewWeb3Modal?(web3modal: any): void
+  uauth: UAuthSPA
 }
 
 export const Web3ModalProvider: React.FC<Web3ModalProviderProps> = ({
@@ -42,9 +58,11 @@ export const Web3ModalProvider: React.FC<Web3ModalProviderProps> = ({
   const [error, setError] = useState<Error>()
   const [user, setUser] = useState<any>()
 
+  const uauth = options.uauth;
+
   const web3modal = useMemo(() => {
     console.log('New Web3Modal instance!')
-    const w3m = new Web3Modal(options)
+    const w3m = new Web3Modal.default(options)
     if (typeof onNewWeb3Modal === 'function') {
       onNewWeb3Modal(w3m)
     }
@@ -55,13 +73,6 @@ export const Web3ModalProvider: React.FC<Web3ModalProviderProps> = ({
     console.log('New Web3 instance!')
     return provider ? new Web3(provider) : undefined
   }, [provider])
-
-  const uauth = useMemo(() => {
-    console.log('New UAuth instance!')
-    const {package: uauthPackage, options: uauthOptions} =
-      options.providerOptions!['custom-uauth']
-    return UAuthWeb3Modal.getUAuth(uauthPackage, uauthOptions)
-  }, [])
 
   const connect = async (id?: string, redirect?: boolean) => {
     console.log('Connecting...')
@@ -85,6 +96,7 @@ export const Web3ModalProvider: React.FC<Web3ModalProviderProps> = ({
       setLoading(false)
 
       if (web3modal.cachedProvider === 'custom-uauth') {
+        console.log(address);
         const user = await uauth.user()
         setUser(user)
         setAddress(user.wallet_address)
@@ -111,7 +123,11 @@ export const Web3ModalProvider: React.FC<Web3ModalProviderProps> = ({
 
     if (web3modal.cachedProvider === 'custom-uauth') {
       web3modal.clearCachedProvider()
-      await uauth.logout()
+      try {
+        await uauth.logout()
+      } catch (e) {
+        console.error('Error during uauth disconnect', e)
+      }
     }
     if (provider && provider.close) {
       await provider.close();
@@ -144,15 +160,15 @@ export const Web3ModalProvider: React.FC<Web3ModalProviderProps> = ({
     }
 
     console.log('Attaching event listeners to web3modal!')
-    web3modal.on(ERROR_EVENT, onErrorEvent)
-    web3modal.on(CLOSE_EVENT, onCloseEvent)
-    web3modal.on(CONNECT_EVENT, onConnectEvent)
+    web3modal.on(Web3Modal.ERROR_EVENT, onErrorEvent)
+    web3modal.on(Web3Modal.CLOSE_EVENT, onCloseEvent)
+    web3modal.on(Web3Modal.CONNECT_EVENT, onConnectEvent)
 
     return () => {
       console.log('Removing event listeners to web3modal!')
-      web3modal.off(ERROR_EVENT, onErrorEvent)
-      web3modal.off(CLOSE_EVENT, onCloseEvent)
-      web3modal.off(CONNECT_EVENT, onConnectEvent)
+      web3modal.off(Web3Modal.ERROR_EVENT, onErrorEvent)
+      web3modal.off(Web3Modal.CLOSE_EVENT, onCloseEvent)
+      web3modal.off(Web3Modal.CONNECT_EVENT, onConnectEvent)
     }
   }, [web3modal])
 

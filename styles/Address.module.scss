@@ -49,6 +49,7 @@
     position: relative;
     overflow:hidden;
     height:40px;
+
 }
 
 .address h2 {
@@ -57,14 +58,84 @@
 }
 
 .categoryRow {
-    margin-top:30px;
+    margin:30px 0 50px;
     grid-template-columns: 50% 50%;
     column-gap: 0
-}
+} 
 
-.stats, .radar {
+.stats, .radar, .categoriesWrapper {
     width:100%;
     text-align: left;
+}
+
+.flyoutMenuWrapper {
+    display:none; // VAULT - hide for now
+    // display: inline-block;
+    background:url(../public/dots.svg) no-repeat;
+    width: 24px;
+    height: 17px;
+    text-indent: -30000px;
+    cursor: pointer;
+    background-size: contain;
+    position: relative;
+    left: 10px;
+}
+
+.flyoutMenu {
+    position:absolute;
+    top:0px;
+    left:20px;
+    width:100px;
+    color:var(--white);
+    text-indent:0;
+    text-transform: uppercase;
+    ul {
+        list-style: none;
+        margin:0;
+        padding: 0;
+    }
+}
+
+.hidden {
+    display:none;
+}
+
+.stats {
+    grid-template-columns: 30% 30% 30%;
+    text-align:center;
+    row-gap: 30px;
+    column-gap: 5%;
+    justify-items: center;
+    box-sizing:content-box;
+    .stat {
+        background:linear-gradient(to bottom right, var(--main-color3), var(--main-color1));
+        border:1px solid var(--main-color3);
+        width: 100%;
+        padding:20px 0;
+        h2 {
+            color:var(--main-color1);
+            font-size:65px;
+            color:var(--white);
+            margin:0;
+        }
+        h4 {
+            opacity:.7;
+            font-size:16px;
+            margin:0 0 10px;
+        }
+    }
+}
+
+.statsWrapper {
+    position:relative;
+}
+
+.statsLogo {
+    position:absolute; 
+    right:0;
+    top:10px;
+    // Season 2
+    filter: hue-rotate(258deg);
 }
 
 @include mobile {

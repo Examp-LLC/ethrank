@@ -1,18 +1,48 @@
-import Router, { useRouter } from 'next/router'
-import styles from '../../styles/Address.module.scss'
-import achievements from '../../lib/achievements.json';
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
+
+import { useRouter } from 'next/router';
+import styles from '../../styles/Address.module.scss';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
 import Score from '../../components/Score';
 import Web3 from 'web3';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NextPageContext } from 'next';
 import namehash from '@ensdomains/eth-ens-namehash';
 import 'chart.js/auto';
 import { Chart, Radar } from 'react-chartjs-2';
-import { calculateScore } from '../../lib/calculateScore';
+import { CURRENT_SEASON, CURRENT_SEASON_ACHIEVEMENTS } from '../../lib/constants';
 import Page from '../../components/Page';
+import { getCalcMethod } from '../api/address/[address]';
+
+function getCurrentSeasonColor() {
+  switch (CURRENT_SEASON) {
+    case 1:
+      return '#D9048E';
+    case 2:
+      return '#05AFF2';
+  }
+}
+
+const achievements =  CURRENT_SEASON_ACHIEVEMENTS;
+
+export const SEASON_COLOR = getCurrentSeasonColor();
 
 export const convertToLowerCase = (input: string | Array<string> | undefined) => {
   if (typeof input === 'object') {
@@ -24,7 +54,14 @@ export const convertToLowerCase = (input: string | Array<string> | undefined) =>
 
 export async function getServerSideProps(context: NextPageContext) {
   const { address, ud } = context.query;
-  return await calculateScore(address, prisma, ud);
+  if (!address || typeof address !== 'string' || !context.res) return;
+  // cache for 12 hours, stale for additional 12
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=43200, stale-while-revalidate=86400'
+  )
+  let calcScore = getCalcMethod(CURRENT_SEASON.toString());
+  return await calcScore(address, prisma, ud);
 }
 
 export async function reverseENSLookup(address: string, web3: Web3) {
@@ -48,18 +85,34 @@ export interface AddressProps {
   rank: number,
   progress: Array<string>,
   error: boolean | string,
-  name?: string
+  name?: string,
+  totalTransactions: string,
+  spentOnGas: string,
+  activeSince?: number
 }
 
-const Address = ({ address, score, rank, progress, error, name }: AddressProps) => {
+const Address = ({ address, score, rank, progress, error, name, totalTransactions, spentOnGas, activeSince }: AddressProps) => {
 
   const router = useRouter()
+  const [isFlyoutMenuActive, setIsFlyoutMenuActive] = useState(false)
 
   useEffect(() => {
     if (error) {
       router.push('/error');
     }
   });
+
+  const convertBigNumberToShorthand = (n: number) => {
+      if (n < 1e3) return n % 1 != 0 ? n.toFixed(2) : n;
+      if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + "K";
+      if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + "M";
+      if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + "B";
+      if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+  };
+  
+  const expandMenu = () => {
+    setIsFlyoutMenuActive(!isFlyoutMenuActive);
+  }
 
   const calculateProgress = function (achievementIndex: number, i: number) {
     const results = progress.filter((item: string) => {
@@ -133,12 +186,12 @@ const Address = ({ address, score, rank, progress, error, name }: AddressProps) 
         return data.percentCompleted * 100
       }),
       fill: true,
-      backgroundColor: '#D9048E',
+      backgroundColor: SEASON_COLOR,
       borderColor: '#ffffff',
-      pointBackgroundColor: '#D9048E',
-      pointBorderColor: '#D9048E',
+      pointBackgroundColor: SEASON_COLOR,
+      pointBorderColor: SEASON_COLOR,
       pointHoverBackgroundColor: '#ffffff',
-      pointHoverBorderColor: '#D9048E'
+      pointHoverBorderColor: SEASON_COLOR
     }]
   };
 
@@ -179,13 +232,26 @@ const Address = ({ address, score, rank, progress, error, name }: AddressProps) 
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
       <div className={styles.address}>
-        <h2 className="gradient-box gradient-bottom-only">{name || address}</h2>
+        <h2 className="gradient-box gradient-bottom-only">
+          {name || address}
+        </h2>
+        <div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
+          <span>icon-dot</span>
+          <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
+            <ul>
+              <li><Link href={{
+              pathname: '/vault/[address]/',
+              query: { address },
+            }}>Vault</Link></li>
+            </ul>
+          </div>
+        </div>
       </div>
       <Score score={score} rank={rank} />
 
       <div>
-        <h3>Achievements</h3>
-        <div className={`${styles.cellParent} ${styles.achivements}`}>
+        <h3>Achievements <span className="pill">Season {CURRENT_SEASON}</span></h3>
+        <div className={`${styles.cellParent} ${styles.achievements}`}>
           {achievements.map((achievement, i) => {
             const goals = achievement.goals;
             const percentages = goals.map((goal, j) => {
@@ -196,7 +262,11 @@ const Address = ({ address, score, rank, progress, error, name }: AddressProps) 
               query: { address, achievement: achievement.slug },
             }}>
               <div className={`${styles.achievement} achievement animate__animated`}>
-                <h4>{achievement.name}</h4>
+                <h4><Link href={{
+              pathname: '/address/[address]/[achievement]',
+              query: { address, achievement: achievement.slug },
+            }}>{achievement.name}</Link></h4>
+                {/* <h2>{(percentages / achievement.goals.length * 100).toFixed(0)} %</h2> */}
                 <ProgressBar percent={percentages / achievement.goals.length} />
               </div>
             </Link>
@@ -205,8 +275,8 @@ const Address = ({ address, score, rank, progress, error, name }: AddressProps) 
       </div>
 
       <div className={styles.categoryRow}>
-        <div className={styles.stats}>
-          <h3>Stats</h3>
+        <div className={styles.categoriesWrapper}>
+          <h3>Categories <span className="pill">Season {CURRENT_SEASON}</span></h3>
           <div className={styles.categories}>
             {categoryData.map((category, i) => {
               return <div
@@ -220,6 +290,25 @@ const Address = ({ address, score, rank, progress, error, name }: AddressProps) 
         </div>
         <div className={styles.radar}>
           <Radar data={data} options={config} />
+        </div>
+      </div>
+
+      <div className={styles.statsWrapper}>
+        <img width="103" height="32" src="/logo-sm.png" className={styles.statsLogo} alt="ethrank.io" />
+        <h3>Statistics <span className="pill lifetime">Lifetime</span></h3>
+        <div className={`${styles.cellParent} ${styles.stats}`}>
+          <div className={`${styles.stat} stat`}>
+              <h4>Transactions</h4>
+              <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
+          </div>
+          <div className={`${styles.stat} stat`}>
+              <h4>Spent on Gas</h4>
+              <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
+          </div>
+          <div className={`${styles.stat} stat`}>
+              <h4>Active Since</h4>
+              <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
+          </div>
         </div>
       </div>
     </div>

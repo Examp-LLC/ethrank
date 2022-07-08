@@ -1,20 +1,50 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import ConnectButton from '../components/ConnectButtonProvider'
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
+import type { NextPageContext } from 'next'
 import ConnectButtonOuter from '../components/ConnectButtonOuter'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
 import Page from '../components/Page'
 import prisma from '../lib/prisma'
 import { User } from '../lib/User.interface'
 import styles from '../styles/Home.module.scss'
+import btnStyles from '../styles/ConnectButton.module.scss'
+import { CURRENT_SEASON } from '../lib/constants'
+import Image from 'next/image'
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: NextPageContext) {
+
+  if (res) {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=3600, stale-while-revalidate=7200'
+    )
+  }
 
   const leaderboard = await prisma.address.findMany({
     take: 4,
+    select: {
+      address: true,
+      name: true,
+      score: true
+    },
     where: {
-      active: true
+      AND: {
+        active: true,
+        season: CURRENT_SEASON
+      }
     },
     orderBy: {
       score: 'desc'
@@ -22,8 +52,16 @@ export async function getServerSideProps() {
   });
   const latestScores = await prisma.address.findMany({
     take: 4,
+    select: {
+      address: true,
+      name: true,
+      score: true
+    },
     where: {
-      active: true
+      AND: {
+        active: true,
+        season: CURRENT_SEASON
+      }
     },
     orderBy: {
       createdAt: 'desc'
@@ -43,20 +81,30 @@ interface HomeProps {
   latestScores: string
 }
 
-const Home = ({leaderboard, latestScores}: HomeProps) => {
+const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
   const leaders = JSON.parse(leaderboard)
   const latestUsers = JSON.parse(latestScores)
 
   return (
-    <Page title="ETHRank - An achivement system built on the Ethereum blockchain">
-        <h1 className={styles.title}>
-          Check your Ethereum blockchain score instantly
-        </h1>
+    <Page title="ETHRank - The Ethereum Leaderboard">
+      <div className={styles.claimRow}>
+        <div className={styles.colOne}>
+          <Image width={246} height={246} src="/s2_dynamic_badge.png" />
+        </div>
+        <div className={styles.colTwo}>
+          <h3>Now Available</h3>
+          <h2>Claim your Season Two Dynamic Badge</h2>
+          <a href="https://mint.ethrank.io" className={btnStyles.btn}><span>Claim</span></a>
+        </div></div>
 
-        <div className={`${styles.home} content`}>
-        
-        <ConnectButtonOuter /> 
+      <h1 className={styles.title}>
+        Check your Ethereum blockchain score instantly
+      </h1>
+
+      <div className={`${styles.home} content`}>
+
+        <ConnectButtonOuter />
 
         <div className={styles.homeRow}>
           <div className={styles.leaderboard}>
@@ -85,7 +133,7 @@ const Home = ({leaderboard, latestScores}: HomeProps) => {
           </div>
         </div>
       </div>
-      </Page>
+    </Page>
   )
 }
 

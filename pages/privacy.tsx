@@ -1,3 +1,19 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
 import Page from '../components/Page';
 
 const Privacy = ({ }) => {
@@ -9,7 +25,7 @@ const Privacy = ({ }) => {
 
         <p>This Privacy Policy governs the privacy policies and practices of our Website, located at ethrank.io. Please read our Privacy Policy carefully as it will help you make informed decisions about sharing your personal information with us.</p>
 
-        <p>We last updated our Privacy Policy on 4 Jan 2022.</p>
+        <p>We last updated our Privacy Policy on 9 April 2022.</p>
 
         <p><strong>Information We Collect</strong></p>
         <p>As a Visitor, you can browse our Website to find out more about our Website. You are not required to provide us with any personal information as a Visitor.</p>
@@ -34,7 +50,10 @@ const Privacy = ({ }) => {
             <p><strong>To create a score and rank based on your public blockchain activity.</strong><br />We use your public address to compile a score using publically-available transaction and other information related to your public address.</p>
           </li>
           <li>
-            <p><strong>To customizing our Website for your experience.</strong><br />We may use the information information you provide to us along with any computer information we receive to customize our Website.</p>
+            <p><strong>To customize our Website for your experience.</strong><br />We may use the information information you provide to us along with any computer information we receive to customize our Website.</p>
+          </li>
+          <li>
+            <p><strong>For marketing purposes.</strong><br />We may use the information information you provide to us along with any computer information we receive to provide our users with special deals and opportunities, based on their score. For instance, we may share a list of public addresses with a partner for the limited purpose of offering a discount or providing airdrops to those users. For example, an NFT promotion where users with a Rank and/or Score of 100 or greater are given early access or a discounted price.</p>
           </li>
           <li>
             <p><strong>For data aggregation purposes</strong><br />We retain the right to collect and use any non-personal information collected from your use of our Website and aggregate such data for internal analytics that improve our Website and Service as well as for use or resale to others. At no time is your personally identifiable information included in such data aggregations.</p>

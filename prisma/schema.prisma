@@ -1,27 +1,44 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model Address {
-  id            Int      @default(autoincrement()) @id
-  address       String   @db.VarChar(255) @unique
-  score         Int
-  progress      String   @db.Text
-  name          String   @db.VarChar(255)
-  imageUrl      String   @db.Text
-  description   String   @db.Text
-  active        Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id           Int       @id @default(autoincrement())
+  address      String    @db.VarChar(255)
+  score        Int
+  season       Int       @default(1)
+  progress     String    @db.Text
+  name         String    @db.VarChar(255)
+  imageUrl     String    @db.Text
+  description  String    @db.Text
+  active       Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  featured     Boolean   @default(false)
+  transactions Int?
+  spentOnGas   Decimal?
+  activeSince  DateTime?
+}
+
+model Badge {
+  id        Int      @id @default(autoincrement())
+  mint      Int
+  address   String   @db.VarChar(255)
+  score     Int
+  seed      Decimal  @default(1.000000000000000000000000000000)
+  name      String   @db.VarChar(255)
+  imageUrl  String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  version   Int      @default(1)
+  rev       Int      @default(1)
+  season    Int      @default(1)
 }

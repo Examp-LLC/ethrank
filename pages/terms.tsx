@@ -1,3 +1,19 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
 import Link from 'next/link';
 import Page from '../components/Page';
 
@@ -6,7 +22,7 @@ const Terms = ({ }) => {
     <div className="content">
       <div>
         <h3>Terms of Use</h3>
-        <p>This mobile Website (the “Website”) is made available by Examp, LLC, 1267 Willis St. Ste 200, Redding CA 96001.</p>
+        <p>This mobile Website (the “Website”) is made available by Examp, LLC, 1401 21st St. Ste R, Sacramento CA 95811.</p>
         <p>You, the user of the Website, confirm your acceptance of these Website terms of use (“Website Terms”).&nbsp;If you do not agree to these Website Terms, you must immediately leave the Website and discontinue its use.&nbsp; These Website Terms should be read alongside our <Link href="/privacy"><a>Privacy Policy</a></Link>.</p>
         <p><strong><u><a id="general"></a>General Terms&nbsp;</u></strong></p>
         <p><strong>Website and Related Terms</strong>&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>

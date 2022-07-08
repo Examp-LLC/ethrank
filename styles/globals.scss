@@ -1,15 +1,26 @@
 @import 'rubik.font.scss';
 @import 'animate.css';
+@import 'breakpoints.scss';
 
 :root {
-  --main-color1: #59022B;
-  --main-color2: #D90479;
-  --main-color3: #D9048E;
-  --main-color4: #BC04BF;
-  --main-color5: #6503A6;
+  // Season 1
+  // --main-color1: #59022B;
+  // --main-color2: #D90479;
+  // --main-color3: #D9048E;
+  // --main-color4: #BC04BF;
+  // --main-color5: #6503A6;
+
+  // Season 2
+  --main-color1: #023373;
+  --main-color2: #0468BF;
+  --main-color3: #05AFF2;
+  --main-color4: #05C7F2;
+  --main-color5: #05DBF2;
+
   --white: #fff;
   --black: #000;
 }
+
 
 html,
 body {
@@ -32,7 +43,10 @@ body {
 
 
 body {
-  background:url('../public/bg.png') 0 100% repeat-x;
+  // Season 1
+  // background:url('../public/bg.png') 50% 100% repeat-x;
+  // Season 2
+  background:url('../public/bg_s2.svg') 50% 100% repeat-x;
   background-size:size;
   height:auto;
   animation: slide 100s linear infinite;
@@ -49,7 +63,7 @@ h1 {
 
 h3 {
   font-size: 24px;
-}
+} 
 
 h1, h2, h3, h4, h5 {
   text-transform: uppercase;
@@ -75,6 +89,7 @@ h1, h2, h3, h4, h5 {
       font-size:18px;
       margin:0 auto;
       display:inline-block;
+      border-bottom:none;
     }
   }
 }
@@ -144,4 +159,34 @@ $border: 1px;
 pre {
   padding:20px;
   border:1px solid var(--main-color2)
+} 
+
+
+.pill {
+  background-color: var(--main-color3);
+  font-size:10px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding:3px 10px;
+  position: relative;
+  top:-8px;
+  left:20px;
+  font-weight:lighter;
+  color: rgb(255, 255, 255, .75);
+}
+
+@include mobile {
+.header ul {
+    margin-top:50px;
+}
+
+.pill {
+    display:none;
+}
+}
+@include tablet {
+
+.pill {
+    display:none;
+}
 }

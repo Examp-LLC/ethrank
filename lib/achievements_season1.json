@@ -163,6 +163,39 @@
                       }
                   }
               ]
+          },
+          {
+              "name": "The Supporter",
+              "slug": "the-supporter",
+              "category": "collecting",
+              "points": 100,
+              "steps": [
+                  {
+                        "name": "Own >= 1 Zucklords (zucklords.com)",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x539130bd5916fe9fd1fa437cf8c61a8850938b5b"
+                        }
+                    },{
+                        "name": "Own >= 1 METAGON (metagon.dev)",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x694774E494B26039e282b24cF5022b544eAB26BE"
+                        }
+                    },{
+                        "name": "Own >= 1 ETHRank Badge (mint.ethrank.io)",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x26AdbB495C1A66238e4155E407E0702FFeC03dF2"
+                        }
+                    }
+              ]
           }
         ]
       },
@@ -388,7 +421,7 @@
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
-                            "address": "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b"
+                            "address": ["0x7be8076f4ea4a4ad08075c2508e481d6c946d12b","0x7f268357A8c2552623316e2562D90e642bB538E5"]
                         }
                     }
                 ]
@@ -629,23 +662,6 @@
                             "count": 1,
                             "address": "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb"
                         }
-                    },
-                    {
-                        "name": "Own >= 1 Mutant Ape",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x60E4d786628Fea6478F785A6d7e704777c86a7c6"
-                        }
-                    },{
-                        "name": "Own >= 1 BAYC",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-                        }
                     },{
                         "name": "Own >= 1 Omnimorph",
                         "points": 50,
@@ -848,7 +864,7 @@
                             "address": "0xD533a949740bb3306d119CC777fa900bA034cd52"
                         }
                     },{
-                        "name": "Own >=1 $NEWO (New Order)",
+                        "name": "Own >=1 $NEWO (New Order Governance)",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
@@ -878,6 +894,14 @@
                         "params": {
                             "count": 1,
                             "address": "0x35bd01fc9d6d5d81ca9e055db88dc49aa2c699a8"
+                        }
+                    },{
+                        "name": "Own >=1 $NEWO (New Order)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x98585dFc8d9e7D48F0b1aE47ce33332CF4237D96"
                         }
                     }
                 ]
@@ -1028,7 +1052,7 @@
                 "points": 0,
                 "steps": [
                     {
-                        "name": "Interact with the zkSync contract",
+                        "name": "Bridge to zkSync from mainnet",
                         "points": 50,
                         "type": "transaction_to_address_count",
                         "params": {
@@ -1045,36 +1069,28 @@
                 "points": 0,
                 "steps": [
                     {
+                        "name": "Spend >= .1 ETH on gas",
+                        "points": 10,
+                        "type": "spend_gas_amount",
+                        "params": {
+                            "amount": ".1"
+                        }
+                    },
+                    {
                         "name": "Spend >= .5 ETH on gas",
                         "points": 10,
                         "type": "spend_gas_amount",
                         "params": {
                             "amount": ".5"
                         }
-                    },
+                    },    
                     {
                         "name": "Spend >= 1 ETH on gas",
                         "points": 10,
                         "type": "spend_gas_amount",
                         "params": {
                             "amount": "1"
-                        }
-                    },    
-                    {
-                        "name": "Spend >= 5 ETH on gas",
-                        "points": 10,
-                        "type": "spend_gas_amount",
-                        "params": {
-                            "amount": "5"
                         }    
-                    },
-                    {
-                        "name": "Spend >= 10 ETH on gas",
-                        "points": 10,
-                        "type": "spend_gas_amount",
-                        "params": {
-                            "amount": "10"
-                        }
                     }
                 ]
             },

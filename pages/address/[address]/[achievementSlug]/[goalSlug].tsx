@@ -1,17 +1,31 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
 
 
 import { useRouter } from 'next/router'
 import styles from '../../../../styles/Address.module.scss'
 import goalStyles from '../../../../styles/Goal.module.scss'
-import achievements from '../../../../lib/achievements.json';
 import { AddressProps, getServerSideProps as getServerProps } from "../../[address]"
 import ProgressBar from '../../../../components/ProgressBar';
-import Footer from '../../../../components/Footer';
-import Header from '../../../../components/Header';
 import Score from '../../../../components/Score';
 import { NextPageContext } from 'next';
-import Head from 'next/head';
 import Page from '../../../../components/Page';
+import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../../lib/constants';
+
+const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
 export async function getServerSideProps(context: NextPageContext) {
     return getServerProps(context);

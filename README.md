@@ -1,6 +1,6 @@
 # ethrank.io 🏆
 
-An achievement system built on Ethereum.
+The Ethereum Leaderboard
 
 ## Getting Started
 

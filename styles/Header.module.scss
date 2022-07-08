@@ -30,31 +30,8 @@
     }
 }
 
-.pill {
-    background-color: var(--main-color3);
-    font-size:10px;
-    text-transform: uppercase;
-    border-radius: 10px;
-    padding:3px 10px;
-    position: relative;
-    top:-8px;
-    left:20px;
-    font-weight:lighter;
-    color: rgb(255, 255, 255, .75);
-}
-
 @include mobile {
   .header ul {
       margin-top:50px;
-  }
-
-  .pill {
-      display:none;
-  }
-}
-@include tablet {
-
-  .pill {
-      display:none;
   }
 }

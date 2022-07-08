@@ -1,7 +1,21 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
 import Link from 'next/link';
 import React, { useState }  from 'react';
 import styles from '../styles/Footer.module.scss';
-// import ConnectButton from './ConnectButton';
 
 function Footer() {
 
@@ -38,8 +52,8 @@ function Footer() {
       <h3>Join the community</h3>
       <ul>
         <li className={styles.twitter}><a href="https://twitter.com/eth_rank"target="_blank" rel="noreferrer"><span>Twitter</span></a></li>
-        <li className={styles.discord}><a href="https://discord.gg/ap2ye7Qqgy"target="_blank" rel="noreferrer"><span>Discord</span></a></li>
-        {/* <li><a href="">GitHub</a></li> */}
+        <li className={styles.discord}><a href="https://discord.gg/CNVQWw6KFU"target="_blank" rel="noreferrer"><span>Discord</span></a></li>
+        <li className={styles.github}><a href="https://github.com/Examp-LLC/ethrank"target="_blank" rel="noreferrer"><span>GitHub</span></a></li>
         <li className={styles.telegram}><a href="https://t.me/ExampLLC"target="_blank" rel="noreferrer"><span>Telegram</span></a></li>
       </ul>
     </div>
@@ -49,8 +63,7 @@ function Footer() {
     <div className={styles.secondRow}>
     <div className={styles.about}>
       <h1>ETHRank</h1>
-      <p>A blockchain adventure.</p><br />
-      {/* <ConnectButton /> */}
+      <p>The Ethereum Leaderboard.</p><br />
     </div>
     <div className={styles.links}>
       <ul>
@@ -58,16 +71,17 @@ function Footer() {
         <li><Link href="/leaderboard"><a>Leaderboard</a></Link></li>
         <li><Link href="/faqs"><a>FAQs</a></Link></li>
         <li><Link href="/api-docs"><a>API</a></Link></li>
+      </ul>
+    </div>
+    <div className={styles.links}>
+      <ul>
         <li><Link href="/privacy"><a>Privacy</a></Link></li>
         <li><Link href="/terms"><a>Terms of Use</a></Link></li>
+        <li><a href="https://docs.google.com/forms/d/1NWrtRONleo-MoEJpLamxtRQrzpxPpam89Gwn6NzE98Y" target="_blank" rel="noreferrer">Partner Request</a></li>
       </ul>
     </div>
     </div>
-{/* 
-    <h2>Total Transactions: </h2>{totalTransactions}
-    <h2>Points possible: </h2>{totalPointsPossible} */}
-
-    <p className={styles.copyright}>All content copyright 2022 Examp, LLC</p>
+    <p className={styles.copyright}>Created by <a href="http://examp.com/" target="_blank" rel="noreferrer">Examp, LLC</a></p>
   </div>
 )
   }

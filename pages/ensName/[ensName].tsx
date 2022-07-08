@@ -1,3 +1,19 @@
+/*
+ * All content copyright 2022 Examp, LLC
+ *
+ * This file is part of some open source application.
+ * 
+ * Some open source application is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * Some open source application is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
 import { useRouter } from 'next/router'
 import Web3 from 'web3';
 import { useEffect } from 'react';
@@ -13,7 +29,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (ensName && typeof ensName === "string" && ensName.toLowerCase().indexOf('.eth') > -1) {
 
     //resolve 0x21ada3.. to nick.eth
-    const web3 = new Web3('wss://mainnet.infura.io/ws/v3/aa29126d46224562ad769bca03dcf066');
+    const web3 = new Web3('wss://mainnet.infura.io/ws/v3/3fd5c6cc6127443ab85a8070fcad5163');
 
     try {
       address = await web3.eth.ens.getAddress(ensName);
