@@ -287,7 +287,7 @@
                         }
                     },
                     {
-                        "name": "Interact with the Aave Lending Pool Contract",
+                        "name": "Interact with an Aave Pool/Gateway Contract",
                         "points": 50,
                         "type": "transaction_to_address_count",
                         "params": {
@@ -295,6 +295,7 @@
                             "address": [
                                 "0x8dff5e27ea6b7ac08ebfdf9eb090f32ee9a30fcf",
                                 "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
+                                "0xcc9a0B7c43DC2a5F023Bb9b738E45B0Ef6B06E04",
                                 "0x794a61358D6845594F94dc1DB02A252b5b4814aD"
                             ]
                         }
