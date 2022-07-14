@@ -424,12 +424,12 @@
                 "points": 50,
                 "steps": [
                     {
-                        "name": "Own 1 Matic Token ($MATIC)",
+                        "name": "Own 1 AAVE Token ($AAVE)",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
+                            "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"
                         }
                     },
                     {
