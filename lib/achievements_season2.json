@@ -225,6 +225,15 @@
                             "count": 1,
                             "address": "0x165CD37b4C644C2921454429E7F9358d18A45e14"
                         }
+                    },
+                    {
+                        "name": "Make a donation on Gitcoin Grants (Mainnet/Polygon)",
+                        "points": 10,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x7d655c57f71464b6f83811c55d84009cd9f5221c","0xb99080b9407436eBb2b8Fe56D45fFA47E9bb8877"]
+                        }
                     }
                 ]
             }
