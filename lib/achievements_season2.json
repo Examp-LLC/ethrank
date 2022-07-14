@@ -1196,7 +1196,7 @@
                     {
                         "name": "Own a Song a Day (songaday.world)",
                         "points": 20,
-                        "type": "transaction_to_address_count",
+                        "type": "own_token_by_address",
                         "params": {
                             "count": 1,
                             "address": "0x19b703f65aa7e1e775bd06c2aa0d0d08c80f1c45"
