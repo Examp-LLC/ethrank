@@ -27,8 +27,8 @@ const Faqs = ({  }) => {
                 <p>Scores are calculated using a point system, where points are awarded for completing steps, goals, and achievements. As steps are completed, points are added to your Score. If all steps of a goal are completed, then the points for that goal will be awarded. Similarly, if all goals for an achievement are completed, then additional bonus points may be added to your Score.</p>
             </li>
             <li>
-                <h4>When does Season 1 end and/or when does Season 2 begin?</h4>
-                <p>Season One ends on June 30, 2022. Season Two begins the next day, on July 1, 2022.</p>
+                <h4>When does Season 2 end and/or when does Season 3 begin?</h4>
+                <p>ETHRank Seasons currently last 6 months. Season Two ends on December 31, 2022, and Season Three begins the next day, on January 1, 2023. We may adjust this duration during the course of the season. If we do, we will provide as much notice as possible to our users.</p>
             </li>
             <li>
                 <h4>Why did my score/rank change?</h4>
