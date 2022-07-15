@@ -323,7 +323,11 @@
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
-                            "address": ["0x7be8076f4ea4a4ad08075c2508e481d6c946d12b","0x7f268357A8c2552623316e2562D90e642bB538E5"]
+                            "address": [
+                                "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b",
+                                "0x7f268357A8c2552623316e2562D90e642bB538E5",
+                                "0x00000000006c3852cbEf3e08E8dF289169EdE581"
+                            ]
                         }
                     },
                     {
@@ -920,7 +924,10 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x74db0bbfde94aa80a135c5f8b60c0ca3d17332f2"
+                            "address": [
+                                "0x74db0bbfde94aa80a135c5f8b60c0ca3d17332f2"
+                                "0x76BE3b62873462d2142405439777e971754E8E77"
+                            ]
                         }
                     }
                 ]
