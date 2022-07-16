@@ -442,7 +442,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"
+                            "address": ["0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9", "0xD6DF932A45C0f255f85145f286eA0b292B21C90B"]
                         }
                     },
                     {
@@ -451,7 +451,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x514910771af9ca656af840dff83e8264ecf986ca"
+                            "address": ["0x514910771af9ca656af840dff83e8264ecf986ca", "0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39"]
                         }
                     },
                     {
@@ -460,7 +460,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x4e15361fd6b4bb609fa63c81a2be19d873717870"
+                            "address": ["0x4e15361fd6b4bb609fa63c81a2be19d873717870", "0xC9c1c1c20B3658F8787CC2FD702267791f224Ce1"]
                         }
                     },
                     {
@@ -478,7 +478,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0xc00e94cb662c3520282e6f5717214004a7f26888"
+                            "address": ["0xc00e94cb662c3520282e6f5717214004a7f26888", "0x8505b9d2254A7Ae468c0E9dd10Ccea3A837aef5c"]
                         }
                     },
                     {
@@ -487,7 +487,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0xc944e90c64b2c07662a292be6244bdf05cda44a7"
+                            "address": ["0xc944e90c64b2c07662a292be6244bdf05cda44a7", "0x5fe2B58c013d7601147DcdD68C143A77499f5531"] 
                         }
                     },
                     {
@@ -496,7 +496,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2"
+                            "address": ["0x6b3595068778dd592e39a122f4f5a5cf09c90fe2", "0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a"]
                         }
                     },
                     {
@@ -505,7 +505,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x0d8775f648430679a709e98d2b0cb6250d2887ef"
+                            "address": ["0x0d8775f648430679a709e98d2b0cb6250d2887ef", "0x3Cef98bb43d732E2F285eE605a8158cDE967D219"]
                         }
                     }
                 ]
