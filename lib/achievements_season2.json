@@ -925,7 +925,7 @@
                         "params": {
                             "count": 1,
                             "address": [
-                                "0x74db0bbfde94aa80a135c5f8b60c0ca3d17332f2"
+                                "0x74db0bbfde94aa80a135c5f8b60c0ca3d17332f2",
                                 "0x76BE3b62873462d2142405439777e971754E8E77"
                             ]
                         }
