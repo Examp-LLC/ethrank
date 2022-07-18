@@ -148,12 +148,17 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           const poaps = results[4] && Array.isArray(results[4]) && results[4] || false;
 
           // Polygon
-          const polygonTransactions = results[5] && typeof results[5].result === "object" && results[5].result || [];
-          const polygonErc721Transactions = results[6] && typeof results[6].result === "object" && results[6].result || [];
-          const polygonErc20Transactions = results[7] && typeof results[7].result === "object" && results[7].result || [];
+          const polygonTransactions = results[5] && typeof results[5].result === "object" && results[5].result || false;
+          const polygonErc721Transactions = results[6] && typeof results[6].result === "object" && results[6].result || false;
+          const polygonErc20Transactions = results[7] && typeof results[7].result === "object" && results[7].result || false;
 
-          // Todo: throw error if polygon craps out too. currently we let it slide because we have a lower api limit
-          if (!transactions || !erc721Transactions || !erc20Transactions || !poaps) {
+          if (!transactions || 
+            !erc721Transactions || 
+            !erc20Transactions || 
+            !poaps || 
+            !polygonTransactions || 
+            !polygonErc721Transactions || 
+            !polygonErc20Transactions) {
             throw new Error(`Error fetching upstream data ${transactions.length} ${erc20Transactions.length} ${erc721Transactions.length} ${poaps.length}`)
           }
 
@@ -280,6 +285,9 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                             break;
 
                           case 'send_eth_amount':
+                            // Don't count dupes or sidechain transactions
+                            if (isDupeTransaction || allTransactions[i].chainID) continue;
+                            
                             const amountSent = parseFloat(allTransactions[i].value) / Math.pow(10, 18);
                             // @ts-ignore
                             if (amountSent >= step.params.amount && allTransactions[i].contractAddress === "") { // filter out contract allTransactions
