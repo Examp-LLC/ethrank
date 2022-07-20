@@ -912,26 +912,6 @@
                         }
                     }
                 ]
-            },
-            {
-                "name": "Trading Card Collector",
-                "slug": "trading-card-collector",
-                "category": "collecting",
-                "points": 100,
-                "steps": [
-                    {
-                        "name": "Own 1 Parallel NFT",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": [
-                                "0x74db0bbfde94aa80a135c5f8b60c0ca3d17332f2",
-                                "0x76BE3b62873462d2142405439777e971754E8E77"
-                            ]
-                        }
-                    }
-                ]
             }
         ]
     },
