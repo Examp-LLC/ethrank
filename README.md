@@ -1,3 +1,5 @@
+[![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/Examp-LLC/ethrank/badge)](https://www.gitpoap.io/gh/Examp-LLC/ethrank)
+
 # ethrank.io 🏆
 
 The Ethereum Leaderboard
