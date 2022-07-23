@@ -285,7 +285,7 @@
                     {
                         "name": "Make a trade on NFTTrader",
                         "points": 70,
-                        "type": "own_token_by_address",
+                        "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
                             "address": [
