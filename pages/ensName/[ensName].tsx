@@ -29,7 +29,7 @@ export async function getServerSideProps(context: NextPageContext) {
   if (ensName && typeof ensName === "string" && ensName.toLowerCase().indexOf('.eth') > -1) {
 
     //resolve 0x21ada3.. to nick.eth
-    const web3 = new Web3('wss://mainnet.infura.io/ws/v3/3fd5c6cc6127443ab85a8070fcad5163');
+    const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
 
     try {
       address = await web3.eth.ens.getAddress(ensName);

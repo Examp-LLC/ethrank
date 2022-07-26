@@ -15,14 +15,15 @@
  * GNU General Public License for more details.
 */
 import dynamic from 'next/dynamic'
+import { ConnectBtnProps } from '../components/ConnectButtonInner';
 
 const ConnectButtonInner = dynamic(
   () => import('../components/ConnectButtonInner'),
   { ssr: false }
 )
 
-const ConnectButtonOuter = () => {
-  return <ConnectButtonInner />
+const ConnectButtonOuter = ({ home }: ConnectBtnProps) => {
+  return <ConnectButtonInner home={home} />
 };
 
 export default ConnectButtonOuter;

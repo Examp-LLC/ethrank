@@ -40,7 +40,7 @@ const Header = () => {
       </li>} */}
     </ul>
     <div className={styles.btn}>
-      <ConnectButtonOuter /> 
+      <ConnectButtonOuter home={false} /> 
     </div>
   </div>
   )

@@ -94,7 +94,6 @@ export interface AddressProps {
 const Address = ({ address, score, rank, progress, error, name, totalTransactions, spentOnGas, activeSince }: AddressProps) => {
 
   const router = useRouter()
-  const [isFlyoutMenuActive, setIsFlyoutMenuActive] = useState(false)
 
   useEffect(() => {
     if (error) {
@@ -110,9 +109,6 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
       if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
   };
   
-  const expandMenu = () => {
-    setIsFlyoutMenuActive(!isFlyoutMenuActive);
-  }
 
   const calculateProgress = function (achievementIndex: number, i: number) {
     const results = progress.filter((item: string) => {
@@ -235,17 +231,6 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
         <h2 className="gradient-box gradient-bottom-only">
           {name || address}
         </h2>
-        <div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
-          <span>icon-dot</span>
-          <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
-            <ul>
-              <li><Link href={{
-              pathname: '/vault/[address]/',
-              query: { address },
-            }}>Vault</Link></li>
-            </ul>
-          </div>
-        </div>
       </div>
       <Score score={score} rank={rank} />
 

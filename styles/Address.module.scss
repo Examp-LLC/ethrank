@@ -7,7 +7,7 @@
     grid-template-columns: 48% 48%;
     text-align:center;
     row-gap: 30px;
-    column-gap: 6%;
+    column-gap: 4%;
     justify-items: center;
     box-sizing:content-box;
 }
@@ -68,38 +68,6 @@
     text-align: left;
 }
 
-.flyoutMenuWrapper {
-    display:none; // VAULT - hide for now
-    // display: inline-block;
-    background:url(../public/dots.svg) no-repeat;
-    width: 24px;
-    height: 17px;
-    text-indent: -30000px;
-    cursor: pointer;
-    background-size: contain;
-    position: relative;
-    left: 10px;
-}
-
-.flyoutMenu {
-    position:absolute;
-    top:0px;
-    left:20px;
-    width:100px;
-    color:var(--white);
-    text-indent:0;
-    text-transform: uppercase;
-    ul {
-        list-style: none;
-        margin:0;
-        padding: 0;
-    }
-}
-
-.hidden {
-    display:none;
-}
-
 .stats {
     grid-template-columns: 30% 30% 30%;
     text-align:center;
@@ -136,6 +104,44 @@
     top:10px;
     // Season 2
     filter: hue-rotate(258deg);
+}
+
+.vault {
+    h1 {
+        text-transform: uppercase !important;
+    }
+}
+
+.season {
+    border:1px solid var(--main-color3);
+    padding:20px;
+    margin:20px 0;
+    .seasonHeader {
+        display:grid;
+        grid-template-columns: 50% 25% 25%;
+        align-items: center;
+        h3 {
+            margin:0;
+        }
+        h4 {
+            margin:0;
+            color: rgba(255, 255, 255, .5);
+            font-size:20px;
+            text-align: right;
+            position: relative;
+            top: -3px;
+            label {
+                font-size:30px;
+                color: var(--white);
+                position: relative;
+                top: 3px;
+                padding-left: 15px;
+            }
+        }
+    }
+    .cellParent {
+        margin-top:20px;
+    }
 }
 
 @include mobile {

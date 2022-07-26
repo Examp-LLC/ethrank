@@ -104,7 +104,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
       <div className={`${styles.home} content`}>
 
-        <ConnectButtonOuter />
+        <ConnectButtonOuter home={true} />
 
         <div className={styles.homeRow}>
           <div className={styles.leaderboard}>

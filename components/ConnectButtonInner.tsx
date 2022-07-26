@@ -17,15 +17,25 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useWeb3Modal } from './Web3ModalContext'
 import Router from 'next/router';
 import styles from '../styles/ConnectButton.module.scss';
+import Link from 'next/link';
+import truncateEthAddress from 'truncate-eth-address';
 
-const ConnectButtonInner: React.FC = () => {
+export interface ConnectBtnProps {
+  home?: boolean;
+}
 
+const ConnectButtonInner = ({ home }: ConnectBtnProps) => {
 
   const { web3modal, connect, disconnect, isConnected, isLoading, address, error, user, uauth } =
     useWeb3Modal()
 
   const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
   const [manualAddressInput, setManualAddressInput] = useState('')
+  const [isFlyoutMenuActive, setIsFlyoutMenuActive] = useState(false)
+
+  const expandMenu = () => {
+    setIsFlyoutMenuActive(!isFlyoutMenuActive);
+  }
 
   const handleConnect = async () => {
     await connect(undefined, true)
@@ -41,6 +51,9 @@ const ConnectButtonInner: React.FC = () => {
     disconnect()
   }
 
+  if (home && hasWalletPluginInstalled) {
+    setHasWalletPluginInstalled(false)
+  }
 
   useEffect(() => {
     // Unstoppable edge case - modal gets stuck if session expires and we call connect()
@@ -65,11 +78,26 @@ const ConnectButtonInner: React.FC = () => {
     return <span className={styles.loading}>Loading...</span>
   }
 
-  if (isConnected) {
+  if (isConnected && address && !home) {
     return (
-      <a className={`${styles.btn} btn`} href="#nogo" onClick={handleLogout}>
+      <div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
+        {truncateEthAddress(address)}
+      <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
+        <ul>
+          <li><Link href={{
+          pathname: '/address/[address]/',
+          query: { address },
+        }}>My Profile</Link></li>
+          <li><Link href={{
+          pathname: '/vault/[address]/',
+          query: { address },
+        }}>Vault</Link></li>
+          <li><a href="#nogo" onClick={handleLogout}>
         Disconnect
-      </a>
+          </a></li>
+        </ul>
+      </div>
+    </div>
     )
   }
 

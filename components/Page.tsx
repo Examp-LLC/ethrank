@@ -4,7 +4,9 @@ import { ReactNode } from 'react'
 import ConnectButtonProvider from '../components/ConnectButtonProvider'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import { User } from '../lib/User.interface'
 import styles from '../styles/Home.module.scss'
+import { useWeb3Modal } from './Web3ModalContext'
 
 // add to this every new season
 export const SEASONS = [
@@ -29,7 +31,8 @@ export const SEASONS = [
 */
 interface PageProps {
   children: ReactNode,
-  title: string
+  title: string,
+  user?: User
 }
 
 const Page = (props: PageProps) => {

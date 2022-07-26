@@ -148,7 +148,7 @@ const Vault = ({ address, scores, error }: VaultProps) => {
     return !!scores[seasonIndex];
   }
 
-  const name = scores[scores.length-1].name;
+  const name = scores[scores.length-1]?.name;
 
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
@@ -156,16 +156,18 @@ const Vault = ({ address, scores, error }: VaultProps) => {
         <h2 className="gradient-box gradient-bottom-only">{name || address}</h2>
       </div>
 
-      <div>
-        <h3>Vault</h3>
+      <div className={styles.vault}>
+        <h1>Vault</h1>
         {SEASONS.map((season, i) => {
           const humanReadableSeasonNumber = i+1;
           if (seasonExists(i)) {
             return (
               <div className={styles.season} key={i}>
-                <h3>Season {humanReadableSeasonNumber}</h3>
-                <h3>Score {getScoreForSeason(i)}</h3>
-                <h3>Rank {getRankForSeason(i)}</h3>
+                <div className={styles.seasonHeader}>
+                  <h3>Season {humanReadableSeasonNumber}</h3>
+                  <h4>Score <label>{getScoreForSeason(i)}</label></h4>
+                  <h4>Rank <label>{getRankForSeason(i)}</label></h4>
+                </div>
                 <div className={`${styles.cellParent} ${styles.achievements}`}>
                   {getAchievementsForSeason(i)}
                 </div>
@@ -173,7 +175,13 @@ const Vault = ({ address, scores, error }: VaultProps) => {
             );
           } else {
             return (
-              <h2>No data</h2>
+              <div className={styles.season} key={i}>
+                <div className={styles.seasonHeader}>
+                  <h3>Season {humanReadableSeasonNumber}</h3>
+                  <h4></h4>
+                  <h4>Ended</h4>
+                </div>
+              </div>
             )
           }
         }).reverse()}
