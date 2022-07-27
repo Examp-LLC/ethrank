@@ -1136,7 +1136,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7"
+                            "address": ["0xabefbc9fd2f806065b4f3c237d4b59d9a97bcac7", "0x6170B3C3A54C3d8c854934cBC314eD479b2B29A3"]
                         }
                     }
                 ]

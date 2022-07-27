@@ -369,7 +369,10 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
 
                             // if above method failed, try method #2 - etherscan
-                            if ((allTransactions[i].contractAddress && addresses.indexOf(convertToLowerCase(allTransactions[i].contractAddress)) > -1 !== false) || tokensFound) {
+                            if (
+                              (allTransactions[i].contractAddress && addresses.indexOf(convertToLowerCase(allTransactions[i].contractAddress)) > -1 !== false) || 
+                              (allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) ||
+                              tokensFound) {
 
                               if (!ownedTokens[j]) {
                                 ownedTokens[j] = [] as Array<Array<number>>;
