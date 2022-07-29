@@ -82,6 +82,7 @@ const ConnectButton = (props: PropsWithChildren<ReactNode>) => {
 
     return (
         <Web3ModalProvider
+            // @ts-ignore
             cacheProvider={true}
             uauth={uauth}
             providerOptions={providerOptions}
