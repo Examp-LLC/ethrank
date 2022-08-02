@@ -1133,7 +1133,10 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0xc29cbe04ae322469dc077741afa2fbccda748ae4"
+                            "address": [
+                                "0xc29cbe04ae322469dc077741afa2fbccda748ae4",
+                                "0x2B5426A5B98a3E366230ebA9f95a24f09Ae4a584"
+                            ]
                         }
                     },
                     {
@@ -1169,15 +1172,6 @@
                         "params": {
                             "count": 1,
                             "address": "0x609255414fF5289f87c99bAF9737a4EC85A18643"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Royal.io LDA (Any Artist - Polygon)",
-                        "points": 100,
-                        "type": "transaction_to_address_count",
-                        "params": {
-                            "count": 1,
-                            "address": "0x7c885c4bfd179fb59f1056fbea319d579a278075"
                         }
                     }
                 ]
