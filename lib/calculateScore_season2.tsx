@@ -187,6 +187,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         // so do whatever you need to do in here and before/after.
         for (let i = 0; i < allTransactions.length; i++) {
 
+          // skip failed txs
+          if (allTransactions[i].isError === "1") {
+            continue;
+          }
+
           isDupeTransaction = false;
 
           // skip dupes
@@ -237,6 +242,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                           addresses = convertToLowerCase(step.params.address || address);
 
                           if (allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) {
+                            
                             if (!sentTransactions[j]) {
                               sentTransactions[j] = [] as Array<Array<number>>;
                             }
