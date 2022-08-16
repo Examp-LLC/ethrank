@@ -526,7 +526,7 @@
                 "steps": [
                     {
                         "name": "Own 1 Degen Dogs (Polygon)",
-                        "points": 10,
+                        "points": 25,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
