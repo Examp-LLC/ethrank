@@ -23,9 +23,12 @@ import initMiddleware from '../../../lib/init-middleware';
 import { CURRENT_SEASON } from '../../../lib/constants';
 
 type Data = {
-  score: number,
-  rank: number,
-  progress: string[]
+  score: number;
+  rank: number;
+  progress: string[];
+  activeSince?: string;
+  spentOnGas?: string;
+  totalTransactions?: number;
 }
 
 // Initialize the cors middleware
@@ -44,13 +47,17 @@ export default async function handler(
   // Run cors
   await cors(req, res)
 
-  const { address, season } = req.query;
+  const { address, season, extended } = req.query;
   if (!address || typeof address !== 'string') return;
   if (season && typeof season !== 'string') return;
   let calcScore = getCalcMethod(season);
   const { props } = await calcScore(address, prisma);
-  const { score, rank, progress } = props;
-  res.status(200).json({ score, rank, progress })
+  const { score, rank, progress, activeSince, spentOnGas, totalTransactions } = props;
+  if (extended) {
+    res.status(200).json({ score, rank, progress, activeSince, spentOnGas, totalTransactions })
+  } else {
+    res.status(200).json({ score, rank, progress })
+  }
 }
 
 export function getCalcMethod (season: string|number = CURRENT_SEASON) {
