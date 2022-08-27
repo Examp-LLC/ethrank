@@ -1175,7 +1175,7 @@
                     {
                         "name": "Own an Insomniac event token - Polygon",
                         "points": 100,
-                        "type": "transaction_to_address_count",
+                        "type": "own_token_by_address",
                         "params": {
                             "count": 1,
                             "address": "0x4f7Bb4064f4472A06f4749fC2EFBEcFD2e4279d0"
