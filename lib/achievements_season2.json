@@ -342,10 +342,10 @@
                     {
                         "name": "Purchase NFT on SuperRare",
                         "points": 30,
-                        "type": "transaction_from_address_count",
+                        "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x6d7c44773c52d396f43c2d511b81aa168e9a7a42"
+                            "address": "0xb932a70A57673d89f4acfFBE830E8ed7f75Fb9e0"
                         }
                     },
                     {
