@@ -345,7 +345,7 @@
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
-                            "address": "0xb932a70A57673d89f4acfFBE830E8ed7f75Fb9e0"
+                            "address": "0x6D7c44773C52D396F43c2D511B81aa168E9a7a42"
                         }
                     },
                     {
