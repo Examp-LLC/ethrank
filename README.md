@@ -1,4 +1,7 @@
 [![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/Examp-LLC/ethrank/badge)](https://www.gitpoap.io/gh/Examp-LLC/ethrank)
+[![Discord](https://img.shields.io/badge/Discord-grey)](https://discord.com/invite/CNVQWw6KFU)
+[![Telegram](https://img.shields.io/badge/-Telegram-gray?&logo=telegram&logoColor=white)](https://t.me/ExampLLC)
+[![Twitter](https://img.shields.io/twitter/follow/eth_rank?style=social)](https://twitter.com/eth_rank)
 
 # ethrank.io 🏆
 
