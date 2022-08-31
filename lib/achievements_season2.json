@@ -36,6 +36,15 @@
                             "count": 1,
                             "address": "0xe372c0922305acec60172307c924c6fefe4db874"
                         }
+                    },
+                    {
+                        "name": "Own >= 1 ERC-1 Ethereum Rookie Card (erc-1.com)",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x79b8d8bd5dc219887416064b5ad411b71e034e21"
+                        }
                     }
                 ]
             },
