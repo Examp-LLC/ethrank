@@ -11,9 +11,8 @@
   "dependencies": {
     "@ensdomains/eth-ens-namehash": "^2.0.15",
     "@prisma/client": "^3.15.0",
-    "@uauth/js": "^1.1.0",
-    "@uauth/web3modal": "^1.1.0",
-    "@walletconnect/web3-provider": "^1.7.8",
+    "@web3modal/ethereum": "^2.0.0-alpha.6",
+    "@web3modal/react": "^2.0.0-alpha.6",
     "animate.css": "^4.1.1",
     "chart.js": "^3.8.0",
     "cors": "^2.8.5",
@@ -24,9 +23,7 @@
     "react-query": "^3.39.1",
     "sass": "^1.52.3",
     "truncate-eth-address": "^1.0.2",
-    "walletlink": "^2.5.0",
-    "web3": "^1.7.3",
-    "web3modal": "^1.9.7"
+    "web3": "^1.8.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

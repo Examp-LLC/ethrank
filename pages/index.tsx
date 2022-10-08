@@ -15,7 +15,7 @@
 */
 
 import type { NextPageContext } from 'next'
-import ConnectButtonOuter from '../components/ConnectButtonOuter'
+// import ConnectButtonOuter from '../components/ConnectButtonOuter'
 import Page from '../components/Page'
 import prisma from '../lib/prisma'
 import { User } from '../lib/User.interface'
@@ -23,6 +23,7 @@ import styles from '../styles/Home.module.scss'
 import btnStyles from '../styles/ConnectButton.module.scss'
 import { CURRENT_SEASON } from '../lib/constants'
 import Image from 'next/image'
+import { ConnectButton, useAccount } from '@web3modal/react'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -83,6 +84,7 @@ interface HomeProps {
 
 const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
+  const { isConnected, address } = useAccount()
   const leaders = JSON.parse(leaderboard)
   const latestUsers = JSON.parse(latestScores)
 
@@ -104,7 +106,14 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
       <div className={`${styles.home} content`}>
 
-        <ConnectButtonOuter home={true} />
+        <div className={styles.mainRow}>
+          {isConnected ? 
+          (
+            <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}>Check score now</a>
+          ) :
+          <ConnectButton />
+          }
+        </div>
 
         <div className={styles.homeRow}>
           <div className={styles.leaderboard}>

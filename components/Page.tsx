@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { ReactNode } from 'react'
-import ConnectButtonProvider from '../components/ConnectButtonProvider'
+// import ConnectButtonProvider from '../components/ConnectButtonProvider'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { User } from '../lib/User.interface'
 import styles from '../styles/Home.module.scss'
-import { useWeb3Modal } from './Web3ModalContext'
+// import { useWeb3Modal } from './Web3ModalContext'
 
 // add to this every new season
 export const SEASONS = [
@@ -38,7 +38,6 @@ interface PageProps {
 const Page = (props: PageProps) => {
 
   return (
-    <ConnectButtonProvider>
       <div className={styles.container}>
         <Head>
           <title>{props.title}</title>
@@ -54,7 +53,6 @@ const Page = (props: PageProps) => {
 
         <Footer />
       </div>
-    </ConnectButtonProvider>
   )
 }
 

@@ -44,6 +44,19 @@
   }
 }
 
+.mainRow {
+  text-align: center;
+  margin: 0 auto 40px;
+  a.btn {
+    font-size:24px;
+    padding:20px 30px;
+    border-bottom:none !important;
+  }
+  w3m-connect-button {
+    display: flex;
+    justify-content: center;
+  }
+}
 
 .claimRow {
   max-width:700px;
