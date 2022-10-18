@@ -1128,18 +1128,6 @@
                 "points": 100,
                 "steps": [
                     {
-                        "name": "Interact w/ MintSongs NFT Marketplace",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": [
-                                "0xc29cbe04ae322469dc077741afa2fbccda748ae4",
-                                "0x2B5426A5B98a3E366230ebA9f95a24f09Ae4a584"
-                            ]
-                        }
-                    },
-                    {
                         "name": "Interact w/ zora.co Marketplace",
                         "points": 50,
                         "type": "own_token_by_address",
