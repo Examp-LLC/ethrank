@@ -16,9 +16,10 @@
 import Web3 from 'web3';
 import { PrismaClient } from '@prisma/client';
 import { lookupUnstoppableName } from '../pages/unstoppableName/[unstoppableName]';
-import { reverseENSLookup, convertToLowerCase } from '../pages/address/[address]';
+import { convertToLowerCase } from '../pages/address/[address]';
 import { IBlockScoutTx } from './types';
 import { getAchievements } from './constants';
+import { reverseLookup } from './reverseLookup';
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
@@ -113,7 +114,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         } else {
           // ENS stuff - resolve 0x21ada3.. to nick.eth
           const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
-          const ensName = await reverseENSLookup(address.toLowerCase(), web3);
+          const ensName = await reverseLookup(address.toLowerCase(), web3);
 
           if (ensName) {
             name = ensName;
