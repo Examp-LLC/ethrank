@@ -18,7 +18,7 @@ import { PrismaClient } from '@prisma/client';
 import { lookupUnstoppableName } from '../pages/unstoppableName/[unstoppableName]';
 import { convertToLowerCase } from '../pages/address/[address]';
 import { IBlockScoutTx } from './types';
-import { getAchievements } from './constants';
+import { CURRENT_SEASON, getAchievements } from './constants';
 import { reverseLookup } from './reverseLookup';
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
@@ -44,7 +44,8 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
   let name = '';
   let transactionHashes = [];
   let isDupeTransaction = false;
-  let ACHIEVEMENTS = getAchievements(2);
+  let THIS_SEASON = 3;
+  let ACHIEVEMENTS = getAchievements(THIS_SEASON);
 
   // ERROR case  - /address/something-bad-we-dont-support
   if (!Web3.utils.isAddress(address)) {
@@ -63,7 +64,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           address: {
             equals: address.toLowerCase(),
           },
-          season: 3
+          season: THIS_SEASON
         }
       }
     });
@@ -130,7 +131,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           `https://api.etherscan.io/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
           `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
           `https://api.poap.xyz/actions/scan/${address}`,
-          // Season 2
+          // Polygon
           `https://api.polygonscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
@@ -454,7 +455,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             imageUrl: '',
             description: '',
             progress: JSON.stringify(progress),
-            season: 2,
+            season: THIS_SEASON,
             transactions: totalTransactions,
             spentOnGas,
             activeSince
@@ -484,7 +485,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             score: {
               gte: score,
             },
-            season: 2
+            season: THIS_SEASON
           }
         },
       });

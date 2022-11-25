@@ -23,7 +23,7 @@ import seasonThreeAchievements from './achievements_season3.json';
 
 export const CURRENT_SEASON: number = 3;
 
-export const CURRENT_SEASON_ACHIEVEMENTS = getAchievements();
+export const CURRENT_SEASON_ACHIEVEMENTS = getAchievements(CURRENT_SEASON);
 
 export function getAchievements(season:number = CURRENT_SEASON) {
   switch (season) {

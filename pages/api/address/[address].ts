@@ -18,6 +18,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/prisma';
 import { calculateScore as calculateScoreSeasonOne } from "../../../lib/calculateScore_season1";
 import { calculateScore as calculateScoreSeasonTwo } from "../../../lib/calculateScore_season2";
+import { calculateScore as calculateScoreSeasonThree } from "../../../lib/calculateScore_season3";
 import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import { CURRENT_SEASON } from '../../../lib/constants';
@@ -68,6 +69,9 @@ export function getCalcMethod (season: string|number = CURRENT_SEASON) {
       break;
     case 2:
       seasonScoringMethod = calculateScoreSeasonTwo
+      break;
+    case 3:
+      seasonScoringMethod = calculateScoreSeasonThree
       break;
     default:
       seasonScoringMethod = calculateScoreSeasonOne

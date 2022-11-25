@@ -165,7 +165,7 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
     name = undefined
   }
 
-  const categories = ['social', 'finance', 'collecting', 'technology'];
+  const categories = ['reputation', 'nfts', 'defi', 'staking'];
 
   const categoryData = categories.map((category, i) => {
     const percentCompleted = getPercentCategoryCompleted(category);
