@@ -20,7 +20,6 @@ import styles from '../styles/Header.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
 import { ConnectButton, useAccount, useDisconnect } from '@web3modal/react'
 import truncateEthAddress from 'truncate-eth-address';
-import Router from 'next/router';
 // import ConnectButtonOuter from './ConnectButtonOuter';
 // import { useWeb3Modal } from './Web3ModalContext';
 
@@ -50,7 +49,7 @@ const Header = () => {
 
   return (
   <div className={`${styles.header} header`}>
-    <h1><Link href="/"><a>ETHRank</a></Link> <span className="pill">Season {CURRENT_SEASON}</span></h1>
+    <h1><img src="/favicon_season3.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className="pill">Season {CURRENT_SEASON}</span></h1>
     <ul>
       <li>
         <Link href="/"><a>Home</a></Link>
@@ -60,8 +59,6 @@ const Header = () => {
       </li>
     </ul>
     <div className={styles.btn}>
-
-   
       { isConnected ? 
       (<div className={btnStyles.flyoutMenuWrapper} onClick={expandMenu}>
         {truncateEthAddress(address)}
@@ -84,40 +81,8 @@ const Header = () => {
     )
     :
     <div className={`${btnStyles.connect} connect`}>
-    {!isConnected && hasWalletPluginInstalled && <div className={btnStyles.btnWrapper}>
-      <ConnectButton />
-      <span>or <a href="#nogo" onClick={() => {
-        setHasWalletPluginInstalled(false);
-      }}>input address manually</a></span>
+      <ConnectButton  />
     </div>
-    }
-    {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
-      e.preventDefault();
-      if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
-        Router.push(`/ensName/${manualAddressInput}`)
-      } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
-        Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
-      } else {
-        Router.push(`/address/${manualAddressInput}`)
-      }
-    }} className={btnStyles.manualAddressInput}>
-
-      <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
-        setManualAddressInput(e.target.value);
-      }} /> <button>Go</button>
-
-      <div className={btnStyles.tooltip}>
-        <strong>examples</strong>
-        <div className={btnStyles.supported}>
-          <ol>
-            <li>Public address: <span>0xd3be5d3fe342e...</span></li>
-            <li>Unstoppable Domains: <span>yourname.crypto</span></li>
-            <li>ENS: <span>yourname.eth</span></li>
-          </ol>
-        </div>
-      </div>
-    </form>}
-  </div>
     }
     </div>
   </div>

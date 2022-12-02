@@ -24,6 +24,8 @@ import btnStyles from '../styles/ConnectButton.module.scss'
 import { CURRENT_SEASON } from '../lib/constants'
 import Image from 'next/image'
 import { ConnectButton, useAccount } from '@web3modal/react'
+import { useState } from 'react'
+import Router from 'next/router'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -88,35 +90,73 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
   const leaders = JSON.parse(leaderboard)
   const latestUsers = JSON.parse(latestScores)
 
+  const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
+  const [manualAddressInput, setManualAddressInput] = useState('')
+  const [isFlyoutMenuActive, setIsFlyoutMenuActive] = useState(false)
+
   return (
     <Page title="ETHRank - The Ethereum Leaderboard">
-      <div className={styles.claimRow}>
+      <div className={`${styles.claimRow} ${styles.box}`}>
         <div className={styles.colOne}>
-          <Image width={246} height={246} src="/s2_dynamic_badge.png" />
+          <Image className={styles.badge} width={370} height={370} src="/s3_dynamic_badge.png" />
         </div>
         <div className={styles.colTwo}>
           <h3>Now Available</h3>
-          <h2>Claim your Season Two Dynamic Badge</h2>
+          <h2>Claim your <strong>Season Three Dynamic Badge</strong></h2>
           <a href="https://mint.ethrank.io" className={btnStyles.btn}><span>Claim</span></a>
         </div></div>
 
-      <h1 className={styles.title}>
-        Check your Ethereum blockchain score instantly
-      </h1>
-
       <div className={`${styles.home} content`}>
 
-        <div className={styles.mainRow}>
+        <div className={`${styles.mainRow} ${styles.box}`}>
+
+          <h1 className={styles.title}>
+            Check your <strong>Ethereum blockchain score</strong> <em>instantly</em>
+          </h1>
           {isConnected ? 
           (
             <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}>Check score now</a>
           ) :
-          <ConnectButton />
+          <div className={`${btnStyles.connect} connect`}>
+          {!isConnected && hasWalletPluginInstalled && <div className={btnStyles.btnWrapper}>
+            <ConnectButton  />
+            <span>or <a href="#nogo" onClick={() => {
+              setHasWalletPluginInstalled(false);
+            }}>input address manually</a></span>
+          </div>
+          }
+          {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
+            e.preventDefault();
+            if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
+              Router.push(`/ensName/${manualAddressInput}`)
+            } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
+              Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
+            } else {
+              Router.push(`/address/${manualAddressInput}`)
+            }
+          }} className={btnStyles.manualAddressInput}>
+      
+            <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
+              setManualAddressInput(e.target.value);
+            }} /> <button className={btnStyles.btn}>Go</button>
+      
+            <div className={btnStyles.tooltip}>
+              <strong>examples</strong>
+              <div className={btnStyles.supported}>
+                <ol>
+                  <li>Public address: <span>0xd3be5d3fe342e...</span></li>
+                  <li>Unstoppable Domains: <span>yourname.crypto</span></li>
+                  <li>ENS: <span>yourname.eth</span></li>
+                </ol>
+              </div>
+            </div>
+          </form>}
+        </div>
           }
         </div>
 
         <div className={styles.homeRow}>
-          <div className={styles.leaderboard}>
+          <div className={`${styles.leaderboard} ${styles.box}`}>
             <h2>Leaderboard</h2>
             <ol>
               {leaders.map((user: User, i: number) => {
@@ -128,7 +168,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               })}
             </ol>
           </div>
-          <div className={styles.leaderboard}>
+          <div className={`${styles.latestScores} ${styles.box}`}>
             <h2>Latest Scores</h2>
             <ol>
               {latestUsers.map((user: User, i: number) => {

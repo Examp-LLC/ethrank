@@ -42,10 +42,12 @@ const Page = (props: PageProps) => {
         <Head>
           <title>{props.title}</title>
           <meta name="description" content="ETHRank - The Ethereum Leaderboard." />
-          <link rel="icon" href="/favicon_season2.png" />
+          <link rel="icon" href="/favicon_season3.png" />
         </Head>
 
         <Header />
+
+        <div className={styles.banner}>Season 3 has started!</div>
 
         <main className={styles.main}>
           {props.children}

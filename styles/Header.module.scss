@@ -2,36 +2,76 @@
 
 
 .header {
-    padding:20px;
+  position: relative;
+  max-width: var(--max-width);
+  height: 80px;
+  margin: 20px auto;
+
+  background: var(--dark-grey);
+  backdrop-filter: blur(7.5px);
+  border-radius: 10px;
+}
+
+.header .logo {
+  margin: 7px 15px 15px 18px;
+  vertical-align: middle;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+  top: 3px;
+  position: relative;
 }
 
 .header .btn {
   position: absolute;
-  right:20px;
-  
-  top: 25px;
+  right: 40px;
+
+  top: 18px;
   text-align: right;
 }
 
 .header ul {
-    list-style:none;
-    padding:0;
-    margin:-30px 0 0 0;
-    text-align:center;
-    position: relative;
-    li {
-        display:inline;
-        padding:0 20px;
-        text-transform: uppercase;
-        opacity: .5;
-        &:hover {
-            opacity: 1;
-        }
+  list-style: none;
+  padding: 0;
+  margin: -50px 228px 0 0;
+  text-align: right;
+  position: relative;
+
+  li {
+    display: inline;
+    padding: 0 20px;
+    text-transform: uppercase;
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
     }
+  }
 }
 
 @include mobile {
-  .header ul {
-      margin-top:50px;
+  .header {
+    margin-bottom: 60px;
+    .btn {
+      right:20px;
+      top:20px;
+    }
+
+    ul {
+      margin: 20px auto 0;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    .logo {
+      transform: scale(.75);
+      margin-right: 0;
+    }
   }
+
 }

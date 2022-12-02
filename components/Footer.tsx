@@ -16,6 +16,7 @@
 import Link from 'next/link';
 import React, { useState }  from 'react';
 import styles from '../styles/Footer.module.scss';
+import btnStyles from '../styles/ConnectButton.module.scss';
 
 function Footer() {
 
@@ -36,7 +37,7 @@ function Footer() {
 	<input type="email" onChange={(e) => {
     setEmailAddr(e.target.value);   
   }} value={emailAddr} name="EMAIL" className="required email" id="mce-EMAIL" />
-  <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className={styles.btn} />
+  <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className={btnStyles.btn} />
 </div>
 	<div id="mce-responses" className="clear foot">
 		<div className="response" id="mce-error-response" style={{display:"none"}}></div>

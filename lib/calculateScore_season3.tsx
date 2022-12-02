@@ -24,6 +24,7 @@ import { reverseLookup } from './reverseLookup';
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
 const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
+const POAP_API_KEY = process.env.POAP_API_KEY;
 
 export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[]) {
   let score = 0, rank = 0;
@@ -130,15 +131,27 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=${ETHPLORER_API_KEY}`,
           `https://api.etherscan.io/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
           `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
-          `https://api.poap.xyz/actions/scan/${address}`,
+          `https://api.poap.tech/actions/scan/${address}`,
           // Polygon
           `https://api.polygonscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
         ];
 
+        const getHeaders = (url: string) => {
+          if (url.indexOf('poap.tech') > -1) {
+            return {
+                headers: {
+                  'X-API-Key': POAP_API_KEY
+                }
+              }
+          }
+          return
+        }
+
         const results = await Promise.all(
-          urls.map((url) => fetch(url).then((res) => res.json()))
+          urls.map((url) => fetch(url,
+            getHeaders(url)).then((res) => res.json()))
         );
 
         // Mainnet
