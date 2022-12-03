@@ -25,11 +25,11 @@
 
 .achievement {
     cursor:pointer;
-    border:1px solid var(--main-color3);
-    padding:10px;
+    padding:20px;
     text-align:left;
-    box-shadow: -5px -5px 0 0 var(--main-color3);
     width: 100%;
+    background:var(--dark-grey);
+    border-radius: 10px;
 }
 
 .achievement h4 {
@@ -76,10 +76,16 @@
     justify-items: center;
     box-sizing:content-box;
     .stat {
-        background:linear-gradient(to bottom right, var(--main-color3), var(--main-color1));
+        // background:linear-gradient(to bottom right, var(--main-color3), var(--main-color1));
         border:1px solid var(--main-color3);
         width: 100%;
         padding:20px 0;
+        &:first-child {
+            border-color:var(--main-color1);
+        }
+        &:last-child {
+            border-color:var(--main-color5);
+        }
         h2 {
             color:var(--main-color1);
             font-size:65px;
@@ -102,8 +108,8 @@
     position:absolute; 
     right:0;
     top:10px;
-    // Season 2
-    filter: hue-rotate(258deg);
+    // Season 3
+    filter: hue-rotate(44deg);
 }
 
 .vault {

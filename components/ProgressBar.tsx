@@ -15,7 +15,7 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../styles/ProgressBar.module.css';
+import styles from '../styles/ProgressBar.module.scss';
 
 interface ProgressBarProps {
   percent: number

@@ -142,7 +142,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           if (url.indexOf('poap.tech') > -1) {
             return {
                 headers: {
-                  'X-API-Key': POAP_API_KEY
+                  'X-API-Key': POAP_API_KEY || ''
                 }
               }
           }
@@ -169,7 +169,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         if (!transactions || 
           !erc721Transactions || 
           !erc20Transactions || 
-          !poaps || 
+          // !poaps || 
           !polygonTransactions || 
           !polygonErc721Transactions || 
           !polygonErc20Transactions) {

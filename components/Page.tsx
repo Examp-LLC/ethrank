@@ -47,8 +47,6 @@ const Page = (props: PageProps) => {
 
         <Header />
 
-        <div className={styles.banner}>Season 3 has started!</div>
-
         <main className={styles.main}>
           {props.children}
         </main>

@@ -37,6 +37,8 @@ function getCurrentSeasonColor() {
       return '#D9048E';
     case 2:
       return '#05AFF2';
+    case 3:
+      return '#00EC26';
   }
 }
 

@@ -96,15 +96,16 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
   return (
     <Page title="ETHRank - The Ethereum Leaderboard">
-      <div className={`${styles.claimRow} ${styles.box}`}>
+
+      <div className={styles.banner}>Season 3 has started!</div>
+      {/* <div className={`${styles.claimRow} ${styles.box}`}>
         <div className={styles.colOne}>
           <Image className={styles.badge} width={370} height={370} src="/s3_dynamic_badge.png" />
         </div>
         <div className={styles.colTwo}>
-          <h3>Now Available</h3>
           <h2>Claim your <strong>Season Three Dynamic Badge</strong></h2>
           <a href="https://mint.ethrank.io" className={btnStyles.btn}><span>Claim</span></a>
-        </div></div>
+        </div></div> */}
 
       <div className={`${styles.home} content`}>
 

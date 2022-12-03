@@ -9,16 +9,16 @@
 
 .box {
   background: var(--dark-grey);
-  padding:4vw;
+  padding: 20px 4vw;
   border-radius:10px;
 }
 
 .main h1 {
   text-align:left;
-  font-size:4vw;
+  font-size:38px;
   text-transform: unset;
   font-weight:300;
-  max-width:600px;
+  max-width:500px;
   strong {
     color:var(--main-color3);
     font-weight:400;
@@ -40,7 +40,6 @@
 
   .box {
     width:100%;
-    padding:20px;
   }
 
   ol {
@@ -67,7 +66,7 @@
 }
 
 .mainRow {
-  padding:5vh 8vw;
+  padding:5vh 4vw;
   max-width:var(--max-width);
   background: var(--dark-grey) url('../public/icon_checknow.svg') no-repeat 100% 50%;
   background-size:40%;
@@ -122,13 +121,14 @@
     font-weight:normal;
     color:rgba(255,255,255, .5);
     text-transform: none;
-    font-size:2.5vw;
+    font-size:18px;
   }
   h2 {
     font-weight:300;
     margin:0 0 20px;
-    font-size:4vw;
+    font-size:38px;
     text-transform: none;
+    max-width:400px;
     strong {
       color:var(--main-color1);
       font-weight:400;
@@ -141,6 +141,9 @@
   .claimRow {
     grid-template-columns: 48% 48%;
     column-gap: 4%;
+    h2 {
+      font-size:20px;
+    }
   }
   .claimRow .colOne {    
     margin: -20px 0;
@@ -149,6 +152,14 @@
     grid-template-columns: 100%;
     .box {
       padding:8vw;
+    }
+  }
+  .mainRow {
+    padding:5vh 8vw;
+  }
+  .main {
+    h1 {
+      font-size:30px;
     }
   }
 }
