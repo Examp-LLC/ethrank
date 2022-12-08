@@ -154,7 +154,6 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                 }
               }
           }
-          return
         }
 
         const results = await Promise.all(
