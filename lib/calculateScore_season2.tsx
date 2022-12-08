@@ -24,6 +24,7 @@ import { reverseLookup } from './reverseLookup';
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
 const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
+const POAP_API_KEY = process.env.POAP_API_KEY;
 
 export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[]) {
   let score = 0, rank = 0;
@@ -137,8 +138,18 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         ];
 
         const results = await Promise.all(
-          urls.map((url) => fetch(url).then((res) => res.json()))
+          urls.map((url) => fetch(url, getHeaders(url)).then((res) => res.json()))
         );
+
+        const getHeaders = (url: string) => {
+          if (url.indexOf('poap.tech') > -1) {
+            return {
+                headers: {
+                  'X-API-Key': POAP_API_KEY || ''
+                }
+              }
+          }
+        }
 
         // Mainnet
         const transactions = results[0] && typeof results[0].result === "object" && results[0].result || false;
