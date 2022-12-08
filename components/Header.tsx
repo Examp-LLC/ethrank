@@ -48,44 +48,44 @@ const Header = () => {
   }
 
   return (
-  <div className={`${styles.header} header`}>
-    <h1><img src="/favicon_season3.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className="pill">Season {CURRENT_SEASON}</span></h1>
-    <ul>
-      <li>
-        <Link href="/"><a>Home</a></Link>
-      </li>
-      <li>
-        <Link href="/leaderboard"><a>Leaderboard</a></Link>
-      </li>
-    </ul>
-    <div className={styles.btn}>
-      { isConnected ? 
-      (<div className={btnStyles.flyoutMenuWrapper} onClick={expandMenu}>
-        {truncateEthAddress(address)}
-      <div className={`${btnStyles.flyoutMenu} ${isFlyoutMenuActive ? '' : btnStyles.hidden}`}>
-        <ul>
-          <li><Link href={{
-          pathname: '/address/[address]/',
-          query: { address },
-        }}>My Profile</Link></li>
-          <li><Link href={{
-          pathname: '/vault/[address]/',
-          query: { address },
-        }}>Vault</Link></li>
-          <li><a href="#nogo" onClick={disconnect}>
-        Disconnect
-          </a></li>
-        </ul>
+    <div className={`${styles.header} header`}>
+      <h1><img src="/favicon_season3.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className={styles.pill}>Season {CURRENT_SEASON}</span></h1>
+      <ul>
+        <li>
+          <Link href="/"><a>Home</a></Link>
+        </li>
+        <li>
+          <Link href="/leaderboard"><a>Leaderboard</a></Link>
+        </li>
+      </ul>
+      <div className={styles.btn}>
+        {isConnected ?
+          (<div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
+            <span className={styles.pill}>{truncateEthAddress(address)}</span>
+            <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
+              <ul>
+                <li><Link href={{
+                  pathname: '/address/[address]/',
+                  query: { address },
+                }}>My Profile</Link></li>
+                <li><Link href={{
+                  pathname: '/vault/[address]/',
+                  query: { address },
+                }}>Vault</Link></li>
+                <li><a href="#nogo" onClick={disconnect}>
+                  Disconnect
+                </a></li>
+              </ul>
+            </div>
+          </div>
+          )
+          :
+          <div className={`${btnStyles.connect} connect`}>
+            <ConnectButton />
+          </div>
+        }
       </div>
     </div>
-    )
-    :
-    <div className={`${btnStyles.connect} connect`}>
-      <ConnectButton  />
-    </div>
-    }
-    </div>
-  </div>
   )
 }
 export default Header;

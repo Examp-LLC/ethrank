@@ -114,19 +114,21 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
           <h1 className={styles.title}>
             Check your <strong>Ethereum blockchain score</strong> <em>instantly</em>
           </h1>
+
+          <div className={`${btnStyles.connect} connect`}>
           {isConnected ? 
           (
             <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}>Check score now</a>
           ) :
-          <div className={`${btnStyles.connect} connect`}>
-          {!isConnected && hasWalletPluginInstalled && <div className={btnStyles.btnWrapper}>
-            <ConnectButton  />
-            <span>or <a href="#nogo" onClick={() => {
+            <div className={btnStyles.btnWrapper}>
+              <ConnectButton  />
+            </div>
+          }
+          <span>or <a href="#nogo" onClick={() => {
               setHasWalletPluginInstalled(false);
             }}>input address manually</a></span>
-          </div>
-          }
-          {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
+
+          {<form onSubmit={async (e) => {
             e.preventDefault();
             if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
               Router.push(`/ensName/${manualAddressInput}`)
@@ -153,7 +155,6 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
             </div>
           </form>}
         </div>
-          }
         </div>
 
         <div className={styles.homeRow}>

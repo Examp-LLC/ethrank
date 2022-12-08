@@ -22,20 +22,25 @@
   font-size: 30px;
   top: 3px;
   position: relative;
+
+  a {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .header .btn {
   position: absolute;
   right: 40px;
 
-  top: 18px;
+  top: 30px;
   text-align: right;
 }
 
-.header ul {
+.header>ul {
   list-style: none;
   padding: 0;
-  margin: -50px 228px 0 0;
+  margin: -50px 150px 0 0;
   text-align: right;
   position: relative;
 
@@ -54,9 +59,10 @@
 @include mobile {
   .header {
     margin-bottom: 60px;
+
     .btn {
-      right:20px;
-      top:20px;
+      right: 20px;
+      top: 20px;
     }
 
     ul {
@@ -74,4 +80,72 @@
     }
   }
 
+}
+
+.pill {
+  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+  font-size: 10px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 3px 10px;
+  position: relative;
+  top: -8px;
+  left: 20px;
+  font-weight: lighter;
+  color: rgb(255, 255, 255, .75);
+}
+
+.flyoutMenuWrapper {
+  // display:none; // VAULT - hide for now
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  .pill {
+    top:-3px;
+    left:auto;
+  }
+}
+
+.flyoutMenu {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  width: 140px;
+  color: var(--white);
+  padding: 10px 15px;
+  text-indent: 0;
+  text-transform: uppercase;
+  background: var(--dark-grey);
+  z-index: 1;
+  border-radius: 10px;
+
+  ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: block;
+      text-align: left;
+      font-size: 14px;
+      padding: 7px 0;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@include mobile {
+  h1 .pill {
+    display: none;
+  }
+}
+
+@include tablet {
+  h1 .pill {
+    display: none;
+  }
 }

@@ -18,7 +18,7 @@ import { PrismaClient } from '@prisma/client';
 import { lookupUnstoppableName } from '../pages/unstoppableName/[unstoppableName]';
 import { convertToLowerCase } from '../pages/address/[address]';
 import { IBlockScoutTx } from './types';
-import { CURRENT_SEASON, getAchievements } from './constants';
+import { getAchievements } from './constants';
 import { reverseLookup } from './reverseLookup';
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
@@ -26,7 +26,7 @@ const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
 const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
 const POAP_API_KEY = process.env.POAP_API_KEY;
 
-export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[]) {
+export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[], attempts = 0): Promise<void | {}> {
   let score = 0, rank = 0;
   let totalPointsPossible = 0;
   let completedAchievements = 0;
@@ -127,15 +127,23 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         }
 
         const urls = [
-          `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
           `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=${ETHPLORER_API_KEY}`,
+
+          // Etherscan
+          `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
           `https://api.etherscan.io/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
           `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
+          `https://api.etherscan.io/api?module=account&action=token1155tx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
+
+          // POAP
           `https://api.poap.tech/actions/scan/${address}`,
+
           // Polygon
           `https://api.polygonscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
+          `https://api.polygonscan.com/api?module=account&action=token1155tx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
+          
         ];
 
         const getHeaders = (url: string) => {
@@ -154,35 +162,61 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             getHeaders(url)).then((res) => res.json()))
         );
 
+        // Note: 10 concurrent request limit for nextjs reached with season 3
+
         // Mainnet
-        const transactions = results[0] && typeof results[0].result === "object" && results[0].result || false;
-        const tokens = results[1] && results[1].tokens || [];
+        const tokens = results[0] && results[0].tokens || [];
+
+        // Etherscan
+        const transactions = results[1] && typeof results[1].result === "object" && results[1].result || false;
         const erc721Transactions = results[2] && typeof results[2].result === "object" && results[2].result || false;
         const erc20Transactions = results[3] && typeof results[3].result === "object" && results[3].result || false;
-        const poaps = results[4] && Array.isArray(results[4]) && results[4] || false;
+        const erc1155Transactions = results[4] && typeof results[4].result === "object" && results[4].result || false;
+        
+        const poaps = results[5] && Array.isArray(results[5]) && results[5] || false;
 
         // Polygon
-        const polygonTransactions = results[5] && typeof results[5].result === "object" && results[5].result || false;
-        const polygonErc721Transactions = results[6] && typeof results[6].result === "object" && results[6].result || false;
-        const polygonErc20Transactions = results[7] && typeof results[7].result === "object" && results[7].result || false;
+        const polygonTransactions = results[6] && typeof results[6].result === "object" && results[6].result || false;
+        const polygonErc721Transactions = results[7] && typeof results[7].result === "object" && results[7].result || false;
+        const polygonErc20Transactions = results[8] && typeof results[8].result === "object" && results[8].result || false;
+        const polygonErc1155Transactions = results[9] && typeof results[9].result === "object" && results[9].result || [];
 
         if (!transactions || 
           !erc721Transactions || 
           !erc20Transactions || 
-          // !poaps || 
+          !erc1155Transactions || 
+          !poaps || 
           !polygonTransactions || 
           !polygonErc721Transactions || 
           !polygonErc20Transactions) {
-          throw new Error(`Error fetching upstream data ${transactions.length} ${erc20Transactions.length} ${erc721Transactions.length} ${poaps.length}`)
+          console.log(`Error fetching upstream data, trying again 
+          ${transactions.length} 
+          ${erc20Transactions.length} 
+          ${erc721Transactions.length} 
+          ${erc1155Transactions.length} 
+          ${poaps.length}
+          ${polygonTransactions.length} 
+          ${polygonErc721Transactions.length} 
+          ${polygonErc20Transactions.length} 
+          ${polygonErc1155Transactions.length}
+          ${attempts} attempts` )
+          attempts = attempts + 1;
+          if (attempts < 5) {
+            return calculateScore(address, prisma, unstoppableName, attempts);
+          } else {
+            throw new Error('Unable to calculate score');
+          }
         }
 
         const allTransactions = [
           ...transactions,
           ...erc721Transactions,
           ...erc20Transactions,
+          ...erc1155Transactions,
           ...applyPolygonProperty(polygonTransactions),
           ...applyPolygonProperty(polygonErc721Transactions),
-          ...applyPolygonProperty(polygonErc20Transactions)
+          ...applyPolygonProperty(polygonErc20Transactions),
+          ...applyPolygonProperty(polygonErc1155Transactions)
         ];
 
         totalTransactions = allTransactions.length;
