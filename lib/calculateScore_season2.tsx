@@ -136,11 +136,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           `https://api.polygonscan.com/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
           `https://api.polygonscan.com/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
         ];
-
-        const results = await Promise.all(
-          urls.map((url) => fetch(url, getHeaders(url)).then((res) => res.json()))
-        );
-
+        
         const getHeaders = (url: string) => {
           if (url.indexOf('poap.tech') > -1) {
             return {
@@ -150,6 +146,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
               }
           }
         }
+
+        const results = await Promise.all(
+          urls.map((url) => fetch(url, getHeaders(url)).then((res) => res.json()))
+        );
+
 
         // Mainnet
         const transactions = results[0] && typeof results[0].result === "object" && results[0].result || false;
