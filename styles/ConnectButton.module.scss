@@ -1,25 +1,32 @@
+@import 'breakpoints.scss';
 .btn {
-  background: linear-gradient(to right, var(--main-color1), var(--main-color3), var(--main-color5));
-  color: var(--black);
-  padding: 10px 20px;
-  text-transform: uppercase;
-  font-size: 14px;
-  border:none;
-  border-bottom: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight:bold;
-  &:hover {
-    border-bottom-color: transparent !important;
+  padding:5px;
+  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+  display:inline-block;
+  border-radius: 20px;
+  border-bottom:none !important;
+  strong {
+    background: black;
+    color: var(--white);
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+    border-bottom: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight:bold;
   }
 }
 
-.btnWrapper span {
-  display: block;
-  margin-top: 10px;
-  opacity: .5;
-  font-weight: lighter;
-  font-size: 14px;
+.btnWrapper {
+  span {
+    display: block;
+    margin-top: 10px;
+    opacity: .5;
+    font-weight: lighter;
+    font-size: 14px;
+  }
 }
 
 .connect .manualAddressInput {
@@ -38,21 +45,25 @@
     width: 70%;
 
     &:focus {
-      background: var(--main-color2);
-      color: var(--black);
+      // background: var(--main-color2);
+      color: var(--main-color2);
     }
   }
 
   button {
+    padding:10px 5px;
     width: auto;
     margin-left: 5px;
+    strong {
+      padding: 5px 20px;
+    }
   }
 }
 
 .tooltip {
   margin: 10px auto;
   text-align: center;
-  position: relative;
+  position:relative;
   font-size: 10px;
 
   strong {
@@ -84,7 +95,8 @@
   max-width: 220px;
   text-align: left;
   color: var(--main-color3);
-
+  position:absolute;
+  left:calc(50% - 110px);
   ol {
     list-style: none;
     margin: 0;

@@ -31,16 +31,15 @@
 
 .header .btn {
   position: absolute;
-  right: 40px;
-
-  top: 30px;
+  right: 20px;
+  top: 20px;
   text-align: right;
 }
 
 .header>ul {
   list-style: none;
   padding: 0;
-  margin: -50px 150px 0 0;
+  margin: -50px 187px 0 0;
   text-align: right;
   position: relative;
 
@@ -59,11 +58,6 @@
 @include mobile {
   .header {
     margin-bottom: 60px;
-
-    .btn {
-      right: 20px;
-      top: 20px;
-    }
 
     ul {
       margin: 20px auto 0;
@@ -96,10 +90,12 @@
 }
 
 .flyoutMenuWrapper {
-  // display:none; // VAULT - hide for now
   display: inline-block;
   cursor: pointer;
   position: relative;
+  top: 10px;
+  right: 10px;
+
   .pill {
     top:-3px;
     left:auto;

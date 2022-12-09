@@ -27,16 +27,12 @@ const Faqs = ({  }) => {
                 <p>Scores are calculated using a point system, where points are awarded for completing steps, goals, and achievements. As steps are completed, points are added to your Score. If all steps of a goal are completed, then the points for that goal will be awarded. Similarly, if all goals for an achievement are completed, then additional bonus points may be added to your Score.</p>
             </li>
             <li>
-                <h4>When does Season 2 end and/or when does Season 3 begin?</h4>
-                <p>ETHRank Seasons currently last 6 months. Season Two ends on December 31, 2022, and Season Three begins the next day, on January 1, 2023. We may adjust this duration during the course of the season. If we do, we will provide as much notice as possible to our users.</p>
+                <h4>How long do seasons last?</h4>
+                <p>ETHRank Seasons currently last 6 months.</p>
             </li>
             <li>
                 <h4>Why did my score/rank change?</h4>
-                <p>Score and rank are dynamic, and will change with time as new users join the platform, and as additional achievements, goals, and steps are added. Further, balance tweaks to existing points may also be deemed necessary and applied at times.</p>
-            </li>
-            <li>
-                <h4>Will there be a token/airdrop/NFT rewards for completing goals/achievements?</h4>
-                <p>Anything is possible. If you have ideas along these lines, please join our community!</p>
+                <p>Score and rank are dynamic, and may change with time as new users join the platform, and as additional achievements, goals, and steps are added. Further, balance tweaks to existing points may also be deemed necessary and applied at times. Finally, if a third party API is down or has changed their underlying contract address, some points may be unavailable until the issue is resolved.</p>
             </li>
         </ol>
       </div>

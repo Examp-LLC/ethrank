@@ -35,7 +35,7 @@ w3m-connect-button {
 }
 
 button {
-  background-color: red !important;
+  background-color: transparent;
 }
 html,
 body {
@@ -145,9 +145,9 @@ $border: 1px;
     font-weight:lighter;
     color:#808080;
     a {
-      border-bottom: none;;
+      border-bottom:none;
     }
-    &:hover:not(.on) {
+    &:hover {
       color:var(--white);
     }
     &.on {

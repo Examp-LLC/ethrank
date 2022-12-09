@@ -73,20 +73,21 @@
   max-width:var(--max-width);
   margin: 0 auto 20px;
   a.btn {
-    font-size:24px;
-    padding:20px 30px;
-    border-bottom:none !important;
-  }
-  ::slotted(button) {
-    background-color: red !important;
-  }
-  w3m-connect-button{
-    display: flex;
-    justify-content: left;
-    margin-top:30px;
-    ::slotted(button) {
-      background-color: red !important;
+    margin:20px 0;
+    strong {
+      font-size:24px;
+      padding:20px 30px;
+      border-bottom:none !important;
+      display:inline-block;
     }
+  } 
+  w3m-connect-button{
+    display: inline-block;
+    justify-content: left;
+    margin:20px 0;
+  }
+  .manualOption {
+    font-size:14px;
   }
 }
 

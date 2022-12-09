@@ -185,10 +185,10 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
       }),
       fill: true,
       backgroundColor: SEASON_COLOR,
-      borderColor: '#ffffff',
+      borderColor: '#FFD701',
       pointBackgroundColor: SEASON_COLOR,
       pointBorderColor: SEASON_COLOR,
-      pointHoverBackgroundColor: '#ffffff',
+      pointHoverBackgroundColor: '#FFD701',
       pointHoverBorderColor: SEASON_COLOR
     }]
   };

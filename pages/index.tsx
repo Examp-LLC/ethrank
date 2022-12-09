@@ -92,7 +92,6 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
   const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
   const [manualAddressInput, setManualAddressInput] = useState('')
-  const [isFlyoutMenuActive, setIsFlyoutMenuActive] = useState(false)
 
   return (
     <Page title="ETHRank - The Ethereum Leaderboard">
@@ -116,45 +115,50 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
           </h1>
 
           <div className={`${btnStyles.connect} connect`}>
-          {isConnected ? 
-          (
-            <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}>Check score now</a>
-          ) :
-            <div className={btnStyles.btnWrapper}>
-              <ConnectButton  />
-            </div>
-          }
-          <span>or <a href="#nogo" onClick={() => {
-              setHasWalletPluginInstalled(false);
-            }}>input address manually</a></span>
+            {hasWalletPluginInstalled && <>
+              {isConnected ?
+                (
+                  <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
+                ) :
+                <div className={btnStyles.btnWrapper}>
+                  <ConnectButton />
+                </div>
+              }
+            </>}
 
-          {<form onSubmit={async (e) => {
-            e.preventDefault();
-            if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
-              Router.push(`/ensName/${manualAddressInput}`)
-            } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
-              Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
-            } else {
-              Router.push(`/address/${manualAddressInput}`)
-            }
-          }} className={btnStyles.manualAddressInput}>
-      
-            <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
-              setManualAddressInput(e.target.value);
-            }} /> <button className={btnStyles.btn}>Go</button>
-      
-            <div className={btnStyles.tooltip}>
-              <strong>examples</strong>
-              <div className={btnStyles.supported}>
-                <ol>
-                  <li>Public address: <span>0xd3be5d3fe342e...</span></li>
-                  <li>Unstoppable Domains: <span>yourname.crypto</span></li>
-                  <li>ENS: <span>yourname.eth</span></li>
-                </ol>
+            {hasWalletPluginInstalled && <div className={styles.manualOption}>
+              or <a href="#nogo" onClick={() => {
+                setHasWalletPluginInstalled(false);
+              }}>input address manually</a>
+            </div>}
+
+            {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
+              e.preventDefault();
+              if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
+                Router.push(`/ensName/${manualAddressInput}`)
+              } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
+                Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
+              } else {
+                Router.push(`/address/${manualAddressInput}`)
+              }
+            }} className={btnStyles.manualAddressInput}>
+
+              <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
+                setManualAddressInput(e.target.value);
+              }} /> <button className={btnStyles.btn}><strong>Go</strong></button>
+
+              <div className={btnStyles.tooltip}>
+                <strong>examples</strong>
+                <div className={btnStyles.supported}>
+                  <ol>
+                    <li>Public address: <span>0xd3be5d3fe342e...</span></li>
+                    <li>Unstoppable Domains: <span>yourname.crypto</span></li>
+                    <li>ENS: <span>yourname.eth</span></li>
+                  </ol>
+                </div>
               </div>
-            </div>
-          </form>}
-        </div>
+            </form>}
+          </div>
         </div>
 
         <div className={styles.homeRow}>
