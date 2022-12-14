@@ -49,7 +49,7 @@ const Header = () => {
 
   return (
     <div className={`${styles.header} header`}>
-      <h1><img src="/favicon_season3.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className={styles.pill}>Season {CURRENT_SEASON}</span></h1>
+      <h1><img src="/favicon_season3.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className={`${styles.pill} pill`}>Season {CURRENT_SEASON}</span></h1>
       <ul>
         <li>
           <Link href="/"><a>Home</a></Link>
@@ -61,7 +61,7 @@ const Header = () => {
       <div className={styles.btn}>
         {isConnected ?
           (<div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
-            <span className={styles.pill}>{truncateEthAddress(address)}</span>
+            <span className={`${styles.pill} pill`}>{truncateEthAddress(address)}</span>
             <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
               <ul>
                 <li><Link href={{

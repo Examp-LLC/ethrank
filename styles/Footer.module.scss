@@ -17,6 +17,10 @@
   grid-template-rows: auto;
 }
 
+.form input[type=submit] {
+  padding:11px;
+}
+
 .form input[type=email] {
   color: var(--white);
   padding:10px;

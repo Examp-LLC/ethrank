@@ -111,6 +111,19 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+.pill {
+  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+  font-size: 10px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 3px 10px;
+  position: relative;
+  top: -5px;
+  left: 20px;
+  font-weight: lighter;
+  color: rgb(255, 255, 255, .75);
+}
+
 $border: 1px;
 
 .gradient-box {

@@ -10,6 +10,9 @@
   background: var(--dark-grey);
   backdrop-filter: blur(7.5px);
   border-radius: 10px;
+  .pill {
+    top: -8px;
+  }
 }
 
 .header .logo {
@@ -74,19 +77,6 @@
     }
   }
 
-}
-
-.pill {
-  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
-  font-size: 10px;
-  text-transform: uppercase;
-  border-radius: 10px;
-  padding: 3px 10px;
-  position: relative;
-  top: -8px;
-  left: 20px;
-  font-weight: lighter;
-  color: rgb(255, 255, 255, .75);
 }
 
 .flyoutMenuWrapper {

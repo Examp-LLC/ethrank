@@ -75,8 +75,8 @@
   a.btn {
     margin:20px 0;
     strong {
-      font-size:24px;
-      padding:20px 30px;
+      font-size:22px;
+      padding:20px 40px;
       border-bottom:none !important;
       display:inline-block;
     }
@@ -115,7 +115,7 @@
   max-width:var(--max-width);
   background-size: 50%;
   .colOne {
-    margin:-3vh 0 -3vh 7vw;
+    margin:-3vh 0 -3vh 20%;
   }
   h3 {
     margin: 0 0 10px;
@@ -134,6 +134,12 @@
       color:var(--main-color1);
       font-weight:400;
     }
+  }
+  a strong {
+    font-size:18px;
+    padding:10px 40px;
+    border-bottom:none !important;
+    display:inline-block;
   }
 }
 

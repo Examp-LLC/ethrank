@@ -217,15 +217,6 @@
                 "points": 30,
                 "steps": [
                     {
-                        "name": "Interact with the Polygon (MATIC) Bridge contract",
-                        "points": 30,
-                        "type": "transaction_to_address_count",
-                        "params": {
-                            "count": 1,
-                            "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77"
-                        }
-                    },
-                    {
                         "name": "Interact with the Metamask Swap Router contract",
                         "points": 30,
                         "type": "transaction_to_address_count",
@@ -946,13 +937,62 @@
                 ]
             },
             {
-                "name": "Intro to Zero Knowledge Proofs",
-                "slug": "zk-intro",
+                "name": "A Bridge Less Traveled",
+                "slug": "a-bridge-less-traveled",
                 "category": "defi",
-                "points": 0,
+                "points": 100,
                 "steps": [
                     {
-                        "name": "Bridge to zkSync from mainnet",
+                        "name": "Interact with Arbitrum One Mainnet Bridge",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address":[
+                                "0x72Ce9c846789fdB6fC1f34aC4AD25Dd9ef7031ef",
+                                "0xa3A7B6F88361F48403514059F1F16C8E78d60EeC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Interact with Arbitrum Nova Mainnet Bridge",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": ["0xC840838Bc438d73C16c2f8b22D2Ce3669963cD48",
+                                "0xB2535b988dcE19f9D71dfB22dB6da744aCac21bf"]
+                        }
+                    },
+                    {
+                        "name": "Interact with Optimism Mainnet Bridge",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1"
+                        }
+                    },
+                    {
+                        "name": "Interact with MetaMask Mainnet Bridge",
+                        "points": 50,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0x82e0b8cdd80af5930c4452c684e71c861148ec8a"
+                        }
+                    },
+                    {
+                        "name": "Interact with Polygon (MATIC) Bridge",
+                        "points": 30,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77"
+                        }
+                    },
+                    {
+                        "name": "Interact with zkSync Mainnet Bridge",
                         "points": 50,
                         "type": "transaction_to_address_count",
                         "params": {
@@ -1105,11 +1145,11 @@
                         }
                     },
                     {
-                        "name": "Own 50 NOOX badges",
+                        "name": "Own 20 NOOX badges",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": 50,
+                            "count": 20,
                             "address": "0xF1c121A563A84D62a5F11152d064Dd0D554024F9"
                         }
                     }
@@ -1149,11 +1189,11 @@
                         }
                     },
                     {
-                        "name": "Own 50 DappBack Badges",
+                        "name": "Own 20 DappBack Badges",
                         "points": 10,
                         "type": "transaction_from_address_count",
                         "params": {
-                            "count": 50,
+                            "count": 20,
                             "address": "0x359F508f40bd2f2ed2C17814b28c915a65B4F74f"
                         }
                     }
@@ -1195,6 +1235,23 @@
                         "type": "own_poap_count",
                         "params": {
                             "count": 100
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Certified Degen",
+                "slug": "certified-degen",
+                "category": "reputation",
+                "points": 0,
+                "steps": [
+                    {
+                        "name": "Own 1 DegenScore Beacon",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x0521fa0bf785ae9759c7cb3cbe7512ebf20fbdaa"
                         }
                     }
                 ]

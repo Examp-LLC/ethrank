@@ -86,6 +86,29 @@ interface HomeProps {
 
 const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
+  const getBannerText = () => {
+    const rand = Math.random();
+    const introText = [
+      'Ballin!',
+      'Designed by jvck.eth!',
+      'As seen on gitcoin',
+      `What's your ETHRank?`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3: it has begun!`,
+      `Now this is podracing!`,
+      `Positive vibrations to you in Season 3`,
+      `Legalize it!`,
+      `Promoting creative and ambitious web3 projects`,
+      `We support integrity, creativity, and transparency`,
+      `Over 80 projects featured in Season 3!`,
+    ]
+    return introText[Math.floor(Math.random() * introText.length)];
+  }
+
   const { isConnected, address } = useAccount()
   const leaders = JSON.parse(leaderboard)
   const latestUsers = JSON.parse(latestScores)
@@ -96,15 +119,16 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
   return (
     <Page title="ETHRank - The Ethereum Leaderboard">
 
-      <div className={styles.banner}>Season 3 has started!</div>
-      {/* <div className={`${styles.claimRow} ${styles.box}`}>
+      <div className={styles.banner}>{getBannerText()}</div>
+      <div className={`${styles.claimRow} ${styles.box}`}>
         <div className={styles.colOne}>
           <Image className={styles.badge} width={370} height={370} src="/s3_dynamic_badge.png" />
         </div>
         <div className={styles.colTwo}>
+          <h3>Coming Soon</h3>
           <h2>Claim your <strong>Season Three Dynamic Badge</strong></h2>
-          <a href="https://mint.ethrank.io" className={btnStyles.btn}><span>Claim</span></a>
-        </div></div> */}
+          <a href="https://mint.ethrank.io" className={btnStyles.btn}><strong>Claim</strong></a>
+        </div></div>
 
       <div className={`${styles.home} content`}>
 
