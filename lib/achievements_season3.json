@@ -645,8 +645,9 @@
                         }
                     },
                     {
-                        "name": "Own 1 Metagon by @ExampLLC",
+                        "name": "Own 1 Metagon",
                         "points": 20,
+                        "url": "https://metagon.dev/",
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,

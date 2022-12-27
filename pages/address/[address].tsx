@@ -82,15 +82,16 @@ export async function reverseENSLookup(address: string, web3: Web3) {
 }
 
 export interface AddressProps {
-  address: string,
-  score: number,
-  rank: number,
-  progress: Array<string>,
-  error: boolean | string,
-  name?: string,
-  totalTransactions: string,
-  spentOnGas: string,
-  activeSince?: number
+  address: string;
+  score: number;
+  rank: number;
+  progress: Array<string>;
+  error: boolean | string;
+  name?: string;
+  totalTransactions: string;
+  spentOnGas: string;
+  activeSince?: number;
+  season?: number;
 }
 
 const Address = ({ address, score, rank, progress, error, name, totalTransactions, spentOnGas, activeSince }: AddressProps) => {

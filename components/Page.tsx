@@ -11,7 +11,8 @@ import styles from '../styles/Home.module.scss'
 // add to this every new season
 export const SEASONS = [
   'achievements_season1',
-  'achievements_season2'
+  'achievements_season2',
+  'achievements_season3'
 ];
 
 /*
