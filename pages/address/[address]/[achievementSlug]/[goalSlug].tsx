@@ -24,6 +24,7 @@ import Score from '../../../../components/Score';
 import { NextPageContext } from 'next';
 import Page from '../../../../components/Page';
 import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../../lib/constants';
+import Link from 'next/link';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -76,7 +77,13 @@ const Goal = ({score, rank, progress, name}: AddressProps) => {
         <div className={goalStyles.list}>
           {goal && goal.steps.map((step, i) => {
             return <div className={`${styles.step} animate__animated`} key={i}>
-              <h4>{step.name}</h4>
+              <h4> {
+                step.url && (
+                  <a href={
+                    step.url
+                  }>{step.name}</a>
+                ) || step.name
+              }</h4>
               <ProgressBar percent={calculateProgress(i)/1} />
             </div>
           })}

@@ -816,7 +816,7 @@
                         }
                     },
                     {
-                        "name": "Own 1 Reddit Avatar (Drip Squad, Singularity, Meme Team, Aww Friends)",
+                        "name": "Own 1 Reddit Avatar (Drip Squad, Singularity, Meme Team, Aww Friends, WallStreetBets)",
                         "points": 50,
                         "type": "own_token_by_address",
                         "params": {
@@ -1054,7 +1054,7 @@
                         "params": {
                             "count": 1,
                             "address": "0x26AdbB495C1A66238e4155E407E0702FFeC03dF2"
-                        }
+                        }   
                     },
                     {
                         "name": "Own 1 ETHRank Season 2 Badge",
@@ -1162,17 +1162,17 @@
                 "points": 50,
                 "steps": [
                     {
-                        "name": "Own 1 DappBack Badge",
-                        "points": 10,
+                        "name": "Own 2 DappBack Badges",
+                        "points": 20,
                         "type": "transaction_from_address_count",
                         "params": {
-                            "count": 1,
+                            "count": 2,
                             "address": "0x359F508f40bd2f2ed2C17814b28c915a65B4F74f"
                         }
                     },
                     {
                         "name": "Own 5 DappBack Badges",
-                        "points": 10,
+                        "points": 20,
                         "type": "transaction_from_address_count",
                         "params": {
                             "count": 5,
@@ -1180,20 +1180,20 @@
                         }
                     },
                     {
-                        "name": "Own 10 DappBack Badges",
-                        "points": 10,
+                        "name": "Own 7 DappBack Badges",
+                        "points": 20,
                         "type": "transaction_from_address_count",
                         "params": {
-                            "count": 10,
+                            "count": 7,
                             "address": "0x359F508f40bd2f2ed2C17814b28c915a65B4F74f"
                         }
                     },
                     {
-                        "name": "Own 20 DappBack Badges",
-                        "points": 10,
+                        "name": "Own 10 DappBack Badges",
+                        "points": 20,
                         "type": "transaction_from_address_count",
                         "params": {
-                            "count": 20,
+                            "count": 10,
                             "address": "0x359F508f40bd2f2ed2C17814b28c915a65B4F74f"
                         }
                     }

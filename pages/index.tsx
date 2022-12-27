@@ -89,7 +89,6 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
   const getBannerText = () => {
     const rand = Math.random();
     const introText = [
-      'Ballin!',
       'Designed by jvck.eth!',
       'As seen on gitcoin',
       `What's your ETHRank?`,
@@ -105,6 +104,8 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
       `Promoting creative and ambitious web3 projects`,
       `We support integrity, creativity, and transparency`,
       `Over 80 projects featured in Season 3!`,
+      `607a1c81de18f59cc2771b36e6abe (2/3)`,
+      `There is no cow level`,
     ]
     return introText[Math.floor(Math.random() * introText.length)];
   }
@@ -126,8 +127,8 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
         </div>
         <div className={styles.colTwo}>
           <h3>Coming Soon</h3>
-          <h2>Claim your <strong>Season Three Dynamic Badge</strong></h2>
-          <a href="https://mint.ethrank.io" className={btnStyles.btn}><strong>Claim</strong></a>
+          <h2>Season Three <strong>Dynamic Badges</strong></h2>
+          {/* <a href="https://mint.ethrank.io" className={btnStyles.btn}><strong>Claim</strong></a> */}
         </div></div>
 
       <div className={`${styles.home} content`}>
