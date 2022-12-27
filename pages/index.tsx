@@ -95,7 +95,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
           <Image width={246} height={246} src="/s2_dynamic_badge.png" />
         </div>
         <div className={styles.colTwo}>
-          <h3>Now minting until December 31</h3>
+          <h3>Now minting until Dec 31</h3>
           <h2>Claim your Season Two Dynamic Badge</h2>
           <a href="https://mint.ethrank.io" className={btnStyles.btn}><span>Claim</span></a>
         </div></div>
