@@ -50,7 +50,7 @@ const APIDocs = ({  }) => {
               0 - First Goal in the First Achievement <br />
               0 - First Step in the Second Goal of the First Achievement<br /><br />
 
-              Using the Season 2 JSON definitions as an example, this user has completed the "Own 1 Metagon" Step of the "ETHRank Supporter" Goal which is part of the "The Enthusiast" Achievement.
+              Using the Season 2 JSON definitions as an example, this user has completed the &quot;Own 1 Metagon&quot; Step of the &quot;ETHRank Supporter&quot; Goal which is part of the &quot;The Enthusiast&quot; Achievement.
             </td>
           </tr>
         </table>
@@ -60,12 +60,12 @@ const APIDocs = ({  }) => {
           Attempts to go beyond these limits are restricted.</p>
 
           <h4>Copyright Notice</h4>
-        <p>Use of this API must be accompanied by a link back to ETHRank.io, or the text "Powered by ETHRank" must be clearly visible on any websites, dapps, projects, businesses, reports, or any other work product that uses this API.</p>
+        <p>Use of this API must be accompanied by a link back to ETHRank.io, or the text &quot;Powered by ETHRank&quot; must be clearly visible on any websites, dapps, projects, businesses, reports, or any other work product that uses this API.</p>
 
 
         <h4>Disclaimer</h4>
         <p>This API is provided free of charge, and is subject to change and/or cancellation at any time. 
-          ETHRank API is GNU licnsed; it is distributed in the hope that it will 
+          ETHRank API is distributed in the hope that it will 
  be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.</p>
