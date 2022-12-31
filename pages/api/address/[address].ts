@@ -52,6 +52,7 @@ export default async function handler(
   if (!address || typeof address !== 'string') return;
   if (season && typeof season !== 'string') return;
   let calcScore = getCalcMethod(season);
+  // @ts-ignore
   const { props } = await calcScore(address, prisma);
   const { score, rank, progress, activeSince, spentOnGas, totalTransactions } = props;
   if (extended) {
