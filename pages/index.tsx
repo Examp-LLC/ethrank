@@ -1,14 +1,14 @@
 /*
  * All content copyright 2022 Examp, LLC
  *
- * This file is part of some open source application.
+ * This file is part of ETHRank.
  * 
- * Some open source application is free software: you can redistribute 
+ * ETHRank is free software: you can redistribute 
  * it and/or modify it under the terms of the GNU General Public 
  * License as published by the Free Software Foundation, either 
  * version 3 of the License, or (at your option) any later version.
  * 
- * Some open source application is distributed in the hope that it will 
+ * ETHRank is distributed in the hope that it will 
  * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -24,6 +24,8 @@ import btnStyles from '../styles/ConnectButton.module.scss'
 import { CURRENT_SEASON } from '../lib/constants'
 import Image from 'next/image'
 import { ConnectButton, useAccount } from '@web3modal/react'
+import { useState } from 'react'
+import Router from 'next/router'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -84,39 +86,108 @@ interface HomeProps {
 
 const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
+  const getBannerText = () => {
+    const rand = Math.random();
+    const introText = [
+      'Designed by jvck.eth!',
+      'As seen on gitcoin',
+      `What's your ETHRank?`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3 has started!`,
+      `Season 3: it has begun!`,
+      `Now this is podracing!`,
+      `Positive vibrations to you in Season 3`,
+      `Legalize it!`,
+      `Promoting creative and ambitious web3 projects`,
+      `We support integrity, creativity, and transparency`,
+      `Over 80 projects featured in Season 3!`,
+      `607a1c81de18f59cc2771b36e6abe (2/3)`,
+      `There is no cow level`,
+    ]
+    return introText[Math.floor(Math.random() * introText.length)];
+  }
+
   const { isConnected, address } = useAccount()
   const leaders = JSON.parse(leaderboard)
   const latestUsers = JSON.parse(latestScores)
 
+  const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
+  const [manualAddressInput, setManualAddressInput] = useState('')
+
   return (
     <Page title="ETHRank - The Ethereum Leaderboard">
-      <div className={styles.claimRow}>
+
+      <div className={styles.banner}>{getBannerText()}</div>
+      <div className={`${styles.claimRow} ${styles.box}`}>
         <div className={styles.colOne}>
-          <Image width={246} height={246} src="/s2_dynamic_badge.png" />
+          <Image className={styles.badge} width={370} height={370} src="/s3_dynamic_badge.png" />
         </div>
         <div className={styles.colTwo}>
-          <h3>Now minting until Dec 31</h3>
-          <h2>Claim your Season Two Dynamic Badge</h2>
-          <a href="https://mint.ethrank.io" className={btnStyles.btn}><span>Claim</span></a>
+          <h3>Coming Soon</h3>
+          <h2>Season Three <strong>Dynamic Badges</strong></h2>
+          {/* <a href="https://mint.ethrank.io" className={btnStyles.btn}><strong>Claim</strong></a> */}
         </div></div>
-
-      <h1 className={styles.title}>
-        Check your Ethereum blockchain score instantly
-      </h1>
 
       <div className={`${styles.home} content`}>
 
-        <div className={styles.mainRow}>
-          {isConnected ? 
-          (
-            <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}>Check score now</a>
-          ) :
-          <ConnectButton />
-          }
+        <div className={`${styles.mainRow} ${styles.box}`}>
+
+          <h1 className={styles.title}>
+            Check your <strong>Ethereum blockchain score</strong> <em>instantly</em>
+          </h1>
+
+          <div className={`${btnStyles.connect} connect`}>
+            {hasWalletPluginInstalled && <>
+              {isConnected ?
+                (
+                  <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
+                ) :
+                <div className={btnStyles.btnWrapper}>
+                  <ConnectButton />
+                </div>
+              }
+            </>}
+
+            {hasWalletPluginInstalled && <div className={styles.manualOption}>
+              or <a href="#nogo" onClick={() => {
+                setHasWalletPluginInstalled(false);
+              }}>input address manually</a>
+            </div>}
+
+            {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
+              e.preventDefault();
+              if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
+                Router.push(`/ensName/${manualAddressInput}`)
+              } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
+                Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
+              } else {
+                Router.push(`/address/${manualAddressInput}`)
+              }
+            }} className={btnStyles.manualAddressInput}>
+
+              <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
+                setManualAddressInput(e.target.value);
+              }} /> <button className={btnStyles.btn}><strong>Go</strong></button>
+
+              <div className={btnStyles.tooltip}>
+                <strong>examples</strong>
+                <div className={btnStyles.supported}>
+                  <ol>
+                    <li>Public address: <span>0xd3be5d3fe342e...</span></li>
+                    <li>Unstoppable Domains: <span>yourname.crypto</span></li>
+                    <li>ENS: <span>yourname.eth</span></li>
+                  </ol>
+                </div>
+              </div>
+            </form>}
+          </div>
         </div>
 
         <div className={styles.homeRow}>
-          <div className={styles.leaderboard}>
+          <div className={`${styles.leaderboard} ${styles.box}`}>
             <h2>Leaderboard</h2>
             <ol>
               {leaders.map((user: User, i: number) => {
@@ -128,7 +199,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               })}
             </ol>
           </div>
-          <div className={styles.leaderboard}>
+          <div className={`${styles.latestScores} ${styles.box}`}>
             <h2>Latest Scores</h2>
             <ol>
               {latestUsers.map((user: User, i: number) => {

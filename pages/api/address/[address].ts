@@ -1,14 +1,14 @@
 /*
  * All content copyright 2022 Examp, LLC
  *
- * This file is part of some open source application.
+ * This file is part of ETHRank.
  * 
- * Some open source application is free software: you can redistribute 
+ * ETHRank is free software: you can redistribute 
  * it and/or modify it under the terms of the GNU General Public 
  * License as published by the Free Software Foundation, either 
  * version 3 of the License, or (at your option) any later version.
  * 
- * Some open source application is distributed in the hope that it will 
+ * ETHRank is distributed in the hope that it will 
  * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -18,6 +18,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/prisma';
 import { calculateScore as calculateScoreSeasonOne } from "../../../lib/calculateScore_season1";
 import { calculateScore as calculateScoreSeasonTwo } from "../../../lib/calculateScore_season2";
+import { calculateScore as calculateScoreSeasonThree } from "../../../lib/calculateScore_season3";
 import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import { CURRENT_SEASON } from '../../../lib/constants';
@@ -68,6 +69,9 @@ export function getCalcMethod (season: string|number = CURRENT_SEASON) {
       break;
     case 2:
       seasonScoringMethod = calculateScoreSeasonTwo
+      break;
+    case 3:
+      seasonScoringMethod = calculateScoreSeasonThree
       break;
     default:
       seasonScoringMethod = calculateScoreSeasonOne

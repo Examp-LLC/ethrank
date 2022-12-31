@@ -1,14 +1,14 @@
 /*
  * All content copyright 2022 Examp, LLC
  *
- * This file is part of some open source application.
+ * This file is part of ETHRank.
  * 
- * Some open source application is free software: you can redistribute 
+ * ETHRank is free software: you can redistribute 
  * it and/or modify it under the terms of the GNU General Public 
  * License as published by the Free Software Foundation, either 
  * version 3 of the License, or (at your option) any later version.
  * 
- * Some open source application is distributed in the hope that it will 
+ * ETHRank is distributed in the hope that it will 
  * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -16,6 +16,7 @@
 import Link from 'next/link';
 import React, { useState }  from 'react';
 import styles from '../styles/Footer.module.scss';
+import btnStyles from '../styles/ConnectButton.module.scss';
 
 function Footer() {
 
@@ -36,7 +37,7 @@ function Footer() {
 	<input type="email" onChange={(e) => {
     setEmailAddr(e.target.value);   
   }} value={emailAddr} name="EMAIL" className="required email" id="mce-EMAIL" />
-  <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className={styles.btn} />
+  <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className={btnStyles.btn} />
 </div>
 	<div id="mce-responses" className="clear foot">
 		<div className="response" id="mce-error-response" style={{display:"none"}}></div>

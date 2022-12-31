@@ -1,124 +1,115 @@
-.btn { 
-    background:linear-gradient(to right, var(--main-color2),  var(--main-color3), var(--main-color4));
-    color:var(--white);
-    padding:10px 20px;
+@import 'breakpoints.scss';
+.btn {
+  padding:3px;
+  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to bottom right');
+  display:inline-block;
+  border-radius: 8px;
+  border-bottom:none !important;
+  strong {
+    background: black;
+    color: var(--white);
+    padding: 10px 20px;
     text-transform: uppercase;
-    font-size:14px;
-    border-bottom:none;
-    &:hover {
-        border-bottom-color:transparent !important;
+    font-size: 14px;
+    // @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+    border-bottom: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight:bold;
+  }
+  &:hover {
+    strong {
+      background:var(--white);
+      color:var(--dark-grey);
     }
+  }
 }
 
-.btnWrapper span {
-    display:block;
-    margin-top:20px;
-    opacity:.5;
-    font-weight:lighter;
-    font-size:14px;
+.btnWrapper {
+  span {
+    display: block;
+    margin-top: 10px;
+    opacity: .5;
+    font-weight: lighter;
+    font-size: 14px;
+  }
 }
 
 .connect .manualAddressInput {
-    input, button {
-        color: var(--white);
-        padding:10px;
-        border:1px solid rgba(255, 255, 255, .5);
-        border-radius:4px;
-        background:var(--black);
-        &::placeholder {
-          color:var(--white);
-        }
+  margin-top: 30px;
+  max-width: 400px;
+
+  input {
+    color: var(--white);
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, .5);
+    border-radius: 4px;
+    background: var(--black);
+  }
+
+  input {
+    width: 70%;
+
+    &:focus {
+      // background: var(--main-color2);
+      color: var(--main-color2);
     }
-    input {
-      width:70%;
-      &:focus {
-        background:var(--main-color5);
-        color:var(--white);
-      }
+  }
+
+  button {
+    padding:10px 5px;
+    width: auto;
+    margin-left: 5px;
+    strong {
+      padding: 5px 20px;
     }
-    
-    button {
-      background:var(--main-color3);
-      width:auto;
-      margin-left:5px;
-      cursor: pointer;
-      &:hover {
-        background:var(--main-color2)
-      }
-    }
+  }
 }
 
 .tooltip {
-  margin:10px auto;
-  text-align:center;
+  margin: 10px auto;
+  text-align: center;
   position:relative;
   font-size: 10px;
+
   strong {
-    opacity:.5;
-    cursor:help;
-    font-weight:normal;
-    border-bottom:1px dashed var(--main-color3);
+    opacity: .5;
+    cursor: help;
+    font-weight: normal;
+    border-bottom: 1px dashed var(--main-color3);
+
     &:hover {
-      opacity:1;
+      opacity: 1;
     }
   }
+
   div {
-    display:none;
+    display: none;
   }
+
   &:hover div {
-    display:block;
-    opacity:1;
+    display: block;
+    opacity: 1;
   }
 }
 
 .supported {
   background-color: var(--black);
-  margin:10px auto;
-  max-width:220px;
-  text-align:left;
-  color:var(--main-color3);
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 220px;
+  text-align: left;
+  color: var(--main-color3);
+  position:absolute;
+  left:calc(50% - 110px);
   ol {
-    list-style:none;
-    margin:0;
-    padding:0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
+
   li span {
     color: #ccc
   }
-}
-
-.flyoutMenuWrapper {
-    // display:none; // VAULT - hide for now
-    display: inline-block;
-    cursor: pointer;
-    position: relative;
-}
-
-.flyoutMenu {
-    position:absolute;
-    top:20px;
-    right:0px;
-    width:120px;
-    color:var(--white);
-    padding:10px;
-    text-indent:0;
-    text-transform: uppercase;
-    background:var(--black);
-    z-index: 1;
-    ul {
-        display:block;
-        list-style: none;
-        margin:0;
-        padding: 0;
-        li {
-          display:block;
-          text-align: left;
-          font-size: 14px;
-          padding:7px 0;
-        }
-    }
-}
-
-.hidden {
-    display:none;
 }

@@ -1,14 +1,14 @@
 /*
  * All content copyright 2022 Examp, LLC
  *
- * This file is part of some open source application.
+ * This file is part of ETHRank.
  * 
- * Some open source application is free software: you can redistribute 
+ * ETHRank is free software: you can redistribute 
  * it and/or modify it under the terms of the GNU General Public 
  * License as published by the Free Software Foundation, either 
  * version 3 of the License, or (at your option) any later version.
  * 
- * Some open source application is distributed in the hope that it will 
+ * ETHRank is distributed in the hope that it will 
  * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -19,6 +19,7 @@ import Router, { useRouter } from 'next/router'
 import styles from '../../styles/Address.module.scss'
 import season1Achievements from '../../lib/achievements_season1.json';
 import season2Achievements from '../../lib/achievements_season2.json';
+import season3Achievements from '../../lib/achievements_season3.json';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
@@ -30,7 +31,8 @@ import { Address } from '@prisma/client';
 
 const achievements = [
   season1Achievements,
-  season2Achievements
+  season2Achievements,
+  season3Achievements
 ];
 
 export const convertToLowerCase = (input: string | Array<string> | undefined) => {
@@ -64,15 +66,8 @@ export async function getServerSideProps(context: NextPageContext) {
   let scores = [];
 
   if (allSeasonScores) {
-    // filter out multiple records for the same season (can happen, its a bug, thx planetscale)
-    const seasons: boolean[] = [];
-    const scoresForEachSeason = allSeasonScores.filter(({ season }: Address) => {
-      const isDupe = seasons[season];
-      seasons[season] = true;
-      return !isDupe;
-    });
     scores = await Promise.all(
-      scoresForEachSeason.map(async ({ progress, score, name, season }: Address) => { 
+      allSeasonScores.map(async ({ progress, score, name, season }: Address) => { 
         const rank = await prisma.address.count({
           where: {
             AND: {
@@ -87,7 +82,8 @@ export async function getServerSideProps(context: NextPageContext) {
           progress: JSON.parse(progress), 
           score, 
           rank, 
-          name 
+          name,
+          season
         }
      })
     )
@@ -112,8 +108,7 @@ const Vault = ({ address, scores, error }: VaultProps) => {
     }
   });
 
-  const calculateProgress = function (seasonIndex: number, achievementIndex: number, i: number) {
-    const progress = scores[seasonIndex].progress;
+  const calculateProgress = function (progress: string[], achievementIndex: number, i: number) {
     const results = progress.filter((item: string) => {
       return item[0] === achievementIndex.toString() && item[1] === i.toString() && item.length === 3
     });
@@ -123,11 +118,11 @@ const Vault = ({ address, scores, error }: VaultProps) => {
     } else return 0;
   };
 
-  const getAchievementsForSeason = (seasonIndex: number) => {
+  const getAchievementsForSeason = (seasonIndex: number, progress: string[]) => {
     return achievements[seasonIndex].map((achievement, i) => {
       const goals = achievement.goals;
       const percentages = goals.map((goal, j) => {
-        return calculateProgress(seasonIndex, i, j) / goal.steps.length
+        return calculateProgress(progress, i, j) / goal.steps.length
       }).reduce((partial_sum, a) => partial_sum + a, 0)
       return <div key={i} className={`${styles.achievement} achievement animate__animated`}>
           <h4>{achievement.name}</h4>
@@ -144,8 +139,8 @@ const Vault = ({ address, scores, error }: VaultProps) => {
     return scores[seasonIndex].rank;
   }
 
-  const seasonExists = (seasonIndex: number) => {
-    return !!scores[seasonIndex];
+  const getSeasonByNumber = (humanReadableSeasonNumber: number) => {
+    return scores.find(({season}) => season === humanReadableSeasonNumber);
   }
 
   const name = scores[scores.length-1]?.name;
@@ -160,16 +155,17 @@ const Vault = ({ address, scores, error }: VaultProps) => {
         <h1>Vault</h1>
         {SEASONS.map((season, i) => {
           const humanReadableSeasonNumber = i+1;
-          if (seasonExists(i)) {
+          const scoreForSeason = getSeasonByNumber(humanReadableSeasonNumber);
+          if (scoreForSeason) {
             return (
               <div className={styles.season} key={i}>
                 <div className={styles.seasonHeader}>
-                  <h3>Season {humanReadableSeasonNumber}</h3>
-                  <h4>Score <label>{getScoreForSeason(i)}</label></h4>
-                  <h4>Rank <label>{getRankForSeason(i)}</label></h4>
+                  <h3>Season {scoreForSeason.season}</h3>
+                  <h4>Score <label>{scoreForSeason.score}</label></h4>
+                  <h4>Rank <label>{scoreForSeason.rank}</label></h4>
                 </div>
                 <div className={`${styles.cellParent} ${styles.achievements}`}>
-                  {getAchievementsForSeason(i)}
+                  {getAchievementsForSeason(i, scoreForSeason.progress)}
                 </div>
               </div>
             );

@@ -1,14 +1,14 @@
 /*
  * All content copyright 2022 Examp, LLC
  *
- * This file is part of some open source application.
+ * This file is part of ETHRank.
  * 
- * Some open source application is free software: you can redistribute 
+ * ETHRank is free software: you can redistribute 
  * it and/or modify it under the terms of the GNU General Public 
  * License as published by the Free Software Foundation, either 
  * version 3 of the License, or (at your option) any later version.
  * 
- * Some open source application is distributed in the hope that it will 
+ * ETHRank is distributed in the hope that it will 
  * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -37,6 +37,8 @@ function getCurrentSeasonColor() {
       return '#D9048E';
     case 2:
       return '#05AFF2';
+    case 3:
+      return '#00EC26';
   }
 }
 
@@ -80,15 +82,16 @@ export async function reverseENSLookup(address: string, web3: Web3) {
 }
 
 export interface AddressProps {
-  address: string,
-  score: number,
-  rank: number,
-  progress: Array<string>,
-  error: boolean | string,
-  name?: string,
-  totalTransactions: string,
-  spentOnGas: string,
-  activeSince?: number
+  address: string;
+  score: number;
+  rank: number;
+  progress: Array<string>;
+  error: boolean | string;
+  name?: string;
+  totalTransactions: string;
+  spentOnGas: string;
+  activeSince?: number;
+  season?: number;
 }
 
 const Address = ({ address, score, rank, progress, error, name, totalTransactions, spentOnGas, activeSince }: AddressProps) => {
@@ -165,7 +168,7 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
     name = undefined
   }
 
-  const categories = ['social', 'finance', 'collecting', 'technology'];
+  const categories = ['reputation', 'nfts', 'defi', 'staking'];
 
   const categoryData = categories.map((category, i) => {
     const percentCompleted = getPercentCategoryCompleted(category);
@@ -183,10 +186,10 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
       }),
       fill: true,
       backgroundColor: SEASON_COLOR,
-      borderColor: '#ffffff',
+      borderColor: '#FFD701',
       pointBackgroundColor: SEASON_COLOR,
       pointBorderColor: SEASON_COLOR,
-      pointHoverBackgroundColor: '#ffffff',
+      pointHoverBackgroundColor: '#FFD701',
       pointHoverBorderColor: SEASON_COLOR
     }]
   };

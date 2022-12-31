@@ -1,5 +1,4 @@
 @import 'rubik.font.scss';
-@import 'animate.css';
 @import 'breakpoints.scss';
 
 :root {
@@ -11,20 +10,35 @@
   // --main-color5: #6503A6;
 
   // Season 2
-  --main-color1: #023373;
-  --main-color2: #0468BF;
-  --main-color3: #05AFF2;
-  --main-color4: #05C7F2;
-  --main-color5: #05DBF2;
+  // --main-color1: #023373;
+  // --main-color2: #0468BF;
+  // --main-color3: #05AFF2;
+  // --main-color4: #05C7F2;
+  // --main-color5: #05DBF2;
+
+  // Season 2
+  --main-color1: #00EC26;
+  --main-color2: #AADC01;
+  --main-color3: #FFD701;
+  --main-color4: #FF6D19;
+  --main-color5: #FF2B28;
 
   --white: #fff;
   --black: #000;
+  --dark-grey: rgba(35, 35, 35, .5);
+
+  --max-width: 1040px;
 }
 
+w3m-connect-button {
+  filter:saturate(1.45) hue-rotate(349deg) brightness(0.95)
+}
 
+button {
+  background-color: transparent;
+}
 html,
 body {
-  padding: 0;
   margin: 0;
   font-family: 'Rubik', sans-serif;
   background-color: black;
@@ -45,11 +59,7 @@ body {
 body {
   // Season 1
   // background:url('../public/bg.png') 50% 100% repeat-x;
-  // Season 2
-  background:url('../public/bg_s2.svg') 50% 100% repeat-x;
-  background-size:size;
   height:auto;
-  animation: slide 100s linear infinite;
 }
 
 a {
@@ -74,24 +84,27 @@ h1, h2, h3, h4, h5 {
 }
 
 .content {
-  max-width: 800px;
+  max-width: var(--max-width);
   min-height:200px;
   margin:0 auto;
   padding:50px 20px 0;
   text-align: left;
-  .connect {
-    height:100px;
-    .btn { 
-      background:linear-gradient(to right, var(--main-color2),  var(--main-color3), var(--main-color4));
-      color:white;
-      padding:15px 25px;
-      text-transform: uppercase;
-      font-size:18px;
-      margin:0 auto;
-      display:inline-block;
-      border-bottom:none;
+  .btn { 
+    color:white;
+    padding:15px 25px;
+    text-transform: uppercase;
+    font-size:18px;
+    margin:0 auto;
+    display:inline-block;
+    border-bottom:none;
+  }
+  td {
+    border:1px solid var(--main-color5);
+    &:first-child {
+      font-family:monospace;
     }
   }
+  
 }
 
 .header .connect span {
@@ -103,6 +116,19 @@ h1, h2, h3, h4, h5 {
       border-bottom-color:var(--white)
     }
   }
+}
+
+.pill {
+  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+  font-size: 10px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 3px 10px;
+  position: relative;
+  top: -5px;
+  left: 20px;
+  font-weight: lighter;
+  color: rgb(255, 255, 255, .75);
 }
 
 $border: 1px;
@@ -139,9 +165,9 @@ $border: 1px;
     font-weight:lighter;
     color:#808080;
     a {
-      border-bottom: none;;
+      border-bottom:none;
     }
-    &:hover:not(.on) {
+    &:hover {
       color:var(--white);
     }
     &.on {
@@ -162,31 +188,3 @@ pre {
 } 
 
 
-.pill {
-  background-color: var(--main-color3);
-  font-size:10px;
-  text-transform: uppercase;
-  border-radius: 10px;
-  padding:3px 10px;
-  position: relative;
-  top:-8px;
-  left:20px;
-  font-weight:lighter;
-  color: rgb(255, 255, 255, .75);
-}
-
-@include mobile {
-.header ul {
-    margin-top:50px;
-}
-
-.pill {
-    display:none;
-}
-}
-@include tablet {
-
-.pill {
-    display:none;
-}
-}

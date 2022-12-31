@@ -1,14 +1,14 @@
 /*
  * All content copyright 2022 Examp, LLC
  *
- * This file is part of some open source application.
+ * This file is part of ETHRank.
  * 
- * Some open source application is free software: you can redistribute 
+ * ETHRank is free software: you can redistribute 
  * it and/or modify it under the terms of the GNU General Public 
  * License as published by the Free Software Foundation, either 
  * version 3 of the License, or (at your option) any later version.
  * 
- * Some open source application is distributed in the hope that it will 
+ * ETHRank is distributed in the hope that it will 
  * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -24,6 +24,7 @@ import Score from '../../../../components/Score';
 import { NextPageContext } from 'next';
 import Page from '../../../../components/Page';
 import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../../lib/constants';
+import Link from 'next/link';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -76,7 +77,13 @@ const Goal = ({score, rank, progress, name}: AddressProps) => {
         <div className={goalStyles.list}>
           {goal && goal.steps.map((step, i) => {
             return <div className={`${styles.step} animate__animated`} key={i}>
-              <h4>{step.name}</h4>
+              <h4> {
+                step.url && (
+                  <a href={
+                    step.url
+                  }>{step.name}</a>
+                ) || step.name
+              }</h4>
               <ProgressBar percent={calculateProgress(i)/1} />
             </div>
           })}
