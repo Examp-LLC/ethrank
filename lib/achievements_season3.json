@@ -1164,7 +1164,7 @@
                 "steps": [
                     {
                         "name": "Own 2 DappBack Badges",
-                        "points": 20,
+                        "points": 10,
                         "type": "transaction_from_address_count",
                         "params": {
                             "count": 2,
@@ -1173,7 +1173,7 @@
                     },
                     {
                         "name": "Own 5 DappBack Badges",
-                        "points": 20,
+                        "points": 10,
                         "type": "transaction_from_address_count",
                         "params": {
                             "count": 5,
@@ -1182,7 +1182,7 @@
                     },
                     {
                         "name": "Own 7 DappBack Badges",
-                        "points": 20,
+                        "points": 10,
                         "type": "transaction_from_address_count",
                         "params": {
                             "count": 7,
@@ -1191,7 +1191,7 @@
                     },
                     {
                         "name": "Own 10 DappBack Badges",
-                        "points": 20,
+                        "points": 10,
                         "type": "transaction_from_address_count",
                         "params": {
                             "count": 10,

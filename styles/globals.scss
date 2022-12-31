@@ -98,6 +98,13 @@ h1, h2, h3, h4, h5 {
     display:inline-block;
     border-bottom:none;
   }
+  td {
+    border:1px solid var(--main-color5);
+    &:first-child {
+      font-family:monospace;
+    }
+  }
+  
 }
 
 .header .connect span {
