@@ -1072,7 +1072,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0xdeadbeef0000"
+                            "address": "0x55efC18B06D455bff9830969b0F9935052aD63C2"
                         }
                     }
                 ]
