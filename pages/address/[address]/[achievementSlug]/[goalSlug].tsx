@@ -23,8 +23,8 @@ import ProgressBar from '../../../../components/ProgressBar';
 import Score from '../../../../components/Score';
 import { NextPageContext } from 'next';
 import Page from '../../../../components/Page';
-import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../../lib/constants';
 import Link from 'next/link';
+import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../../lib/constants';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 

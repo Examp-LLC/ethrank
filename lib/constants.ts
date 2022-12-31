@@ -25,7 +25,34 @@ export const CURRENT_SEASON: number = 3;
 
 export const CURRENT_SEASON_ACHIEVEMENTS = getAchievements(CURRENT_SEASON);
 
-export function getAchievements(season:number = CURRENT_SEASON) {
+interface Achievement {
+  name: string;
+  points: number;
+  slug: string;
+  goals: Goal[];
+}
+
+interface Goal {
+  name: string;
+  category: string;
+  slug: string;
+  points: number;
+  steps: Step[];
+}
+
+interface Step {
+  name: string;
+  points: number;
+  type: string;
+  params: {
+    count?: string | number;
+    amount?: string | number;
+    address?: string | string[];
+  };
+  url?: string;
+}
+
+export function getAchievements(season: number = CURRENT_SEASON): Achievement[] {
   switch (season) {
     case 1:
       return seasonOneAchievements;
@@ -34,5 +61,5 @@ export function getAchievements(season:number = CURRENT_SEASON) {
     case 3:
       return seasonThreeAchievements;
   }
-  return seasonOneAchievements;
+  return seasonThreeAchievements;
 }
