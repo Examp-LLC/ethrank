@@ -1067,7 +1067,7 @@
                         }
                     },
                     {
-                        "name": "Own 1 ETHRank Season 3 Badge (coming soon)",
+                        "name": "Own 1 ETHRank Season 3 Badge",
                         "points": 50,
                         "type": "own_token_by_address",
                         "params": {
