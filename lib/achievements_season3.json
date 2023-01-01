@@ -1070,6 +1070,7 @@
                         "name": "Own 1 ETHRank Season 3 Badge",
                         "points": 50,
                         "type": "own_token_by_address",
+                        "url": "https://mint.ethrank.io/",
                         "params": {
                             "count": 1,
                             "address": "0x55efC18B06D455bff9830969b0F9935052aD63C2"
