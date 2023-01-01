@@ -46,7 +46,7 @@ const Header = () => {
       </ul>
       <div className={styles.btn}>
         {isConnected ?
-          (<div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
+          (<div><div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
             <span className={`${styles.pill} pill`}>{truncateEthAddress(address || '')}</span>
             <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
               <ul>
@@ -60,11 +60,12 @@ const Header = () => {
                 }}>Vault</Link></li>
                 <li><a href="#nogo" onClick={
                   () => disconnect()
-                  }>
+                }>
                   Disconnect
                 </a></li>
               </ul>
             </div>
+          </div>
           </div>
           )
           :
