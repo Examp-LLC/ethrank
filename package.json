@@ -17,6 +17,7 @@
     "animate.css": "^4.1.1",
     "chart.js": "^3.8.0",
     "cors": "^2.8.5",
+    "ethers": "^5.7.2",
     "next": "^12.1.6",
     "react": "17.0.2",
     "react-chartjs-2": "^4.2.0",
@@ -24,6 +25,7 @@
     "react-query": "^3.39.1",
     "sass": "^1.52.3",
     "truncate-eth-address": "^1.0.2",
+    "wagmi": "^0.10.1",
     "web3": "^1.8.0"
   },
   "devDependencies": {

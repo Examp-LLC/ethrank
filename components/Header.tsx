@@ -18,30 +18,16 @@ import React, { useEffect, useState } from 'react';
 import { CURRENT_SEASON } from '../lib/constants';
 import styles from '../styles/Header.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
-import { ConnectButton, useAccount, useDisconnect } from '@web3modal/react'
+import { Web3Button } from '@web3modal/react'
 import truncateEthAddress from 'truncate-eth-address';
-// import ConnectButtonOuter from './ConnectButtonOuter';
-// import { useWeb3Modal } from './Web3ModalContext';
+import { useAccount, useDisconnect } from 'wagmi';
 
 const Header = () => {
 
   const { isConnected, address } = useAccount()
-  const disconnect = useDisconnect()
+  const { disconnect } = useDisconnect()
 
-  const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
-  const [manualAddressInput, setManualAddressInput] = useState('')
   const [isFlyoutMenuActive, setIsFlyoutMenuActive] = useState(false)
-
-  // let isFirstLoad = true;
-
-  // useEffect(() => {
-  //   console.log(address);
-  //   if (isConnected && address && isFirstLoad) {
-  //     // redirect to user address
-  //     Router.push(`/address/${address}`)
-  //     isFirstLoad = false;
-  //   }
-  // }, [address])
 
   const expandMenu = () => {
     setIsFlyoutMenuActive(!isFlyoutMenuActive);
@@ -61,7 +47,7 @@ const Header = () => {
       <div className={styles.btn}>
         {isConnected ?
           (<div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
-            <span className={`${styles.pill} pill`}>{truncateEthAddress(address)}</span>
+            <span className={`${styles.pill} pill`}>{truncateEthAddress(address || '')}</span>
             <div className={`${styles.flyoutMenu} ${isFlyoutMenuActive ? '' : styles.hidden}`}>
               <ul>
                 <li><Link href={{
@@ -72,7 +58,9 @@ const Header = () => {
                   pathname: '/vault/[address]/',
                   query: { address },
                 }}>Vault</Link></li>
-                <li><a href="#nogo" onClick={disconnect}>
+                <li><a href="#nogo" onClick={
+                  () => disconnect()
+                  }>
                   Disconnect
                 </a></li>
               </ul>
@@ -81,7 +69,7 @@ const Header = () => {
           )
           :
           <div className={`${btnStyles.connect} connect`}>
-            <ConnectButton />
+            <Web3Button />
           </div>
         }
       </div>

@@ -23,9 +23,10 @@ import styles from '../styles/Home.module.scss'
 import btnStyles from '../styles/ConnectButton.module.scss'
 import { CURRENT_SEASON } from '../lib/constants'
 import Image from 'next/image'
-import { ConnectButton, useAccount } from '@web3modal/react'
 import { useState } from 'react'
 import Router from 'next/router'
+import { useAccount } from 'wagmi';
+import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -112,6 +113,10 @@ const bannerText = getBannerText();
 
 const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
+
+  const { setTheme } = useWeb3ModalTheme()
+  setTheme({ themeColor: 'green' });
+
   const { isConnected, address } = useAccount()
   const leaders = JSON.parse(leaderboard)
   const latestUsers = JSON.parse(latestScores)
@@ -148,7 +153,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
                   <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
                 ) :
                 <div className={btnStyles.btnWrapper}>
-                  <ConnectButton />
+                  <Web3Button />
                 </div>
               }
             </>}
