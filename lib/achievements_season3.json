@@ -905,7 +905,7 @@
                         "type": "own_token_by_address",
                         "params": {
                             "count": ".01",
-                            "address": "0x48C3399719B582dD63eB5AADf12A40B4C3f52FA2"
+                            "address": "0xFe2e637202056d30016725477c5da089Ab0A043A"
                         }
                     },
                     {
