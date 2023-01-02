@@ -949,10 +949,7 @@
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
-                            "address":[
-                                "0x72Ce9c846789fdB6fC1f34aC4AD25Dd9ef7031ef",
-                                "0xa3A7B6F88361F48403514059F1F16C8E78d60EeC"
-                            ]
+                            "address": "0x4dbd4fc535ac27206064b68ffcf827b0a60bab3f"
                         }
                     },
                     {
@@ -961,8 +958,7 @@
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
-                            "address": ["0xC840838Bc438d73C16c2f8b22D2Ce3669963cD48",
-                                "0xB2535b988dcE19f9D71dfB22dB6da744aCac21bf"]
+                            "address": "0xc4448b71118c9071bcb9734a0eac55d18a153949"
                         }
                     },
                     {
