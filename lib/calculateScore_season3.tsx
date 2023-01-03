@@ -327,7 +327,6 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                             }
                             receivedTransactions[j][k][l]++;
 
-                            // @ts-ignore
                             if (receivedTransactions[j][k][l] === step.params.count) {
                               // console.log('step completed: transaction_from_address_count',  step.name, step.points,goal.name, achievement.name)
                               markStepCompleted(j, k, l);
@@ -413,7 +412,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                             if (tokens && tokens.length) {
                               for (let m = 0; m < tokens.length; m++) {
                                 const token = tokens[m];
-                                if (addresses.indexOf(token.tokenInfo.address) > -1 !== false) {
+                                if (addresses.indexOf(token.tokenInfo.address) > -1) {
                                   tokensFound++;
                                 }
                               }
@@ -423,7 +422,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
                           // if above method failed, try method #2 - etherscan
                           if (
-                            (allTransactions[i].contractAddress && addresses.indexOf(convertToLowerCase(allTransactions[i].contractAddress)) > -1 !== false) || 
+                            (allTransactions[i].contractAddress && addresses.indexOf(convertToLowerCase(allTransactions[i].contractAddress)) > -1) || 
                             (allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) ||
                             tokensFound) {
 
@@ -440,7 +439,10 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                             if (!tokensFound) {
                               ownedTokens[j][k][l]++;
                             }
-                            // @ts-ignore
+
+
+                            // Danger: `count` in this case is the number of transactions which contain those tokens,
+                            // *not* the number of tokens the user owns. Use with caution. 
                             if (ownedTokens[j][k][l] === step.params.count) {
                               // console.warn('step completed: own_token_by_address', step.name, step.points, goal.name, achievement.name)
                               markStepCompleted(j, k, l);

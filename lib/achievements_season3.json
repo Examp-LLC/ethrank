@@ -882,11 +882,11 @@
                 "points": 50,
                 "steps": [
                     {
-                        "name": "Own .01 rETH from RocketPool",
+                        "name": "Own some rETH from RocketPool",
                         "points": 20,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": ".01",
+                            "count": 1,
                             "address": "0xae78736Cd615f374D3085123A210448E74Fc6393"
                         }
                     },
@@ -900,29 +900,29 @@
                         }
                     },
                     {
-                        "name": "Own .01 sETH2 from Stakewise",
+                        "name": "Own some sETH2 from Stakewise",
                         "points": 20,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": ".01",
+                            "count": 1,
                             "address": "0xFe2e637202056d30016725477c5da089Ab0A043A"
                         }
                     },
                     {
-                        "name": "Own .01 cbETH from Coinbase",
+                        "name": "Own some cbETH from Coinbase",
                         "points": 20,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": ".01",
+                            "count": 1,
                             "address": "0xBe9895146f7AF43049ca1c1AE358B0541Ea49704"
                         }
                     },
                     {
-                        "name": "Own .01 stETH from Lido",
+                        "name": "Own some stETH from Lido",
                         "points": 20,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": ".01",
+                            "count": 1,
                             "address": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
                         }
                     },
