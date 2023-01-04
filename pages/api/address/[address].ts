@@ -22,6 +22,7 @@ import { calculateScore as calculateScoreSeasonThree } from "../../../lib/calcul
 import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import { CURRENT_SEASON } from '../../../lib/constants';
+import { getRateLimitMiddlewares } from '../../../lib/rateLimit';
 
 type Data = {
   score: number;
@@ -32,21 +33,26 @@ type Data = {
   totalTransactions?: number;
 }
 
-// Initialize the cors middleware
-const cors = initMiddleware(
+const middlewares = [
   Cors({
     // Only allow requests with GET, POST and OPTIONS
     methods: ['GET', 'OPTIONS'],
-  })
-)
+  }),
+  ...getRateLimitMiddlewares()
+].map(initMiddleware)
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data|String>
 ) {
 
-  // Run cors
-  await cors(req, res)
+  try {
+    await Promise.all(
+      middlewares.map(middleware => middleware(req, res))
+    )
+  } catch {
+    return res.status(429).send(`Too Many Requests`)
+  }
 
   const { address, season, extended } = req.query;
   if (!address || typeof address !== 'string') return;
