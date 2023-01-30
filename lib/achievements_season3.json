@@ -736,7 +736,7 @@
                         "points": 20,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": 10,
+                            "count": 1,
                             "address": [
                                 "0xb2fb14fcc984b4d0e68c13ecf821623356c10169"
                             ]
@@ -747,7 +747,7 @@
                         "points": 20,
                         "type": "own_token_by_address",
                         "params": {
-                            "count": 10,
+                            "count": 1,
                             "address": [
                                 "0xe74ab71711981a31d3c38edfe702989f30be29b6"
                             ]
@@ -888,15 +888,6 @@
                         "params": {
                             "count": 1,
                             "address": "0xae78736Cd615f374D3085123A210448E74Fc6393"
-                        }
-                    },
-                    {
-                        "name": "Own 1 swNFT from Swell",
-                        "points": 20,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0xe0C8df4270F4342132ec333F6048cb703E7A9c77"
                         }
                     },
                     {
