@@ -345,6 +345,10 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
           })}
         </ul>
       </div>
+
+      <div className={styles.adRow}>
+        <span id="ct_cr9Bln7RW8u"></span>
+      </div>
     </div>
   </Page>
 }

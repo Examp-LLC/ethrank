@@ -173,6 +173,14 @@
     }
 }
 
+.adRow {
+    display: grid;
+    justify-items: center;
+    margin:20px 0;
+    position: relative;
+    top: 50px;
+}
+  
 .season {
     border:1px solid var(--main-color3);
     padding:20px;

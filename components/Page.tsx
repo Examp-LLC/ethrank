@@ -44,6 +44,7 @@ const Page = (props: PageProps) => {
           <title>{props.title}</title>
           <meta name="description" content="ETHRank - The Ethereum Leaderboard." />
           <link rel="icon" href="/favicon_season3.png" />
+          <script async src="https://appsha-prm.ctengine.io/js/script.js?wkey=drFdwSimGW"></script>
         </Head>
 
         <Header />
