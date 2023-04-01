@@ -103,6 +103,62 @@
     position:relative;
 }
 
+.labels {
+    padding:0;
+    margin:0;
+    list-style:none;
+    display:block;
+    text-align: left;
+    li {
+        border:1px solid var(--dark-grey);
+        border-radius:15px;
+        padding: 10px 15px 10px 50px;
+        display:inline-block;
+        margin: 10px 20px 0 0;
+        font-size:12px;
+        text-transform: uppercase;
+        font-weight:normal;
+        opacity:.9;
+        color:var(--white);
+        img {
+            width:22px;
+            height:22px;
+            position:relative;
+            margin-left:-30px;
+            vertical-align: middle;
+            filter:invert(1);
+            margin-right:10px;
+        }
+        &:hover {
+            opacity:1;
+        }
+        &.reputation, &.social {
+            // color: var(--main-color3);
+            @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+            img {
+                filter: invert(66%) sepia(100%) saturate(417%) hue-rotate(3deg) brightness(105%) contrast(108%);
+            }
+        }
+        &.nfts, &.collecting {
+            // color: #ffd53f;
+            @include gradient-border(#ebdca5, #ffd53f, #F7FFC5, 1px, 'to right');
+            img {
+                filter: invert(82%) sepia(79%) saturate(490%) hue-rotate(330deg) brightness(96%) contrast(93%);
+            }
+        }
+        &.technology, &.staking {
+            @include gradient-border(#d6d6d6, #f4f4f4, #cacaca, 1px, 'to right');
+        }
+        &.defi, &.finance {
+            // color: var(--main-color1);
+            border-color:var(--main-color1);
+            img {
+                filter: invert(74%) sepia(42%) saturate(5030%) hue-rotate(82deg) brightness(98%) contrast(122%);
+            }
+        }
+    }
+}
+
 .statsLogo {
     position:absolute; 
     right:0;

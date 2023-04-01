@@ -26,7 +26,21 @@ const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
 const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
 const POAP_API_KEY = process.env.POAP_API_KEY;
 
-export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[], attempts = 0): Promise<void | {}> {
+interface ETHRankAddressResponse {
+  props: {
+      address: string;
+      score: number;
+      totalTransactions: number;
+      spentOnGas: string;
+      activeSince: string;
+      rank: number;
+      progress: string[];
+      error: boolean;
+      name: string;
+  }
+}
+
+export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[], attempts = 0): Promise<ETHRankAddressResponse> {
   let score = 0, rank = 0;
   let totalPointsPossible = 0;
   let completedAchievements = 0;

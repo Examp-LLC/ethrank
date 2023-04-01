@@ -32,8 +32,9 @@ export async function getServerSideProps(context: NextPageContext) {
     return getServerProps(context);
 }
 
-const Goal = ({score, rank, progress, name}: AddressProps) => {
+const Goal = ({ calcScoreResult, labels }: AddressProps) => {
 
+    const { score, rank, progress, name } = calcScoreResult;
     const router = useRouter()
     const { address, achievementSlug, goalSlug } = router.query;
 
@@ -56,15 +57,11 @@ const Goal = ({score, rank, progress, name}: AddressProps) => {
         return results.length;
       } else return 0;
     };
-    
-    if (!name?.length) {
-      name = undefined
-    }
 
     return <Page title={`${address} - ETHRank`}>
       <div className="content">
         <div className={styles.address}>
-          <h2 className="gradient-box gradient-bottom-only">{name || address}</h2>
+          <h2 className="gradient-box gradient-bottom-only">{name?.length && name || address}</h2>
         </div>
         <Score score={score} rank={rank} />
       <div>

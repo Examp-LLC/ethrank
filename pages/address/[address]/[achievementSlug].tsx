@@ -18,7 +18,7 @@
 import { useRouter } from 'next/router'
 import styles from '../../../styles/Address.module.scss'
 import Link from 'next/link';
-import { AddressProps, getServerSideProps as getServerProps } from "../[address]"
+import { AddressProps, CalcScoreProps, getServerSideProps as getServerProps } from "../[address]"
 import ProgressBar from '../../../components/ProgressBar';
 import Score from '../../../components/Score';
 import { NextPageContext } from 'next';
@@ -26,13 +26,15 @@ import Page from '../../../components/Page';
 import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../lib/constants';
 
 export async function getServerSideProps(context: NextPageContext) {
-  return getServerProps(context);
+  return await getServerProps(context);
 }
 
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
-const Achievement = ({ score, rank, progress, name }: AddressProps) => {
+const Achievement = ({ calcScoreResult, labels }: AddressProps) => {
+
+  const { score, rank, progress, name } = calcScoreResult;
 
   const router = useRouter()
   const { address, achievementSlug } = router.query;
@@ -52,14 +54,10 @@ const Achievement = ({ score, rank, progress, name }: AddressProps) => {
     } else return 0;
   };
 
-  if (!name?.length) {
-    name = undefined
-  }
-
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
       <div className={styles.address}>
-        <h2 className="gradient-box gradient-bottom-only">{name || address}</h2>
+        <h2 className="gradient-box gradient-bottom-only">{name?.length && name || address}</h2>
       </div>
       <Score score={score} rank={rank} />
       <div>

@@ -30,6 +30,8 @@ import { Chart, Radar } from 'react-chartjs-2';
 import { CURRENT_SEASON, CURRENT_SEASON_ACHIEVEMENTS } from '../../lib/constants';
 import Page from '../../components/Page';
 import { getCalcMethod } from '../api/address/[address]';
+import { getLabelsForAddress } from '../api/labels/[address]';
+import { Achievement, Goal } from '../../lib/Achievement.interface';
 
 function getCurrentSeasonColor() {
   switch (CURRENT_SEASON) {
@@ -63,7 +65,15 @@ export async function getServerSideProps(context: NextPageContext) {
     'public, s-maxage=43200, stale-while-revalidate=86400'
   )
   let calcScore = getCalcMethod(CURRENT_SEASON.toString());
-  return await calcScore(address, prisma, ud);
+  const score = await calcScore(address, prisma, ud);
+  let labels = await getLabelsForAddress(address);
+  return {
+    props: {
+      calcScoreResult: score.props,
+      error: score.props.error,
+      labels
+    }
+  }
 }
 
 export async function reverseENSLookup(address: string, web3: Web3) {
@@ -81,20 +91,27 @@ export async function reverseENSLookup(address: string, web3: Web3) {
   } catch (e) { }
 }
 
-export interface AddressProps {
+export interface CalcScoreProps {
   address: string;
   score: number;
   rank: number;
   progress: Array<string>;
-  error: boolean | string;
-  name?: string;
+  name: string;
   totalTransactions: string;
   spentOnGas: string;
   activeSince?: number;
   season?: number;
 }
 
-const Address = ({ address, score, rank, progress, error, name, totalTransactions, spentOnGas, activeSince }: AddressProps) => {
+export interface AddressProps {
+  calcScoreResult: CalcScoreProps;
+  labels: Goal[];
+  error: boolean | string;
+}
+
+const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
+
+  const { address, score, rank, progress, name, totalTransactions, spentOnGas, activeSince } = calcScoreResult;
 
   const router = useRouter()
 
@@ -164,8 +181,21 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
     return percentCompleted.percentCompleted / percentCompleted.numberOfGoalsInThisCategoryForThisAchievement
   }
 
-  if (!name?.length) {
-    name = undefined
+  const getLabelIcon = (category: string) => {
+    switch (category) {
+      case 'reputation':
+      case 'social':
+        return '/users-solid.svg'
+      case 'nfts':
+      case 'collecting':
+        return '/gem-solid.svg';
+      case 'technology':
+      case 'staking':
+        return '/microchip-solid.svg'
+      case 'defi':
+      case 'finance':
+        return '/coins-solid.svg'
+    }
   }
 
   const categories = ['reputation', 'nfts', 'defi', 'staking'];
@@ -232,7 +262,7 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
     <div className="content">
       <div className={styles.address}>
         <h2 className="gradient-box gradient-bottom-only">
-          {name || address}
+          {name?.length && name || address}
         </h2>
       </div>
       <Score score={score} rank={rank} />
@@ -298,6 +328,22 @@ const Address = ({ address, score, rank, progress, error, name, totalTransaction
               <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
           </div>
         </div>
+      </div>
+
+      <div className={styles.labelsWrapper}>
+        <h3>Labels <span className="pill lifetime">Lifetime</span></h3>
+        <ul className={`${styles.cellParent} ${styles.labels}`}>
+          {labels.filter(({name}, index) => {
+            return index === labels.findIndex((goal) => goal.name === name)
+          }).map((goal, i)  => { 
+            return (
+              <li className={`${styles.stat} ${styles[goal.category]} label`} key={i}>
+                    <img src={getLabelIcon(goal.category)} />
+                  <label>{goal.name}</label>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </div>
   </Page>
