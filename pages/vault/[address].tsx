@@ -26,7 +26,7 @@ import prisma from '../../lib/prisma';
 import { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Page, { SEASONS } from '../../components/Page';
-import { AddressProps } from '../address/[address]';
+import { CalcScoreProps } from '../address/[address]';
 import { Address } from '@prisma/client';
 
 const achievements = [
@@ -44,7 +44,7 @@ export const convertToLowerCase = (input: string | Array<string> | undefined) =>
 }
 
 export interface VaultProps {
-  scores: Array<AddressProps>;
+  scores: Array<CalcScoreProps>;
   address: string;
   error: boolean;
 }
