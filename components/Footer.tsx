@@ -17,6 +17,7 @@ import Link from 'next/link';
 import React, { useState }  from 'react';
 import styles from '../styles/Footer.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
+import Script from 'next/script';
 
 function Footer() {
 
@@ -65,6 +66,18 @@ function Footer() {
     <div className={styles.about}>
       <h1>ETHRank</h1>
       <p>The Ethereum Leaderboard.</p><br />
+      <Script id="badge-id" strategy="afterInteractive">
+        {`const BADGE_ID = 'zk3OTkzMTkwMjU5M';`}
+      </Script>
+      <Script src="https://static.alchemyapi.io/scripts/badge/alchemy-badge.js" />
+      <a href="#">
+        <img onClick={() => {
+          if (typeof window !== "undefined") {
+            // @ts-ignore
+            window.logBadgeClick();
+          }
+        }} id="badge-button" style={{width:240,height:53}} src="https://static.alchemyapi.io/images/marketing/badge.png" alt="Alchemy Supercharged" />
+      </a>
     </div>
     <div className={styles.links}>
       <ul>
