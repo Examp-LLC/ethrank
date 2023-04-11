@@ -221,6 +221,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
         </div>
         <div className={styles.adRow}>
           <span id="ct_cr9Bln7RW8u"></span>
+          <span id="ct_cGXDS2tunjH"></span>
         </div>
       </div>
     </Page>
