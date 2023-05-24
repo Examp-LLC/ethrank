@@ -1,4 +1,5 @@
 @import 'rubik.font.scss';
+@import 'bankgothic.font.scss';
 @import 'breakpoints.scss';
 
 :root {
@@ -16,22 +17,29 @@
   // --main-color4: #05C7F2;
   // --main-color5: #05DBF2;
 
-  // Season 2
-  --main-color1: #00EC26;
-  --main-color2: #AADC01;
-  --main-color3: #FFD701;
-  --main-color4: #FF6D19;
-  --main-color5: #FF2B28;
+  // // Season 3
+  // --main-color1: #00EC26;
+  // --main-color2: #AADC01;
+  // --main-color3: #FFD701;
+  // --main-color4: #FF6D19;
+  // --main-color5: #FF2B28;
+
+  // Season 4
+  --main-color1: #0B181D;
+  --main-color2: #1E9CC9;
+  --main-color3: #1DACD3;
+  --main-color4: #18CFE8;
+  --main-color5: #95CADC;
 
   --white: #fff;
   --black: #000;
-  --dark-grey: rgba(35, 35, 35, .5);
+  --dark-grey: rgba(48, 151, 186, .1);
 
   --max-width: 1040px;
 }
 
 w3m-core-button {
-  filter:saturate(1.45) hue-rotate(349deg) brightness(0.95)
+  filter:saturate(1.45) hue-rotate(87deg) brightness(0.95)
 }
 
 button {
@@ -40,10 +48,14 @@ button {
 html,
 body {
   margin: 0;
-  font-family: 'Rubik', sans-serif;
-  background-color: black;
-  color: var(--white);
+  font-family: 'BankGothic DB', sans-serif;
+  background-color: #101010;
+  color:var(--main-color5);
   height:100%;
+}
+
+body {
+  padding-top:20px;
 }
 
 @keyframes slide {
@@ -57,8 +69,7 @@ body {
 
 
 body {
-  // Season 1
-  // background:url('../public/bg.png') 50% 100% repeat-x;
+  background:url('../public/bg_page.png') 50% 0 repeat-x, url('../public/bg_footer.png') 50% 100% repeat-x;
   height:auto;
 }
 
@@ -69,6 +80,7 @@ a {
 
 h1 {
   margin:0;
+  color:var(--white);
 }
 
 h3 {

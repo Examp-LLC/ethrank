@@ -5,7 +5,7 @@
   position: relative;
   max-width: var(--max-width);
   height: 80px;
-  margin: 20px auto;
+  margin: 0 auto 20px;
 
   background: var(--dark-grey);
   backdrop-filter: blur(7.5px);
@@ -25,6 +25,8 @@
   font-size: 30px;
   top: 3px;
   position: relative;
+  font-family: Rubik;
+  font-weight: bold;
 
   a {
     position: relative;
@@ -47,6 +49,7 @@
   position: relative;
 
   li {
+    font-family: Rubik;
     display: inline;
     padding: 0 20px;
     text-transform: uppercase;

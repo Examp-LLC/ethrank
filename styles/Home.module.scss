@@ -8,9 +8,14 @@
 }
 
 .box {
-  background: var(--dark-grey);
-  padding: 20px 4vw;
-  border-radius:10px;
+
+  ol {
+    background: url('../public/bg_rectangle1.svg') no-repeat;
+    background-size:contain;
+    padding: 20px 4vw;
+    min-height:337px;
+  }
+
 }
 
 .main h1 {
@@ -18,7 +23,7 @@
   font-size:38px;
   text-transform: unset;
   font-weight:300;
-  max-width:500px;
+  max-width:650px;
   strong {
     color:var(--main-color3);
     font-weight:400;
@@ -40,6 +45,9 @@
 
   .box {
     width:100%;
+    &:last-child ol {
+      background-image:url('../public/bg_rectangle2.svg');
+    }
   }
 
   ol {
@@ -68,10 +76,11 @@
 .mainRow {
   padding:5vh 4vw;
   max-width:var(--max-width);
-  background: var(--dark-grey) url('../public/icon_checknow.svg') no-repeat 100% 50%;
-  background-size:40%;
+  background: url('../public/ethrank_logo.svg') no-repeat 100% 50%;
+  background-size:26%;
   max-width:var(--max-width);
-  margin: 0 auto 20px;
+  margin: 40px auto 0;
+  min-height: 373px;
   a.btn {
     margin:20px 0;
     strong {
@@ -103,35 +112,34 @@
 }
 
 .banner {
-  border-radius:10px;
-  padding:15px;
+  padding: 35px 30px;
   text-align:center;
   max-width:var(--max-width);
   margin:20px auto;
-  color:var(--black);
-  background:linear-gradient(120deg, var(--main-color1), var(--main-color3), var(--main-color5));
+  background:url('../public/bg_rectangle4.svg') no-repeat 50% 50%;
+  background-size:contain;
 }
 
 .claimRow {
   margin-top:20px;
   display: grid;
-  grid-template-columns: 38% 58%;
+  grid-template-columns: 50% 38%;
   text-align:left;
   row-gap: 2%;
   column-gap: 4vw;
   justify-items: center;
   align-items: center;
   margin:20px auto;
-  background: var(--dark-grey) url('../public/bg_mintnow.svg') no-repeat 0 50%;
+  // background: var(--dark-grey) url('../public/bg_mintnow.svg') no-repeat 0 50%;
   max-width:var(--max-width);
   background-size: 50%;
   .colOne {
-    margin:-3vh 0 -3vh 20%;
+    margin:0 0 -3vh 10%;
   }
   h3 {
     margin: 0 0 10px;
     font-weight:normal;
-    color:rgba(255,255,255, .5);
+    color:var(--main-color4);
     text-transform: none;
     font-size:18px;
   }
@@ -141,8 +149,9 @@
     font-size:38px;
     text-transform: none;
     max-width:400px;
+    color:var(--white);
     strong {
-      color:var(--main-color1);
+      color:var(--main-color5);
       font-weight:400;
     }
   }

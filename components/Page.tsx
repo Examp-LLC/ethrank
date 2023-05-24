@@ -12,11 +12,12 @@ import styles from '../styles/Home.module.scss'
 export const SEASONS = [
   'achievements_season1',
   'achievements_season2',
-  'achievements_season3'
+  'achievements_season3',
+  'achievements_season4'
 ];
 
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -42,9 +43,9 @@ const Page = (props: PageProps) => {
       <div className={styles.container}>
         <Head>
           <title>{props.title}</title>
-          <meta name="description" content="ETHRank - The Ethereum Leaderboard." />
-          <link rel="icon" href="/favicon_season3.png" />
-          <script async src="https://appsha-prm.ctengine.io/js/script.js?wkey=drFdwSimGW"></script>
+          <meta name="description" content="ETHRank - An open source achievement system and API for every Ethereum address" />
+          <link rel="icon" href="/favicon_season4.png" />
+          <link rel="preload" href="/fonts/BankGothic-Regular.woff2" as="font" type="font/woff2"></link>
         </Head>
 
         <Header />

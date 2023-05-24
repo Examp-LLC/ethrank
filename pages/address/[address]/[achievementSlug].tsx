@@ -1,5 +1,5 @@
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -81,12 +81,6 @@ const Achievement = ({ calcScoreResult, labels }: AddressProps) => {
               </div>
             </Link>
           })}
-          <div>
-          </div>
-        </div>
-
-        <div className={styles.adRow}>
-          <span id="ct_cr9Bln7RW8u"></span>
         </div>
       </div>
     </div>

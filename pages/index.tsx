@@ -1,5 +1,5 @@
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -88,23 +88,16 @@ interface HomeProps {
 const getBannerText = () => {
   const rand = Math.random();
   const introText = [
-    'Designed by jvck.eth!',
-    'As seen on gitcoin',
+    'Created by @blankey1337',
     `What's your ETHRank?`,
-    `Season 3 has started!`,
-    `Season 3 has started!`,
-    `Season 3 has started!`,
-    `Season 3 has started!`,
-    `Season 3 has started!`,
-    `Season 3: it has begun!`,
+    `Season 4 has started!`,
+    `Season 4: it has begun!`,
     `Now this is podracing!`,
-    `Positive vibrations to you in Season 3`,
-    `Legalize it!`,
+    `Your journey starts here`,
     `Promoting creative and ambitious web3 projects`,
     `We support integrity, creativity, and transparency`,
-    `Over 80 projects featured in Season 3!`,
-    `607a1c81de18f59cc2771b36e6abe (2/3)`,
-    `There is no cow level`,
+    `Over 80 projects featured in Season 4!`,
+    `Your destiny awaits`,
   ]
   return introText[Math.floor(Math.random() * introText.length)];
 }
@@ -125,16 +118,16 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
   const [manualAddressInput, setManualAddressInput] = useState('')
 
   return (
-    <Page title="ETHRank - The Ethereum Leaderboard">
+    <Page title="ETHRank - An open source achievement system and API for every Ethereum address">
 
       <div className={styles.banner}>{bannerText}</div>
       <div className={`${styles.claimRow} ${styles.box}`}>
         <div className={styles.colOne}>
-          <Image className={styles.badge} width={370} height={370} src="/s3_dynamic_badge.png" />
+          <Image className={styles.badge} width={508} height={508} src="/s4_dynamic_badge.png" />
         </div>
         <div className={styles.colTwo}>
           <h3>Now Minting</h3>
-          <h2>Season Three <strong>Dynamic Badges</strong></h2>
+          <h1 className={styles.title}>Season IV <strong>Dynamic Badges</strong></h1>
           <a href="https://mint.ethrank.io" className={btnStyles.btn}><strong>Claim</strong></a>
         </div></div>
 
@@ -218,10 +211,6 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               })}
             </ol>
           </div>
-        </div>
-        <div className={styles.adRow}>
-          <span id="ct_cr9Bln7RW8u"></span>
-          <span id="ct_cGXDS2tunjH"></span>
         </div>
       </div>
     </Page>

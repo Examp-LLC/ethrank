@@ -1,5 +1,5 @@
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -28,7 +28,7 @@ function Footer() {
     <div className={styles.topRow}>
     <div className={styles.form}>
 
-    <h3>Stay in the loop</h3>
+    <h2>Stay in the loop</h2>
 
 <div id="mc_embed_signup">
 <form action="https://examp.us18.list-manage.com/subscribe/post?u=4118b39975b9020761dfe59c4&amp;id=d2544fe972" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
@@ -59,25 +59,17 @@ function Footer() {
         <li className={styles.telegram}><a href="https://t.me/ExampLLC"target="_blank" rel="noreferrer"><span>Telegram</span></a></li>
       </ul>
     </div>
-
+    <div className={`${styles.dot} ${styles.topRight}`} />
+    <div className={`${styles.dot} ${styles.bottomLeft}`} />
+    <div className={`${styles.dot} ${styles.bottomRight}`} />
+    <div className={styles.dot} />
     </div>
 
     <div className={styles.secondRow}>
     <div className={styles.about}>
       <h1>ETHRank</h1>
-      <p>The Ethereum Leaderboard.</p><br />
-      <Script id="badge-id" strategy="afterInteractive">
-        {`const BADGE_ID = 'zk3OTkzMTkwMjU5M';`}
-      </Script>
-      <Script src="https://static.alchemyapi.io/scripts/badge/alchemy-badge.js" />
-      <a href="#">
-        <img onClick={() => {
-          if (typeof window !== "undefined") {
-            // @ts-ignore
-            window.logBadgeClick();
-          }
-        }} id="badge-button" style={{width:240,height:53}} src="https://static.alchemyapi.io/images/marketing/badge.png" alt="Alchemy Supercharged" />
-      </a>
+      <p>The Ethereum Leaderboard.</p>
+     <p className={styles.copyright}>Created by <a href="http://examp.com/" target="_blank" rel="noreferrer">Examp, LLC</a></p>
     </div>
     <div className={styles.links}>
       <ul>
@@ -95,7 +87,6 @@ function Footer() {
       </ul>
     </div>
     </div>
-    <p className={styles.copyright}>Created by <a href="http://examp.com/" target="_blank" rel="noreferrer">Examp, LLC</a></p>
   </div>
 )
   }

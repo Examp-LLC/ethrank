@@ -1,5 +1,5 @@
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -19,6 +19,7 @@ import prisma from '../../../lib/prisma';
 import { calculateScore as calculateScoreSeasonOne } from "../../../lib/calculateScore_season1";
 import { calculateScore as calculateScoreSeasonTwo } from "../../../lib/calculateScore_season2";
 import { calculateScore as calculateScoreSeasonThree } from "../../../lib/calculateScore_season3";
+import { calculateScore as calculateScoreSeasonFour } from "../../../lib/calculateScore_season4";
 import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import { CURRENT_SEASON } from '../../../lib/constants';
@@ -79,6 +80,9 @@ export function getCalcMethod (season: string|number = CURRENT_SEASON) {
       break;
     case 3:
       seasonScoringMethod = calculateScoreSeasonThree
+      break;
+    case 4:
+      seasonScoringMethod = calculateScoreSeasonFour
       break;
     default:
       seasonScoringMethod = calculateScoreSeasonOne

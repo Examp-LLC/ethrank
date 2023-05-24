@@ -4,17 +4,63 @@
   padding: 0 20px;
   min-height: 600px;
   max-width: var(--max-width);
-  background:url('../public/bg_mintnow.svg') 50% calc(100% + 720px) no-repeat;
   background-size:size;
   margin: 0 auto;
   padding-top: 100px;
   position: relative;
 }
 
+.topRow {
+  min-height:458px;
+  background:url('../public/bg_subscribe.svg') no-repeat 50% 0;
+  text-align: center;
+  h2 {
+    font-size:38px;
+  }
+  p {
+    font-size:12px;
+    color:var(--white);
+    font-family:Rubik, sans-serif;
+  }
+}
+
+.dot {
+  background:url('../public/dot.svg') no-repeat 0 0;
+  width:30px;
+  height:30px;
+  position:absolute;
+  top:-2px;
+  left:-15px;
+  &.topRight {
+    right:-15px;
+    left:auto;
+  }
+  &.bottomRight {
+    right:-15px;
+    left:auto;
+    top:auto;
+    bottom:-15px;
+  }
+  &.bottomLeft {
+    bottom:-15px;
+    top:auto;
+  }
+}
+
+
+
 .topRow, .secondRow {
-  display:grid;
-  grid-template-columns: 50% 50%;
+  display: grid;
   grid-template-rows: auto;
+  align-content: space-between;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  position:relative;
+}
+
+.form {
+  margin-top: 25%;
 }
 
 .form input[type=submit] {
@@ -43,45 +89,52 @@
   grid-template-columns: 33% 33% 33%;
   margin-top:100px;
   padding-top:60px;
+  justify-items: start;
 }
 
-.links, .social {
+.links {
   justify-self: end;
 }
 
-.social ul {
-  margin:0;
-  padding:0;
-  text-align:right;
-}
-
-.social li {
-  display:inline-block; 
-  margin:0 10px 0 0;
-  border-radius: 20px;
-  background-color: var(--white);
-  
-  // @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
-  &.twitter a {
-    background:url(../public/twitter.svg) no-repeat;
+.social {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+   h3 {
+    margin: 10px 0;
+    white-space: nowrap;
+    font-size:20px;
+    min-width:300px;
+   }
+   ul {
+    margin:0;
+    padding:0;
   }
-  &.telegram a {
-    background:url(../public/telegram.svg) no-repeat;
+  li {
+    display:inline-block; 
+    margin: 0 15px;
+    
+    // @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+    &.twitter a {
+      background:url(../public/twitter.svg) no-repeat;
+    }
+    &.telegram a {
+      background:url(../public/telegram.svg) no-repeat;
+    }
+    &.github a {
+      background:url(../public/github.svg) no-repeat;
+    }
+    span {
+      visibility: hidden;;
+    }
   }
-  &.github a {
-    background:url(../public/github.svg) no-repeat;
+  li a {
+    background:url(../public/discord.svg) no-repeat;
+    height:22px;
+    width:22px;
+    display: block;
+    padding:0;
   }
-  span {
-    visibility: hidden;;
-  }
-}
-
-.social li a {
-  background:url(../public/discord.svg) no-repeat;
-  height:62px;
-  width:62px;
-  display: block;
-  padding:0;
 }
 
 .links {
@@ -92,21 +145,20 @@
   }
 
 }
-
 .copyright {
   padding: 20px 0;
-  margin:0 auto;
-  text-align:center;
   opacity:.5;
-  filter:invert(1);
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing:1px;
+  font-family:Rubik, sans-serif;
+  line-height:20px;
   a {
-    margin:0 auto;
-    display:block;
+    position: relative;
+    display:inline-block;
     width:115px;
     height:20px;
+    left:10px;
     text-indent:-23000px;
     background:url(../public/logo_examp.png) no-repeat 50% 0;
   }
@@ -115,18 +167,33 @@
   }
 }
 
+@include tablet {
+  .dot {
+    top: calc(-13vw + 126px)
+  }
+  .dot.bottomRight, .dot.bottomLeft {
+    bottom: calc(-18vw + 163px)
+  }
+}
+
 
 @include mobile {
   .footer {
     padding:20px 0;
   }
-  .topRow {
+  .topRow, .social {
     grid-template-columns: 100%;
     padding:20px;
+  }
+  .social {
+    margin-top: 100px;
   }
   .secondRow {
     padding:20px;
     margin-top:50px;
     grid-template-columns: 100%;
+  }
+  .dot {
+    display:none;
   }
 }

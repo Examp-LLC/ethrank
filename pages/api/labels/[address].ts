@@ -25,12 +25,14 @@ import { Address } from '@prisma/client';
 import season1Achievements from '../../../lib/achievements_season1.json';
 import season2Achievements from '../../../lib/achievements_season2.json';
 import season3Achievements from '../../../lib/achievements_season3.json';
+import season4Achievements from '../../../lib/achievements_season4.json';
 import { getCalcMethod } from '../address/[address]';
 
 const achievements = [
   season1Achievements,
   season2Achievements,
-  season3Achievements
+  season3Achievements,
+  season4Achievements
 ];
 
 type Data = {

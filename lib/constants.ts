@@ -1,5 +1,5 @@
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -20,8 +20,10 @@ import seasonOneAchievements from './achievements_season1.json';
 import seasonTwoAchievements from './achievements_season2.json';
 // Season 3
 import seasonThreeAchievements from './achievements_season3.json';
+// Season 4
+import seasonFourAchievements from './achievements_season4.json';
 
-export const CURRENT_SEASON: number = 3;
+export const CURRENT_SEASON: number = 4;
 
 export const CURRENT_SEASON_ACHIEVEMENTS = getAchievements(CURRENT_SEASON);
 
@@ -60,6 +62,8 @@ export function getAchievements(season: number = CURRENT_SEASON): Achievement[] 
       return seasonTwoAchievements;
     case 3:
       return seasonThreeAchievements;
+    case 4:
+      return seasonFourAchievements;
   }
-  return seasonThreeAchievements;
+  return seasonFourAchievements;
 }

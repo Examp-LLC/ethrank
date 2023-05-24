@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 /*
- * All content copyright 2022 Examp, LLC
+ * All content copyright 2023 Examp, LLC
  *
  * This file is part of ETHRank.
  * 
@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <div className={`${styles.header} header`}>
-      <h1><img src="/favicon_season3.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className={`${styles.pill} pill`}>Season {CURRENT_SEASON}</span></h1>
+      <h1><img src="/favicon_season4.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link> <span className={`${styles.pill} pill`}>Season {CURRENT_SEASON}</span></h1>
       <ul>
         <li>
           <Link href="/"><a>Home</a></Link>
