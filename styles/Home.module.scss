@@ -9,6 +9,7 @@
 
 .box {
 
+  font-family: 'BankGothic DB', sans-serif;
   ol {
     background: url('../public/bg_rectangle1.svg') no-repeat;
     background-size:contain;
@@ -52,7 +53,7 @@
 
   ol {
     margin:0;
-    padding:0;
+    padding:50px 30px;
     list-style-position: inside;
   }
   a {
@@ -118,6 +119,7 @@
   margin:20px auto;
   background:url('../public/bg_rectangle4.svg') no-repeat 50% 50%;
   background-size:contain;
+  font-family: 'BankGothic DB', sans-serif;
 }
 
 .claimRow {
@@ -135,6 +137,9 @@
   background-size: 50%;
   .colOne {
     margin:0 0 -3vh 10%;
+  }
+  h1 {
+    margin-bottom:20px;
   }
   h3 {
     margin: 0 0 10px;

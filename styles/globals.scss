@@ -48,8 +48,9 @@ button {
 html,
 body {
   margin: 0;
-  font-family: 'BankGothic DB', sans-serif;
-  background-color: #101010;
+  font-family: 'Rubik', sans-serif;
+  background-color: #0e0e0e;
+  // background:radial-gradient(circle, #111d23 0%, #0d1113 64%, #0e0e0e 100%);
   color:var(--main-color5);
   height:100%;
 }
@@ -89,6 +90,7 @@ h3 {
 
 h1, h2, h3, h4, h5 {
   text-transform: uppercase;
+  font-family: 'BankGothic DB', sans-serif;
 }
 
 * {
@@ -131,7 +133,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .pill {
-  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
+  @include gradient-border(var(--main-color2), var(--main-color3), var(--main-color5), 1px, 'to right');
   font-size: 10px;
   text-transform: uppercase;
   border-radius: 10px;
@@ -140,7 +142,9 @@ h1, h2, h3, h4, h5 {
   top: -5px;
   left: 20px;
   font-weight: lighter;
-  color: rgb(255, 255, 255, .75);
+  color: var(--main-color5);
+  font-family: 'BankGothic DB', sans-serif;
+  letter-spacing: 3px;
 }
 
 $border: 1px;

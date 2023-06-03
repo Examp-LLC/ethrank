@@ -38,7 +38,7 @@ function Footer() {
 	<input type="email" onChange={(e) => {
     setEmailAddr(e.target.value);   
   }} value={emailAddr} name="EMAIL" className="required email" id="mce-EMAIL" />
-  <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className={btnStyles.btn} />
+  <span className={btnStyles.btn}><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" /></span>
 </div>
 	<div id="mce-responses" className="clear foot">
 		<div className="response" id="mce-error-response" style={{display:"none"}}></div>
