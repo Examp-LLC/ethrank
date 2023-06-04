@@ -137,6 +137,9 @@
   background-size: 50%;
   .colOne {
     margin:0 0 -3vh 10%;
+    svg {
+      width: 100%;
+    }
   }
   h1 {
     margin-bottom:20px;
@@ -168,22 +171,40 @@
   }
 }
 
+@include tablet {
+  .homeRow {
+    li {
+      font-size:12px;
+    }
+  }
+}
+
 
 @include mobile {
   .claimRow {
-    grid-template-columns: 48% 48%;
+    grid-template-columns: 100%;
     column-gap: 4%;
     h2 {
       font-size:20px;
     }
   }
-  .claimRow .colOne {    
+  .claimRow .colOne {  
     margin: -20px 0;
+  }
+  .claimRow .colTwo {
+    padding:5vh 8vw;
   }
   .homeRow {
     grid-template-columns: 100%;
     .box {
       padding:8vw;
+      ol {
+        padding:4vw;
+        min-height:300px;
+      }
+      li {
+        font-size:12px;
+      }
     }
   }
   .mainRow {

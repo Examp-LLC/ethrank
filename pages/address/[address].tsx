@@ -20,33 +20,17 @@ import styles from '../../styles/Address.module.scss';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
-import Score from '../../components/Score';
-import Web3 from 'web3';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { NextPageContext } from 'next';
-import namehash from '@ensdomains/eth-ens-namehash';
-import 'chart.js/auto';
-import { Chart, Radar } from 'react-chartjs-2';
 import { CURRENT_SEASON, CURRENT_SEASON_ACHIEVEMENTS } from '../../lib/constants';
 import Page from '../../components/Page';
 import { getCalcMethod } from '../api/address/[address]';
 import { getLabelsForAddress } from '../api/labels/[address]';
-import { Achievement, Goal } from '../../lib/Achievement.interface';
+import { Goal } from '../../lib/Achievement.interface';
+import { Badge } from '../../components/season-four/Badge';
+import truncateEthAddress from 'truncate-eth-address';
 
-function getCurrentSeasonColor() {
-  switch (CURRENT_SEASON) {
-    case 1:
-      return '#D9048E';
-    case 2:
-      return '#05AFF2';
-    case 3:
-      return '#00EC26';
-  }
-}
-
-const achievements =  CURRENT_SEASON_ACHIEVEMENTS;
-
-export const SEASON_COLOR = getCurrentSeasonColor();
+const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
 export const convertToLowerCase = (input: string | Array<string> | undefined) => {
   if (typeof input === 'object') {
@@ -74,21 +58,6 @@ export async function getServerSideProps(context: NextPageContext) {
       labels
     }
   }
-}
-
-export async function reverseENSLookup(address: string, web3: Web3) {
-  let lookup = address.toLowerCase().substr(2) + '.addr.reverse'
-  let ResolverContract = await web3.eth.ens.getResolver(lookup);
-  let nh = namehash.hash(lookup);
-  try {
-    let name = await ResolverContract.methods.name(nh).call();
-    if (name && name.length) {
-      const verifiedAddress = await web3.eth.ens.getAddress(name);
-      if (verifiedAddress && verifiedAddress.toLowerCase() === address.toLowerCase()) {
-        return name;
-      }
-    }
-  } catch (e) { }
 }
 
 export interface CalcScoreProps {
@@ -122,13 +91,13 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
   });
 
   const convertBigNumberToShorthand = (n: number) => {
-      if (n < 1e3) return n % 1 != 0 ? n.toFixed(2) : n;
-      if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + "K";
-      if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + "M";
-      if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + "B";
-      if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+    if (n < 1e3) return n % 1 != 0 ? n.toFixed(2) : n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + "K";
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + "M";
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + "B";
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
   };
-  
+
 
   const calculateProgress = function (achievementIndex: number, i: number) {
     const results = progress.filter((item: string) => {
@@ -208,67 +177,39 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
     }
   });
 
-  const data = {
-    labels: categories.map(category => category.toUpperCase()),
-    datasets: [{
-      data: categoryData.map((data) => {
-        return data.percentCompleted * 100
-      }),
-      fill: true,
-      backgroundColor: SEASON_COLOR,
-      borderColor: '#FFD701',
-      pointBackgroundColor: SEASON_COLOR,
-      pointBorderColor: SEASON_COLOR,
-      pointHoverBackgroundColor: '#FFD701',
-      pointHoverBorderColor: SEASON_COLOR
-    }]
-  };
-
-  const config = {
-    type: 'radar',
-    data: data,
-    scales: {
-      r: {
-        // suggestedMin: 0,
-        // suggestedMax: 100,
-        ticks: {
-          stepSize: 20,
-          showLabelBackdrop: false
-        },
-        angleLines: {
-          color: "rgba(255, 255, 255, 1)",
-          lineWidth: 1
-        },
-        gridLines: {
-          color: "rgba(255, 255, 255, 1)",
-          circular: true
-        },
-        grid: {
-          borderColor: 'rgba(255, 255, 255, .25)',
-          backgroundColor: 'rgba(255, 255, 255, .25)',
-          color: 'rgba(255, 255, 255, .25)'
-        }
-      }
-    },
-    plugins: {
-      legend: {
-        display: false
-      }
-    }
-  };
-
+  let displayAddress = name?.length && name || truncateEthAddress(address)
 
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
       <div className={styles.address}>
-        <h2 className="gradient-box gradient-bottom-only">
-          {name?.length && name || address}
-        </h2>
+        <h1>
+          {displayAddress}
+        </h1>
       </div>
-      <Score score={score} rank={rank} />
+
+      <div className={styles.categoryRow}>
+        <div className={styles.colOne}>
+          <div className={styles.badge}>
+            <Badge address={displayAddress} score={score} rank={rank} progress={progress} />
+          </div>
+        </div>
+
+        <div className={styles.colTwo}>
+          <div className={styles.categories}>
+            {categoryData.map((category, i) => {
+              return <div
+                key={i}
+                className={`${styles.category}`}>
+                <h4>{category.category}</h4>
+                <ProgressBar percent={category.percentCompleted} />
+              </div>
+            })}
+          </div>
+        </div>
+      </div>
 
       <div>
-        <h3>Achievements <span className="pill">Season {CURRENT_SEASON}</span></h3>
+        <h3>Achievements <span className="pill">Season IV</span></h3>
         <div className={`${styles.cellParent} ${styles.achievements}`}>
           {achievements.map((achievement, i) => {
             const goals = achievement.goals;
@@ -281,9 +222,9 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             }}>
               <div className={`${styles.achievement} achievement animate__animated`}>
                 <h4><Link href={{
-              pathname: '/address/[address]/[achievement]',
-              query: { address, achievement: achievement.slug },
-            }}>{achievement.name}</Link></h4>
+                  pathname: '/address/[address]/[achievement]',
+                  query: { address, achievement: achievement.slug },
+                }}>{achievement.name}</Link></h4>
                 {/* <h2>{(percentages / achievement.goals.length * 100).toFixed(0)} %</h2> */}
                 <ProgressBar percent={percentages / achievement.goals.length} />
               </div>
@@ -292,40 +233,21 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         </div>
       </div>
 
-      <div className={styles.categoryRow}>
-        <div className={styles.categoriesWrapper}>
-          <h3>Categories <span className="pill">Season {CURRENT_SEASON}</span></h3>
-          <div className={styles.categories}>
-            {categoryData.map((category, i) => {
-              return <div
-                key={i}
-                className={`${styles.category}`}>
-                <h4>{category.category}</h4>
-                <ProgressBar percent={category.percentCompleted} />
-              </div>
-            })}
-          </div>
-        </div>
-        <div className={styles.radar}>
-          <Radar data={data} options={config} />
-        </div>
-      </div>
-
       <div className={styles.statsWrapper}>
         <img width="103" height="32" src="/logo-sm.png" className={styles.statsLogo} alt="ethrank.io" />
         <h3>Statistics <span className="pill lifetime">Lifetime</span></h3>
         <div className={`${styles.cellParent} ${styles.stats}`}>
           <div className={`${styles.stat} stat`}>
-              <h4>Transactions</h4>
-              <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
+            <h4>Transactions</h4>
+            <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
           </div>
           <div className={`${styles.stat} stat`}>
-              <h4>Spent on Gas</h4>
-              <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
+            <h4>Spent on Gas</h4>
+            <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
           </div>
           <div className={`${styles.stat} stat`}>
-              <h4>Active Since</h4>
-              <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
+            <h4>Active Since</h4>
+            <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
           </div>
         </div>
       </div>
@@ -333,23 +255,23 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       <div className={styles.labelsWrapper}>
         <h3>Labels <span className="pill lifetime">Lifetime</span></h3>
         <ul className={`${styles.cellParent} ${styles.labels}`}>
-          {labels.filter(({name}, index) => {
+          {labels.filter(({ name }, index) => {
             return index === labels.findIndex((goal) => goal.name === name)
-          }).map((goal, i)  => { 
+          }).map((goal, i) => {
             return (
               <li className={`${styles.stat} ${styles[goal.category]} label`} key={i}>
-                    <img src={getLabelIcon(goal.category)} />
-                  <label>{goal.name}</label>
+                <img src={getLabelIcon(goal.category)} />
+                <label>{goal.name}</label>
               </li>
             )
           })}
         </ul>
       </div>
 
-      <div className={styles.adRow}>
+      {/* <div className={styles.adRow}>
         <span id="ct_cr9Bln7RW8u"></span>
         <span id="ct_cGXDS2tunjH"></span>
-      </div>
+      </div> */}
     </div>
   </Page>
 }

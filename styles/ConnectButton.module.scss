@@ -66,6 +66,20 @@
   }
 }
 
+.mintBtn {
+  strong {
+    font-size: 18px;
+    padding: 10px 40px;
+    border-bottom: none !important;
+    display: inline-block;
+    > span {
+      padding-left:10px;
+      font-size:14px;
+      color:var(--main-color2);
+    }
+  }
+}
+
 .tooltip {
   margin: 10px auto;
   text-align: center;

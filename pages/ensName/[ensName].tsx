@@ -25,11 +25,13 @@ export async function getServerSideProps(context: NextPageContext) {
   let error = false;
   let address = '';
 
+  const INFURA_KEY = process.env.NEXT_PUBLIC_INFURA_API_KEY;
+
   // /address/nick.eth
   if (ensName && typeof ensName === "string" && ensName.toLowerCase().indexOf('.eth') > -1) {
 
     //resolve 0x21ada3.. to nick.eth
-    const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
+    const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${INFURA_KEY}`);
 
     try {
       address = await web3.eth.ens.getAddress(ensName);

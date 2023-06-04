@@ -39,15 +39,16 @@
 }
 
 .address {
-    text-align:center;
+    h1 {
+        text-align:center !important;
+        color: var(--main-color5);
+        max-width:100% !important;
+        font-size:60px !important;
+    }
     align-items: center;
-    width: 90%;
     margin: auto;
     text-align: center;
-    margin-bottom:40px;
-    position: relative;
-    overflow:hidden;
-    height:40px;
+    margin: 0 20px;
 
 }
 
@@ -57,12 +58,21 @@
 }
 
 .categoryRow {
-    margin:30px 0 50px;
-    grid-template-columns: 50% 50%;
-    column-gap: 0
+    grid-template-columns: 40% 40%;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        width:100%;
+    }
+    
+    .colTwo {
+        text-align: left;
+        width:100%;
+    }
 } 
 
-.stats, .radar, .categoriesWrapper {
+.stats, .radar {
     width:100%;
     text-align: left;
 }
@@ -75,15 +85,18 @@
     justify-items: center;
     box-sizing:content-box;
     .stat {
-        // background:linear-gradient(to bottom right, var(--main-color3), var(--main-color1));
-        border:1px solid var(--main-color3);
-        width: 100%;
-        padding:20px 0;
+        background: url('../public/bg_rectangle2.svg') no-repeat 50% 50%;
+        background-size:contain;
+        padding: 20px;
+        min-height:200px;
+        width:100%;
         &:first-child {
-            border-color:var(--main-color1);
+            background: url('../public/bg_rectangle1.svg') no-repeat 50% 50%;
+            background-size:contain;
         }
         &:last-child {
-            border-color:var(--main-color5);
+            background: url('../public/bg_rectangle3.svg') no-repeat 50% 50%;
+            background-size:contain;
         }
         h2 {
             color:var(--main-color1);
@@ -94,7 +107,7 @@
         h4 {
             opacity:.7;
             font-size:16px;
-            margin:0 0 10px;
+            margin:20px 0 10px;
         }
     }
 }
@@ -134,26 +147,29 @@
         }
         &.reputation, &.social {
             // color: var(--main-color3);
+
+            border-color:var(--main-color3);
             @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
             img {
-                filter: invert(66%) sepia(100%) saturate(417%) hue-rotate(3deg) brightness(105%) contrast(108%);
+                // filter: invert(66%) sepia(100%) saturate(417%) hue-rotate(180deg) brightness(105%) contrast(108%);
             }
         }
         &.nfts, &.collecting {
             // color: #ffd53f;
-            @include gradient-border(#ebdca5, #ffd53f, #F7FFC5, 1px, 'to right');
+            border-color:var(--main-color2);
+            @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
             img {
-                filter: invert(82%) sepia(79%) saturate(490%) hue-rotate(330deg) brightness(96%) contrast(93%);
+                // filter: invert(82%) sepia(79%) saturate(490%) hue-rotate(330deg) brightness(96%) contrast(93%);
             }
         }
         &.technology, &.staking {
-            @include gradient-border(#d6d6d6, #f4f4f4, #cacaca, 1px, 'to right');
+            @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
         }
         &.defi, &.finance {
             // color: var(--main-color1);
-            border-color:var(--main-color1);
+            border-color:var(--main-color4);
             img {
-                filter: invert(74%) sepia(42%) saturate(5030%) hue-rotate(82deg) brightness(98%) contrast(122%);
+                // filter: invert(74%) sepia(42%) saturate(5030%) hue-rotate(82deg) brightness(98%) contrast(122%);
             }
         }
     }
@@ -163,8 +179,7 @@
     position:absolute; 
     right:0;
     top:10px;
-    // Season 3
-    filter: hue-rotate(44deg);
+    filter: hue-rotate(256deg);
 }
 
 .vault {

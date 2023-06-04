@@ -20,6 +20,7 @@ import styles from '../../styles/Address.module.scss'
 import season1Achievements from '../../lib/achievements_season1.json';
 import season2Achievements from '../../lib/achievements_season2.json';
 import season3Achievements from '../../lib/achievements_season3.json';
+import season4Achievements from '../../lib/achievements_season4.json';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
@@ -28,11 +29,13 @@ import { NextPageContext } from 'next';
 import Page, { SEASONS } from '../../components/Page';
 import { CalcScoreProps } from '../address/[address]';
 import { Address } from '@prisma/client';
+import truncateEthAddress from 'truncate-eth-address';
 
 const achievements = [
   season1Achievements,
   season2Achievements,
-  season3Achievements
+  season3Achievements,
+  season4Achievements,
 ];
 
 export const convertToLowerCase = (input: string | Array<string> | undefined) => {
@@ -148,7 +151,7 @@ const Vault = ({ address, scores, error }: VaultProps) => {
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
       <div className={styles.address}>
-        <h2 className="gradient-box gradient-bottom-only">{name || address}</h2>
+        <h2 className="gradient-box gradient-bottom-only">{name || truncateEthAddress(address)}</h2>
       </div>
 
       <div className={styles.vault}>

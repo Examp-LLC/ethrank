@@ -27,6 +27,7 @@ import { useState } from 'react'
 import Router from 'next/router'
 import { useAccount } from 'wagmi';
 import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
+import Dapp from '../components/Dapp'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -38,7 +39,7 @@ export async function getServerSideProps({ res }: NextPageContext) {
   }
 
   const leaderboard = await prisma.address.findMany({
-    take: 4,
+    take: 6,
     select: {
       address: true,
       name: true,
@@ -55,7 +56,7 @@ export async function getServerSideProps({ res }: NextPageContext) {
     }
   });
   const latestScores = await prisma.address.findMany({
-    take: 4,
+    take: 6,
     select: {
       address: true,
       name: true,
@@ -122,15 +123,8 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
       <div className={styles.banner}>{bannerText}</div>
       <div className={`${styles.claimRow} ${styles.box}`}>
-        <div className={styles.colOne}>
-          <Image className={styles.badge} width={508} height={508} src="/s4_dynamic_badge.png" />
-        </div>
-        <div className={styles.colTwo}>
-          <h3>Now Minting</h3>
-          <h1 className={styles.title}>Season IV <strong>Dynamic Badges</strong></h1>
-          <a href="https://mint.ethrank.io" className={btnStyles.btn}><strong>Claim</strong></a>
-        </div></div>
-
+        <Dapp />
+      </div>
       <div className={`${styles.home} content`}>
 
         <div className={`${styles.mainRow} ${styles.box}`}>

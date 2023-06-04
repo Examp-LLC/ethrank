@@ -113,7 +113,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           }
         } else {
           // ENS stuff - resolve 0x21ada3.. to nick.eth
-          const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
+          const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`);
           const ensName = await reverseLookup(address.toLowerCase(), web3);
 
           if (ensName) {

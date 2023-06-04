@@ -116,7 +116,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           }
         } else {
           // reverse resolve 0x21ada3.. to nick.eth/nick.crypto
-          const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY}`);
+          const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`);
           const domainName = await reverseLookup(address.toLowerCase(), web3);
 
           if (domainName) {
