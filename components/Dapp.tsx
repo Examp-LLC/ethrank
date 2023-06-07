@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { ethers, BigNumber, utils } from 'ethers'
-import { ExternalProvider, Web3Provider } from '@ethersproject/providers';
+import { ethers, BigNumber } from 'ethers'
 import CollectionConfig from '../../smart-contract/config/CollectionConfig';
-import NetworkConfigInterface from '../../smart-contract/lib/NetworkConfigInterface';
 import MintWidget from './MintWidget';
 import Whitelist from '../lib/Whitelist';
 import styles from '../styles/Home.module.scss';
-import btnStyles from '../styles/ConnectButton.module.scss';
 import { ETHRankBadge } from '../../smart-contract/typechain';
 import { Badge } from './season-four/Badge';
 import Web3 from 'web3';
 import { reverseLookup } from '../lib/reverseLookup';
 import { useAccount, useNetwork, useProvider, useSigner } from 'wagmi';
 import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
+import { time } from 'console';
 
 const ContractAbi = require('../../smart-contract/artifacts/contracts/ETHRankBadge.sol/ETHRankBadge.json').abi;
 
 const Dapp = () => {
 
   const { setTheme } = useWeb3ModalTheme()
-  setTheme({ themeColor: 'green' });
+  setTheme({ themeColor: 'blue' });
 
   const { isConnected, address } = useAccount();
   const { chain } = useNetwork()
@@ -39,7 +37,6 @@ const Dapp = () => {
   const [errorLoadingBadge, setErrorLoadingBadge] = useState(false)
   const [mintComplete, setMintComplete] = useState(false)
   const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState(0)
-  const [mintAmount, setMintAmount] = useState(1)
   const [tokenPrice, setTokenPrice] = useState<BigNumber | null>(null)
   const [isPaused, setIsPaused] = useState(true)
   const [isWhitelistMintEnabled, setIsWhitelistMintEnabled] = useState(false)
@@ -192,8 +189,6 @@ const Dapp = () => {
                   isUserInWhitelist={isUserInWhitelist}
                   mintTokens={(mintAmount) => mintTokens(mintAmount)}
                   whitelistMintTokens={(mintAmount) => whitelistMintTokens(mintAmount)}
-                  totalSupply={totalSupply}
-                  maxSupply={maxSupply}
                 />
               </div>
               :
@@ -216,7 +211,7 @@ const Dapp = () => {
 
       {errorMsg ? <div className={styles.error}><p>{errorMsg}</p><button onClick={() => setErrorMsg(null)}>Close</button></div> : null}
 
-      {mintComplete ? <div className={styles.success}><p>Mint successful! Your badge is now in your wallet.</p><button onClick={() => setMintComplete(false)}>Close</button></div> : null}
+      {mintComplete ? <div className={styles.success}><p>Mint successful! Your badge is now in your wallet. View your updated profile <a href={`/address/${address}?${new Date().getTime()}`}>here</a>.</p><button onClick={() => setMintComplete(false)}>Close</button></div> : null}
 
     </>
   );

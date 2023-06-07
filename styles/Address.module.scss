@@ -10,17 +10,36 @@
     column-gap: 4%;
     justify-items: center;
     box-sizing:content-box;
+    position:relative;
 }
 
-.cellParent h3 {
-    margin:0;
-    font-size:55px;
-}
-.cellParent h5 {
-    margin:0;
-    font-size:24px;
-    color:var(--white);
-    opacity:.5;
+.cellParent {
+    h3 {
+        margin:0;
+        font-size:55px;
+    }
+    h5 {
+        margin:0;
+        font-size:24px;
+        color:var(--white);
+        opacity:.5;
+    }
+    .cta {
+        position:absolute;
+        top:0;
+        padding:50px;
+        left:0;
+        width:100%;
+        text-align: center;
+        background:rgba(0,0,0,.4);
+        backdrop-filter: blur(14px);
+        height: 100%;
+        vertical-align: middle;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+    }
 }
 
 .achievement {
@@ -233,6 +252,9 @@
 
 @include mobile {
     .cellParent, .categoryRow {
-      grid-template-columns: 100%;
+        grid-template-columns: 100%;
     }
-  }
+    .address h1 {
+        font-size:8vw !important;
+    }
+}

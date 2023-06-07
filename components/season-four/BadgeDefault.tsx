@@ -115,7 +115,7 @@ xmlnsXlink="http://www.w3.org/1999/xlink"
 
 <text dy="13%" dx="0" y="0" x="0" className="badge_address" transform="translate(12, 20)">
   <textPath startOffset="50%" xlinkHref="#curve">
-  <tspan dominant-baseline="middle">{formattedAddress}</tspan>
+  <tspan dominantBaseline="middle">{formattedAddress}</tspan>
   </textPath>
 </text>
 <text x="160" y="250" className="badge_header">SCORE</text>

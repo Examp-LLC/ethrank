@@ -17,18 +17,20 @@
 
 import { useRouter } from 'next/router';
 import styles from '../../styles/Address.module.scss';
+import btnStyles from '../../styles/ConnectButton.module.scss';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NextPageContext } from 'next';
-import { CURRENT_SEASON, CURRENT_SEASON_ACHIEVEMENTS } from '../../lib/constants';
+import { CURRENT_SEASON, CURRENT_SEASON_ACHIEVEMENTS, CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX } from '../../lib/constants';
 import Page from '../../components/Page';
 import { getCalcMethod } from '../api/address/[address]';
 import { getLabelsForAddress } from '../api/labels/[address]';
 import { Goal } from '../../lib/Achievement.interface';
 import { Badge } from '../../components/season-four/Badge';
 import truncateEthAddress from 'truncate-eth-address';
+import { useAccount } from 'wagmi';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -84,9 +86,22 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
   const router = useRouter()
 
-  useEffect(() => {
+  const [ownsNFT, setOwnsNFT] = useState(false);
+
+  const connectedWallet = useAccount();
+
+  useEffect(async () => {
     if (error) {
       router.push('/error');
+    }
+
+
+    const connectedUserScoreAndRankRequest = await fetch(`/api/address/${connectedWallet.address}?${new Date().getTime()}`);
+    if (connectedUserScoreAndRankRequest.ok) {
+      const connectedUserETHRank = await connectedUserScoreAndRankRequest.json();
+      if (connectedUserETHRank.progress.indexOf(CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX) > -1) {
+        setOwnsNFT(true);
+      }
     }
   });
 
@@ -236,24 +251,48 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       <div className={styles.statsWrapper}>
         <img width="103" height="32" src="/logo-sm.png" className={styles.statsLogo} alt="ethrank.io" />
         <h3>Statistics <span className="pill lifetime">Lifetime</span></h3>
-        <div className={`${styles.cellParent} ${styles.stats}`}>
-          <div className={`${styles.stat} stat`}>
-            <h4>Transactions</h4>
-            <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
+        {ownsNFT ?
+          <div className={`${styles.cellParent} ${styles.stats}`}>
+            <div className={`${styles.stat} stat`}>
+              <h4>Transactions</h4>
+              <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
+            </div>
+            <div className={`${styles.stat} stat`}>
+              <h4>Spent on Gas</h4>
+              <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
+            </div>
+            <div className={`${styles.stat} stat`}>
+              <h4>Active Since</h4>
+              <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
+            </div>
           </div>
-          <div className={`${styles.stat} stat`}>
-            <h4>Spent on Gas</h4>
-            <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
+          :
+          <div className={`${styles.cellParent} ${styles.stats}`}>
+            <div className={`${styles.stat} stat`}>
+                <h4>Transactions</h4>
+                <h2>1023</h2>
+              </div>
+              <div className={`${styles.stat} stat`}>
+                <h4>Spent on Gas</h4>
+                <h2>Ξ12.2</h2>
+              </div>
+              <div className={`${styles.stat} stat`}>
+                <h4>Active Since</h4>
+                <h2>2015</h2>
+              </div>
+              <div className={styles.cta}>
+                <h2>Dynamic Badge required to unlock lifetime statistics</h2>
+                <a href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></a>
+              </div>
           </div>
-          <div className={`${styles.stat} stat`}>
-            <h4>Active Since</h4>
-            <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
-          </div>
-        </div>
+        }
+
       </div>
 
       <div className={styles.labelsWrapper}>
         <h3>Labels <span className="pill lifetime">Lifetime</span></h3>
+
+        {ownsNFT ?
         <ul className={`${styles.cellParent} ${styles.labels}`}>
           {labels.filter(({ name }, index) => {
             return index === labels.findIndex((goal) => goal.name === name)
@@ -266,6 +305,48 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             )
           })}
         </ul>
+          :
+          <div className={`${styles.cellParent} ${styles.labels}`}>
+            <ul>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/users-solid.svg' />
+                  <label>Lorem Ipsum Dolor Set</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/users-solid.svg' />
+                  <label>If you are reading this</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/gem-solid.svg' />
+                  <label>Please buy a badge</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/microchip-solid.svg' />
+                  <label>Or reach out for some work</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/users-solid.svg' />
+                  <label>Lorem Ipsum Dolor Set</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/users-solid.svg' />
+                  <label>If you are reading this</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/gem-solid.svg' />
+                  <label>Please buy a badge</label>
+                </li>
+                <li className={`${styles.stat} users label`}>
+                  <img src='/microchip-solid.svg' />
+                  <label>Or reach out for some work</label>
+                </li>
+            </ul>
+            <div className={styles.cta}>
+              <h2>Dynamic Badge required to unlock lifetime statistics</h2>
+              <a href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></a>
+            </div>
+          </div>
+        }
       </div>
 
       {/* <div className={styles.adRow}>
