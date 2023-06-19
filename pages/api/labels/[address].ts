@@ -68,15 +68,17 @@ export default async function handler(
   const { address } = req.query;
   if (!address || typeof address !== 'string') return res.status(500);
 
-  const labels = await getLabelsForAddress(address);
+  const labels = await getLabelsForAddress(address, true);
 
   return res.status(200).json(labels);
 }
 
-export async function getLabelsForAddress(address: string) {
+export async function getLabelsForAddress(address: string, forceCalcScore:boolean = false) {
   // fetch updated score for this season in case people hit this API directly with a fresh address
-  let calcScoreForCurrentSeason = getCalcMethod(CURRENT_SEASON);
-  await calcScoreForCurrentSeason(address, prisma);
+  if (forceCalcScore) {
+    let calcScoreForCurrentSeason = getCalcMethod(CURRENT_SEASON);
+    await calcScoreForCurrentSeason(address, prisma);
+  }
 
   const allSeasonScores = await prisma.address.findMany({
     where: {

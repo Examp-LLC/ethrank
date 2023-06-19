@@ -173,7 +173,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         const results = await Promise.all(
           urls.map((url) => fetch(url,
             getHeaders(url)).then((res) => res.json()))
-        );
+        ).catch((e) => console.log);
 
         // Note: 10 concurrent request limit for nextjs reached with season 3
 

@@ -200,18 +200,6 @@
                             "count": 1,
                             "address": "0xe1935271D1993434A1a59fE08f24891Dc5F398Cd"
                         }
-                    },
-                    {
-                        "name": "Make a donation on Gitcoin Grants (Mainnet/Polygon)",
-                        "points": 10,
-                        "type": "transaction_to_address_count",
-                        "params": {
-                            "count": 1,
-                            "address": [
-                                "0x7d655c57f71464b6f83811c55d84009cd9f5221c",
-                                "0xb99080b9407436eBb2b8Fe56D45fFA47E9bb8877"
-                            ]
-                        }
                     }
                 ]
             }
@@ -266,7 +254,7 @@
                         }
                     },
                     {
-                        "name": "Interact with an Aave Pool/Gateway Contract",
+                        "name": "Interact with an Aave Pool/Gateway Contract (mainnet)",
                         "points": 50,
                         "type": "transaction_to_address_count",
                         "params": {
@@ -353,6 +341,17 @@
                                 "0x74ee68a33f6c9f113e22b3b77418b75f85d07d22"
                             ]
                         }
+                    },
+                    {
+                        "name": "Own 1 Blur token ($BLUR)",
+                        "points": 30,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0x5283d291dbcf85356a21ba090e6db59121208b44"
+                            ]
+                        }
                     }
                 ]
             },
@@ -387,15 +386,6 @@
                         "params": {
                             "count": 1,
                             "address": "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Binance USD ($BUSD)",
-                        "points": 10,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x4fabb145d64652a948d72533023f6e7a623c7c53"
                         }
                     },
                     {
@@ -598,6 +588,99 @@
                         }
                     }
                 ]
+            },
+            {
+                "name": "Meme Coin Lover",
+                "slug": "meme-coin-lover",
+                "category": "defi",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own 1 PEPE Token ($PEPE)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x6982508145454ce325ddbe47a25d4ec3d2311933"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Shiba Inu ($SHIB)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+                                "0x6f8a06447ff6fcf75d803135a7de15ce88c1d4ec"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 ApeCoin $APE",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xB7b31a6BC18e48888545CE79e83E06003bE70930",
+                                "0x4d224452801aced8b2f0aebe155379bb5d594381"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 DodoBird Token ($DODO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0x43Dfc4159D86F3A37A5A4B3D4580b888ad7d4DDd"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 Akita Inu Token ($AKITA)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0x3301ee63fb29f863f2333bd4466acb46cd8323e6"
+                            ]
+                        }
+                    }
+                ]
+            },
+
+            {
+                "name": "Artificially Intelligent",
+                "slug": "artificially-intelligent",
+                "category": "defi",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own 1 Fetch.ai token ($FET)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xB7b31a6BC18e48888545CE79e83E06003bE70930", 
+                                "0xaea46A60368A7bD060eec7DF8CBa43b7EF41Ad85"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 Singularity Net Token ($AGIX - Polygon)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x190eb8a183d22a4bdf278c6791b152228857c033"
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -720,8 +803,8 @@
                         }
                     },
                     {
-                        "name": "Own 10 .eth ENS domains",
-                        "points": 20,
+                        "name": "Own 50 .eth ENS domains",
+                        "points": 100,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 10,
@@ -741,8 +824,8 @@
                         }
                     },
                     {
-                        "name": "Own 10 Unstoppable Domains",
-                        "points": 20,
+                        "name": "Own 50 Unstoppable Domains",
+                        "points": 100,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 10,
@@ -829,13 +912,21 @@
                         }
                     },
                     {
-                        "name": "Own 1 Ethereum Rookie Card",
-                        "url": "https://erc-1.com/",
+                        "name": "Own 1 Opepen Edition",
                         "points": 50,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x79b8d8bd5dc219887416064b5ad411b71e034e21"
+                            "address": "0x6339e5e072086621540d0362c4e3cea0d643e114"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Milady",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x5af0d9827e0c53e4799bb226655a1de152a425a5"
                         }
                     },
                     {
@@ -851,6 +942,65 @@
                                 "0x6acb8fb82880d39c2b8446f8778a14d34ee6cfb7",
                                 "0xA3396AF20ce52Bd3C7ab6D7046Be617257F60Eb9"
                             ]
+                        }
+                    }
+                ]
+            },
+
+            {
+                "name": "Card Collector",
+                "slug": "card-collector",
+                "category": "nfts",
+                "points": 200,
+                "steps": [
+                    {
+                        "name": "Own 1 Ethereum Rookie Card",
+                        "url": "https://erc-1.com/",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x79b8d8bd5dc219887416064b5ad411b71e034e21"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Living Legends Ethereum Rookie Card",
+                        "url": "https://legends.erc-1.com/",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xDD9492a5714aE827AA2749BAadD6594b598Dc459"
+                        }
+                    },
+                    {
+                        "name": "Own 10 Living Legends Ethereum Rookie Cards",
+                        "url": "https://legends.erc-1.com/",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 10,
+                            "address": "0xDD9492a5714aE827AA2749BAadD6594b598Dc459"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Parallel Card",
+                        "points": 10,
+                        "url": "https://parallel.life/",
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x76BE3b62873462d2142405439777e971754E8E77"
+                        }
+                    },
+                    {
+                        "name": "Own 10 Parallel Cards",
+                        "points": 50,
+                        "url": "https://parallel.life/",
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 10,
+                            "address": "0x76BE3b62873462d2142405439777e971754E8E77"
                         }
                     }
                 ]
@@ -1079,10 +1229,19 @@
                         "name": "Own 1 ETHRank Season 3 Badge",
                         "points": 50,
                         "type": "own_token_by_address",
-                        "url": "https://mint.ethrank.io/",
                         "params": {
                             "count": 1,
                             "address": "0x55efC18B06D455bff9830969b0F9935052aD63C2"
+                        }
+                    },
+                    {
+                        "name": "Own 1 ETHRank Season 4 Badge",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "url": "https://ethrank.io/",
+                        "params": {
+                            "count": 1,
+                            "address": "0x55efC18B06D455bff9830969b0F9935052aD63C1"
                         }
                     }
                 ]

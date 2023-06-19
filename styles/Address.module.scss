@@ -39,6 +39,14 @@
         align-items: center;
         justify-items: center;
         align-content: center;
+        h2 {
+            font-size:18px;
+            color: var(--white);
+        }
+        > a {
+            padding: 10px 1px;
+            font-family: "BankGothic DB";
+        }
     }
 }
 

@@ -23,7 +23,7 @@ import styles from '../styles/Home.module.scss'
 import btnStyles from '../styles/ConnectButton.module.scss'
 import { CURRENT_SEASON } from '../lib/constants'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { useAccount } from 'wagmi';
 import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
@@ -108,15 +108,22 @@ const bannerText = getBannerText();
 const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
 
-  const { setTheme } = useWeb3ModalTheme()
-  setTheme({ themeColor: 'green' });
-
-  const { isConnected, address } = useAccount()
-  const leaders = JSON.parse(leaderboard)
-  const latestUsers = JSON.parse(latestScores)
+  // const { setTheme } = useWeb3ModalTheme()
+  // setTheme({ themeColor: 'green' });
 
   const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
   const [manualAddressInput, setManualAddressInput] = useState('')
+  const [isConnected, setIsConnected] = useState(false)
+  const [address, setAddress] = useState<string | undefined>('')
+
+  const connectedWallet = useAccount()
+  useEffect(() => {
+    setIsConnected(connectedWallet.isConnected);
+    setAddress(connectedWallet.address);
+  })
+
+  const leaders = JSON.parse(leaderboard)
+  const latestUsers = JSON.parse(latestScores)
 
   return (
     <Page title="ETHRank - An open source achievement system and API for every Ethereum address">

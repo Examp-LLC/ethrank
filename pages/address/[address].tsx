@@ -17,7 +17,7 @@
 
 import { useRouter } from 'next/router';
 import styles from '../../styles/Address.module.scss';
-import btnStyles from '../../styles/ConnectButton.module.scss';
+// import btnStyles from '../../styles/ConnectButton.module.scss';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
@@ -31,6 +31,7 @@ import { Goal } from '../../lib/Achievement.interface';
 import { Badge } from '../../components/season-four/Badge';
 import truncateEthAddress from 'truncate-eth-address';
 import { useAccount } from 'wagmi';
+import btnStyles from '../../styles/ConnectButton.module.scss';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -94,7 +95,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
     if (error) {
       router.push('/error');
     }
-
 
     const connectedUserScoreAndRankRequest = await fetch(`/api/address/${connectedWallet.address}?${new Date().getTime()}`);
     if (connectedUserScoreAndRankRequest.ok) {
@@ -281,7 +281,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
                 <h2>2015</h2>
               </div>
               <div className={styles.cta}>
-                <h2>Dynamic Badge required to unlock lifetime statistics</h2>
+                <h2>Dynamic Badge required to view stats</h2>
                 <a href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></a>
               </div>
           </div>
@@ -342,7 +342,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
                 </li>
             </ul>
             <div className={styles.cta}>
-              <h2>Dynamic Badge required to unlock lifetime statistics</h2>
+              <h2>Dynamic Badge required to view labels</h2>
               <a href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></a>
             </div>
           </div>

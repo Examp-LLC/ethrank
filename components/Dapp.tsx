@@ -2,28 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { ethers, BigNumber } from 'ethers'
 import CollectionConfig from '../../smart-contract/config/CollectionConfig';
 import MintWidget from './MintWidget';
-import Whitelist from '../lib/Whitelist';
 import styles from '../styles/Home.module.scss';
 import { ETHRankBadge } from '../../smart-contract/typechain';
 import { Badge } from './season-four/Badge';
 import Web3 from 'web3';
 import { reverseLookup } from '../lib/reverseLookup';
-import { useAccount, useNetwork, useProvider, useSigner } from 'wagmi';
+import { useAccount, useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
 import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
-import { time } from 'console';
 
 const ContractAbi = require('../../smart-contract/artifacts/contracts/ETHRankBadge.sol/ETHRankBadge.json').abi;
 
 const Dapp = () => {
 
-  const { setTheme } = useWeb3ModalTheme()
-  setTheme({ themeColor: 'blue' });
+  // const { setTheme } = useWeb3ModalTheme()
+  // setTheme({ themeColor: 'green' });
 
   const { isConnected, address } = useAccount();
   const { chain } = useNetwork()
 
-  const { data, error, isLoading, refetch } = useSigner()
-  const provider = useProvider()
+  // const { data, error, isLoading, refetch } = useSigner()
+  // const provider = useProvider()
   const [networkConfig, setNetworkConfig] = useState(CollectionConfig.mainnet);
 
   const [totalSupply, setTotalSupply] = useState(0)
@@ -32,20 +30,24 @@ const Dapp = () => {
   const [rank, setRank] = useState(1900)
   const [progress, setProgress] = useState([])
   const [score, setScore] = useState(420)
+  const [mintAmount, setMintAmount] = useState(1)
   const [badgeAddress, setBadgeAddress] = useState('YOURNAME.ETH')
   const [loadingBadge, setLoadingBadge] = useState(false)
   const [errorLoadingBadge, setErrorLoadingBadge] = useState(false)
   const [mintComplete, setMintComplete] = useState(false)
   const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState(0)
-  const [tokenPrice, setTokenPrice] = useState<BigNumber | null>(null)
+  const [tokenPrice, setTokenPrice] = useState<bigint>()
   const [isPaused, setIsPaused] = useState(true)
-  const [isWhitelistMintEnabled, setIsWhitelistMintEnabled] = useState(false)
-  const [isUserInWhitelist, setIsUserInWhitelist] = useState(false)
   const [errorMsg, setErrorMsg] = useState<null | string>(null)
 
   useEffect(() => {
     renderBadgePreview();
-  }, [address, data]);
+
+    setTokenPrice(costFromContract.data as unknown as bigint)
+    setMaxSupply(maxSupplyFromContract.data as unknown as number)
+    setTotalSupply(totalSupplyFromContract.data as unknown as number)
+    setIsPaused(pausedFromContract.data as unknown as boolean)
+  }, [address]);
 
   const renderBadgePreview = async () => {
 
@@ -79,7 +81,7 @@ const Dapp = () => {
       setErrorLoadingBadge(true);
     }
 
-    if (!address || !chain || !data) {
+    if (!address || !chain) {
       return;
     }
 
@@ -98,39 +100,51 @@ const Dapp = () => {
     //   return;
     // }
     // @ts-ignore
-    let contract = new ethers.Contract(
-      CollectionConfig.contractAddress[CollectionConfig.currentSeason]!,
-      ContractAbi,
-      data,
-    ) as ETHRankBadge
+    // let contract = new ethers.Contract(
+    //   CollectionConfig.contractAddress[CollectionConfig.currentSeason]!,
+    //   ContractAbi,
+    //   data,
+    // ) as ETHRankBadge
 
-    setContract(contract);
-    setMaxSupply((await contract.maxSupply()).toNumber())
-    setTotalSupply((await contract.totalSupply()).toNumber())
-    setMaxMintAmountPerTx((await contract.maxMintAmountPerTx()).toNumber())
-    setTokenPrice(await contract.cost())
-    setIsPaused(await contract.paused())
-    setIsWhitelistMintEnabled(await contract.whitelistMintEnabled())
-    setIsUserInWhitelist(Whitelist.contains(address ?? ''))
+    // setMaxSupply((await contract.maxSupply()).toNumber())
+    // setTotalSupply((await contract.totalSupply()).toNumber())
+    // setMaxMintAmountPerTx((await contract.maxMintAmountPerTx()).toNumber())
+    // setIsPaused(await contract.paused())
+    // setIsUserInWhitelist(Whitelist.contains(address ?? ''))
   }
+
+
+  const costFromContract = useContractRead(getReadConfig('cost'));
+  const pausedFromContract = useContractRead(getReadConfig('paused'));
+  const maxSupplyFromContract = useContractRead(getReadConfig('maxSupply'));
+  const totalSupplyFromContract = useContractRead(getReadConfig('totalSupply'));
+
+  const mintCall = useContractWrite({
+    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]!,
+    abi: ContractAbi,
+    functionName: 'mint',
+    args: [1],
+    value: tokenPrice,
+    account: address,
+    onError(e) {
+      // @ts-ignore
+      setErrorMsg(e.shortMessage || e.message)
+    },
+    onSuccess() {
+      setMintComplete(true)
+    }
+  })
 
   const mintTokens = async (amount: number): Promise<void> => {
     try {
       if (!tokenPrice) return setErrorMsg('no token price');
-      await contract?.mint(amount, { value: tokenPrice.mul(amount) });
-      setMintComplete(true);
+
+      if (!mintCall.write) return (setErrorMsg('contract not found'));
+
+      mintCall.write();
+      
     } catch (e) {
       setErrorMsg('Unable to mint token');
-    }
-  }
-
-  const whitelistMintTokens = async (amount: number): Promise<void> => {
-    try {
-      if (!tokenPrice) return setErrorMsg('no token price');
-      await contract?.whitelistMint(amount, Whitelist.getProofForAddress(address || ''), { value: tokenPrice.mul(amount) });
-      setMintComplete(true);
-    } catch (e) {
-      setErrorMsg('Unable to mint from VIP list');
     }
   }
 
@@ -147,7 +161,7 @@ const Dapp = () => {
   }
 
   const isSaleOpen = (): boolean => {
-    return isWhitelistMintEnabled || !isPaused;
+    return !isPaused;
   }
 
   return (
@@ -156,15 +170,14 @@ const Dapp = () => {
   
       <div className={styles.colOne}>
         <div className={isConnected && styles.badgeLoading || styles.badge}>
+          {loadingBadge ?
+          <><span className="loading-spinner"></span> Badge Loading</> : 
           <Badge address={badgeAddress} score={score} rank={rank} progress={progress} />
+          }
         </div>
       </div>
 
       <div className={styles.colTwo}>
-
-        {/* {((!isUserInWhitelist && isWhitelistMintEnabled) || (isPaused && !isWhitelistMintEnabled)) ?
-          <h3>Coming Soon</h3> : <h3>Now Minting</h3>
-        } */}
 
         <h3>Now Minting</h3>
 
@@ -185,15 +198,12 @@ const Dapp = () => {
                   tokenPrice={tokenPrice}
                   maxMintAmountPerTx={maxMintAmountPerTx}
                   isPaused={isPaused}
-                  isWhitelistMintEnabled={isWhitelistMintEnabled}
-                  isUserInWhitelist={isUserInWhitelist}
                   mintTokens={(mintAmount) => mintTokens(mintAmount)}
-                  whitelistMintTokens={(mintAmount) => whitelistMintTokens(mintAmount)}
                 />
               </div>
               :
               <div className={styles.mintDapp}>
-                Loading collection data...
+                <span className="loading-spinner"></span> Reticulating splines...
               </div>
             }
           </>
@@ -218,3 +228,11 @@ const Dapp = () => {
 }
 
 export default Dapp;
+
+function getReadConfig(functionName: string) {
+  return {
+    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]!,
+    abi: ContractAbi,
+    functionName,
+  };
+}

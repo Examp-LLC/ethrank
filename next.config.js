@@ -19,6 +19,6 @@ module.exports = {
     return config;
   },
   experimental: {
-    externalDir: true,
-  },
+    externalDir: true
+  }
 }

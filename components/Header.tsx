@@ -18,11 +18,15 @@ import React, { useEffect, useState } from 'react';
 import { CURRENT_SEASON } from '../lib/constants';
 import styles from '../styles/Header.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
-import { Web3Button } from '@web3modal/react'
+// import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
 import truncateEthAddress from 'truncate-eth-address';
 import { useAccount, useDisconnect } from 'wagmi';
 
 const Header = () => {
+
+
+  // const { setTheme } = useWeb3ModalTheme()
+  // setTheme({ themeColor: 'green' });
 
   const { isConnected, address } = useAccount()
   const { disconnect } = useDisconnect()
@@ -73,7 +77,7 @@ const Header = () => {
           )
           :
           <div className={`${btnStyles.connect} connect`}>
-            <Web3Button />
+            {/* <Web3Button /> */}
           </div>
         }
       </div>

@@ -26,7 +26,7 @@ import seasonFourAchievements from './achievements_season4.json';
 export const CURRENT_SEASON: number = 4;
 
 export const CURRENT_SEASON_ACHIEVEMENTS = getAchievements(CURRENT_SEASON);
-export const CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX = '1111';
+export const CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX = '0000';
 
 interface Achievement {
   name: string;

@@ -206,3 +206,17 @@ pre {
 #ct_cEK9vGxCJKo {
   display: none;
 }
+
+.loading-spinner {
+  display: inline-block;
+  width:25px;
+  height:25px;
+  position:relative;
+  top:5px;
+  left:-5px;
+  border-radius:50%;
+  border:4px solid;
+  border-color:var(--main-color5) #0000;
+  animation:s1 1s infinite;
+}
+@keyframes s1 {to{transform: rotate(.5turn)}}
