@@ -6,7 +6,6 @@ import btnStyles from '../styles/ConnectButton.module.scss';
 interface Props {
   networkConfig: NetworkConfigInterface;
   tokenPrice: bigint;
-  maxMintAmountPerTx: number;
   isPaused: boolean;
   mintTokens(mintAmount: number): Promise<void>;
 }

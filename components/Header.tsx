@@ -15,12 +15,12 @@ import React, { useEffect, useState } from 'react';
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
 */
-import { CURRENT_SEASON } from '../lib/constants';
 import styles from '../styles/Header.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
 // import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
 import truncateEthAddress from 'truncate-eth-address';
 import { useAccount, useDisconnect } from 'wagmi';
+import { Web3Button } from '@web3modal/react'
 
 const Header = () => {
 
@@ -77,7 +77,7 @@ const Header = () => {
           )
           :
           <div className={`${btnStyles.connect} connect`}>
-            {/* <Web3Button /> */}
+            <Web3Button />
           </div>
         }
       </div>
