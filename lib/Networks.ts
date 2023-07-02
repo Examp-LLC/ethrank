@@ -1,4 +1,4 @@
-import NetworkConfigInterface from './NetworkConfigInterface';
+import { NetworkConfigInterface } from "./CollectionConfig"
 
 /*
  * Local networks

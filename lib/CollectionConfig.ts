@@ -22,7 +22,7 @@ interface SaleConfig {
   maxMintAmountPerTx: number;
 };
 
-interface NetworkConfigInterface {
+export interface NetworkConfigInterface {
   chainId: number;
   symbol: string;
   blockExplorer: {
