@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse, } from 'next'
-import { checkAndGenerateBadge } from '../../../../components/utils';
 import prisma from '../../../../lib/prisma';
+import { checkAndGenerateBadge } from '../../../../lib/utilities';
 
 const dev = process.env.NODE_ENV !== 'production';
 
