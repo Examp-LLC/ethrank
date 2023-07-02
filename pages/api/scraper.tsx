@@ -5,12 +5,16 @@ import ReactDOMServer from 'react-dom/server';
 import fs from 'fs';
 import { generateMetadata } from './checkForNewDynamicMints';
 
+const dev = process.env.NODE_ENV !== 'production';
+const ethrankAPIServer = dev ? 'https://localhost:3000' : 'https://www.ethrank.io';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<typeof Badge>
 ) {
-  
+
+  if (!dev) return res.end();
+
   const season = 3;
   const dir = 'badge-output';
   const imageHostUrl = `https://ethrank-badges.s3.amazonaws.com/${season}`;

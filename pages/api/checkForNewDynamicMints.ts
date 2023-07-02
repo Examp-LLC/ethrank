@@ -2,7 +2,7 @@ import prisma from '../../lib/prisma';
 import { GenerateNFTParams } from './badges/[season]/[tokenID]';
 
 const dev = process.env.NODE_ENV !== 'production';
-const ethrankAPIServer = dev ? 'https://www.ethrank.io' : 'https://www.ethrank.io';
+const ethrankAPIServer = dev ? 'https://localhost:3000' : 'https://www.ethrank.io';
 
 export interface GenerateSVGResponseError {
   error: string;
