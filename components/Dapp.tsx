@@ -185,7 +185,6 @@ const Dapp = () => {
             {isContractReady() && tokenPrice ?
               <div className={styles.mintDapp}>
                 <MintWidget
-                  networkConfig={networkConfig}
                   tokenPrice={tokenPrice}
                   isPaused={isPaused}
                   mintTokens={(mintAmount) => mintTokens(mintAmount)}
