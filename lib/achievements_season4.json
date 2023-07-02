@@ -1209,7 +1209,7 @@
                 "steps": [
                     {
                         "name": "Own 1 ETHRank Season 1 Badge",
-                        "points": 50,
+                        "points": 10,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
@@ -1218,7 +1218,7 @@
                     },
                     {
                         "name": "Own 1 ETHRank Season 2 Badge",
-                        "points": 50,
+                        "points": 10,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
@@ -1236,12 +1236,12 @@
                     },
                     {
                         "name": "Own 1 ETHRank Season 4 Badge",
-                        "points": 50,
+                        "points": 100,
                         "type": "own_token_by_address",
                         "url": "https://ethrank.io/",
                         "params": {
                             "count": 1,
-                            "address": "0x55efC18B06D455bff9830969b0F9935052aD63C1"
+                            "address": "0x8DfbeE5338a012Ce7746bDE4428c9d9df87a6C5E"
                         }
                     }
                 ]

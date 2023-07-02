@@ -13,6 +13,7 @@
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
 */
+// @ts-nocheck
 import Web3 from 'web3';
 import { PrismaClient } from '@prisma/client';
 import { lookupUnstoppableName } from '../pages/unstoppableName/[unstoppableName]';
