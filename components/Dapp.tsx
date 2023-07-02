@@ -24,7 +24,7 @@ import { reverseLookup } from '../lib/reverseLookup';
 import { useAccount, useContractRead, useContractWrite, useNetwork } from 'wagmi';
 import { Web3Button } from '@web3modal/react'
 
-const ContractAbi = require('../lib/ETHRankBadge.sol/ETHRankBadge.json').abi;
+const ContractAbi = require('../lib/ETHRankBadge.json').abi;
 
 const Dapp = () => {
 
