@@ -1,3 +1,19 @@
+/*
+ * All content copyright 2023 Examp, LLC
+ *
+ * This file is part of ETHRank.
+ * 
+ * ETHRank is free software: you can redistribute 
+ * it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either 
+ * version 3 of the License, or (at your option) any later version.
+ * 
+ * ETHRank is distributed in the hope that it will 
+ * be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+*/
+
 import React, { useEffect, useState } from 'react';
 import CollectionConfig from '../lib/CollectionConfig';
 import MintWidget from './MintWidget';
@@ -95,7 +111,7 @@ const Dapp = () => {
   const totalSupplyFromContract = useContractRead(getReadConfig('totalSupply'));
 
   const mintCall = useContractWrite({
-    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]!,
+    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]! as `0xstring`,
     abi: ContractAbi,
     functionName: 'mint',
     args: [1],
@@ -205,7 +221,7 @@ export default Dapp;
 
 function getReadConfig(functionName: string) {
   return {
-    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]!,
+    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]! as `0xstring`,
     abi: ContractAbi,
     functionName,
   };

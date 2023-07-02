@@ -91,6 +91,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
   const connectedWallet = useAccount();
 
+  // @ts-ignore
   useEffect(async () => {
     if (error) {
       router.push('/error');

@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
 /*
  * All content copyright 2023 Examp, LLC
  *
@@ -15,6 +13,8 @@ import React, { useEffect, useState } from 'react';
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
 */
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/Header.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
 // import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
