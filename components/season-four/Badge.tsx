@@ -1,8 +1,4 @@
 import { BadgeDefault } from "./BadgeDefault";
-import { BadgeTop100 } from "./BadgeTop100";
-import { BadgeTop500 } from "./BadgeTop500";
-import { BadgeElite } from "./BadgeElite";
-import { BadgeTop1000 } from "./BadgeTop1000";
 
 export interface BadgeParams {
   address: string;
