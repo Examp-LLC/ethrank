@@ -14,14 +14,11 @@
  * GNU General Public License for more details.
 */
 
-
 import { utils } from 'ethers';
 import React from 'react';
-import NetworkConfigInterface from '../../smart-contract/lib/NetworkConfigInterface';
 import btnStyles from '../styles/ConnectButton.module.scss';
 
 interface Props {
-  networkConfig: NetworkConfigInterface;
   tokenPrice: bigint;
   isPaused: boolean;
   mintTokens(mintAmount: number): Promise<void>;
