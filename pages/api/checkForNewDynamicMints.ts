@@ -2,7 +2,6 @@ import prisma from '../../lib/prisma';
 import { GenerateNFTParams } from './badges/[season]/[tokenID]';
 
 const dev = process.env.NODE_ENV !== 'production';
-const ethrankMintAPIServer = dev ? 'http://localhost:3000' : 'https://mint.ethrank.io';
 const ethrankAPIServer = dev ? 'https://www.ethrank.io' : 'https://www.ethrank.io';
 
 export interface GenerateSVGResponseError {
@@ -125,7 +124,7 @@ export async function generateMetadata(
     imageHostUrl
   }: GenerateMetadataParams
 ): Promise<Metadata> {
-  const image = imageHostUrl ? `${imageHostUrl}/${tokenID}.svg` : `${ethrankMintAPIServer}/api/badges/${season}/${tokenID}.svg`;
+  const image = imageHostUrl ? `${imageHostUrl}/${tokenID}.svg` : `${ethrankAPIServer}/api/badges/${season}/${tokenID}.svg`;
   const name = `ETHRank Season ${season} Badge #${tokenID} by ${address}`;
   const description = `${address} is ranked #${rank}, with a score of ${score}. ETHRank is the Ethereum Leaderboard. Check your rank at ETHRank.io.`;
 

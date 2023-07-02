@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse<typeof Badge>
 ) {
   
-  const season = 2;
+  const season = 3;
   const dir = 'badge-output';
   const imageHostUrl = `https://ethrank-badges.s3.amazonaws.com/${season}`;
 
