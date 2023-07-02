@@ -343,7 +343,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             </ul>
             <div className={styles.cta}>
               <h2>Dynamic Badge required to view labels</h2>
-              <a href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></a>
+              <Link href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></Link>
             </div>
           </div>
         }
