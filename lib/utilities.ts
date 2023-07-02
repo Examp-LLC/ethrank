@@ -14,7 +14,6 @@
  * GNU General Public License for more details.
 */
 
-import CollectionConfig from "../../smart-contract/config/CollectionConfig";
 import { PrismaClient } from "@prisma/client";
 import Web3 from 'web3';
 import { Transaction } from "../pages/api/badges/[season]/[tokenID]";
@@ -23,6 +22,7 @@ import { reverseLookup } from "./reverseLookup";
 
 import supportedChains from './chains'
 import { IChainData } from './types'
+import CollectionConfig from "./CollectionConfig";
 
 export function getChainData(chainId?: number): IChainData | null {
   if (!chainId) {
