@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse, } from 'next'
 import prisma from '../../lib/prisma';
-import { Badge } from '../../components/season-two/Badge';
+import { Badge } from '../../components/season-three/Badge';
 import ReactDOMServer from 'react-dom/server';
 import fs from 'fs';
 import { generateMetadata } from './checkForNewDynamicMints';
 
 const dev = process.env.NODE_ENV !== 'production';
-const ethrankAPIServer = dev ? 'https://localhost:3000' : 'https://www.ethrank.io';
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,6 +13,8 @@ export default async function handler(
 ) {
 
   if (!dev) return res.end();
+
+  console.log('starting download');
 
   const season = 3;
   const dir = 'badge-output';
@@ -53,6 +54,8 @@ export default async function handler(
       }
     }
   }
+
+  console.log('finished successfully');
   return res.end();
 
 }
