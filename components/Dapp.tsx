@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CollectionConfig from '../../smart-contract/config/CollectionConfig';
+import CollectionConfig from '../lib/CollectionConfig';
 import MintWidget from './MintWidget';
 import styles from '../styles/Home.module.scss';
 import { Badge } from './season-four/Badge';
@@ -8,7 +8,7 @@ import { reverseLookup } from '../lib/reverseLookup';
 import { useAccount, useContractRead, useContractWrite, useNetwork } from 'wagmi';
 import { Web3Button } from '@web3modal/react'
 
-const ContractAbi = require('../../smart-contract/artifacts/contracts/ETHRankBadge.sol/ETHRankBadge.json').abi;
+const ContractAbi = require('../lib/ETHRankBadge.sol/ETHRankBadge.json').abi;
 
 const Dapp = () => {
 
