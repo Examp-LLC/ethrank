@@ -26,6 +26,8 @@ model Address {
   transactions Int?
   spentOnGas   Decimal?
   activeSince  DateTime?
+
+  @@index(fields: [address, season(sort: "Desc")])
 }
 
 model Badge {

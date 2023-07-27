@@ -19,8 +19,17 @@ import prisma from '../lib/prisma';
 import { User } from '../lib/User.interface';
 import Page from '../components/Page';
 import { CURRENT_SEASON } from '../lib/constants';
+import { NextPageContext } from 'next';
 
-export async function getServerSideProps() {
+
+export async function getServerSideProps({ res }: NextPageContext) {
+
+  if (res) {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=3600, stale-while-revalidate=7200'
+    )
+  }
 
   const leaderboard = await prisma.address.findMany({
     take: 100,
