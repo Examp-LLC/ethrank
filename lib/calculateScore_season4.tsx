@@ -576,7 +576,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
     }
   };
 
-  async function fetchTxns(address: string, network: Network, useTo?: boolean, pageKey?: string) {
+  async function fetchTxns(address: string, network: Network, useTo?: boolean, pageKey?: string, depth: number = 0) {
 
     let params = {
       fromBlock: "0x0",
@@ -596,8 +596,8 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       .core.getAssetTransfers(params);
 
 
-    if (results.pageKey) {
-      const nextPage = await fetchTxns(address, network, useTo, results.pageKey);
+    if (results.pageKey && depth < 4) {
+      const nextPage = await fetchTxns(address, network, useTo, results.pageKey, depth + 1);
       results.transfers = results.transfers.concat(nextPage.transfers);
     }
 
