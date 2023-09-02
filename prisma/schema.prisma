@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["referentialIntegrity", "extendedIndexes"]
 }
 
 datasource db {
@@ -27,7 +27,7 @@ model Address {
   spentOnGas   Decimal?
   activeSince  DateTime?
 
-  @@index(fields: [address, season(sort: "Desc")])
+  @@index(fields: [address, season(sort: Desc), score(sort: Asc)])
 }
 
 model Badge {

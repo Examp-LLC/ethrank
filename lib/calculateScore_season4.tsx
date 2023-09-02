@@ -22,10 +22,16 @@ import { IBlockScoutTx } from './types';
 import { getAchievements } from './constants';
 import { reverseLookup } from './reverseLookup';
 
+import { AlchemyMultichainClient } from '../lib/alchemy-multichain-client';
+import { Network } from 'alchemy-sdk';
+
+
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY;
 const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
 const POAP_API_KEY = process.env.POAP_API_KEY;
+const ALCHEMY_ETH_MAINNET_KEY = process.env.ALCHEMY_ETH_MAINNET_KEY;
+const ALCHEMY_MATIC_MAINNET_KEY = process.env.ALCHEMY_MATIC_MAINNET_KEY;
 
 interface ETHRankAddressResponse {
   props: {
@@ -40,6 +46,7 @@ interface ETHRankAddressResponse {
       name: string;
   }
 }
+
 
 export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[], attempts = 0): Promise<ETHRankAddressResponse> {
   let score = 0, rank = 0;
@@ -62,6 +69,15 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
   let isDupeTransaction = false;
   let THIS_SEASON = 4;
   let ACHIEVEMENTS = getAchievements(THIS_SEASON);
+
+  const defaultConfig = {
+    apiKey: ALCHEMY_ETH_MAINNET_KEY,
+    network: Network.ETH_MAINNET
+  };
+  const overrides = {
+    [Network.MATIC_MAINNET]: { apiKey: ALCHEMY_MATIC_MAINNET_KEY, maxRetries: 10 }
+  };
+  const alchemy = new AlchemyMultichainClient(defaultConfig, overrides);
 
   // ERROR case  - /address/something-bad-we-dont-support
   if (!Web3.utils.isAddress(address)) {
@@ -140,25 +156,19 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           }
 
         }
+        
+        const mainnetTxns = await fetchTxns(address, Network.ETH_MAINNET)
+        const mainnetTxnsTo = await fetchTxns(address, Network.ETH_MAINNET, true)
+        const maticTxns = await fetchTxns(address, Network.MATIC_MAINNET)
+        const maticTxnsTo = await fetchTxns(address, Network.MATIC_MAINNET, true)
 
         const urls = [
+          // ERC-20 token holdings
           `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=${ETHPLORER_API_KEY}`,
-
-          // Etherscan
-          `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
-          `https://api.etherscan.io/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
-          `https://api.etherscan.io/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
-          `https://api.etherscan.io/api?module=account&action=token1155tx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN_API_KEY}`,
 
           // POAP
           `https://api.poap.tech/actions/scan/${address}`,
 
-          // Polygon
-          `https://api.polygonscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
-          `https://api.polygonscan.com/api?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
-          `https://api.polygonscan.com/api?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
-          `https://api.polygonscan.com/api?module=account&action=token1155tx&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${POLYGONSCAN_API_KEY}`,
-          
         ];
 
         const getHeaders = (url: string) => {
@@ -181,61 +191,50 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         // Mainnet
         const tokens = results[0] && results[0].tokens || [];
 
-        // Etherscan
-        const transactions = results[1] && typeof results[1].result === "object" && results[1].result || false;
-        const erc721Transactions = results[2] && typeof results[2].result === "object" && results[2].result || false;
-        const erc20Transactions = results[3] && typeof results[3].result === "object" && results[3].result || false;
-        const erc1155Transactions = results[4] && typeof results[4].result === "object" && results[4].result || false;
+        // // Etherscan
+        // const transactions = results[1] && typeof results[1].result === "object" && results[1].result || false;
+        // const erc721Transactions = results[2] && typeof results[2].result === "object" && results[2].result || false;
+        // const erc20Transactions = results[3] && typeof results[3].result === "object" && results[3].result || false;
+        // const erc1155Transactions = results[4] && typeof results[4].result === "object" && results[4].result || false;
         
-        const poaps = results[5] && Array.isArray(results[5]) && results[5] || false;
+        const poaps = results[1] && Array.isArray(results[1]) && results[1] || false;
 
-        // Polygon
-        const polygonTransactions = results[6] && typeof results[6].result === "object" && results[6].result || false;
-        const polygonErc721Transactions = results[7] && typeof results[7].result === "object" && results[7].result || false;
-        const polygonErc20Transactions = results[8] && typeof results[8].result === "object" && results[8].result || false;
-        const polygonErc1155Transactions = results[9] && typeof results[9].result === "object" && results[9].result || [];
+        // // Polygon
+        // const polygonTransactions = results[6] && typeof results[6].result === "object" && results[6].result || false;
+        // const polygonErc721Transactions = results[7] && typeof results[7].result === "object" && results[7].result || false;
+        // const polygonErc20Transactions = results[8] && typeof results[8].result === "object" && results[8].result || false;
+        // const polygonErc1155Transactions = results[9] && typeof results[9].result === "object" && results[9].result || [];
 
-        if (!transactions || 
-          !erc721Transactions || 
-          !erc20Transactions || 
-          !erc1155Transactions || 
-          !poaps || 
-          !polygonTransactions || 
-          !polygonErc721Transactions || 
-          !polygonErc20Transactions) {
+        if (!mainnetTxns || !mainnetTxns.transfers?.length ||
+          !maticTxns || !maticTxns.transfers?.length || 
+          !poaps) {
           console.log(`Error fetching upstream data, trying again 
-          ${transactions.length} 
-          ${erc20Transactions.length} 
-          ${erc721Transactions.length} 
-          ${erc1155Transactions.length} 
+          ${mainnetTxns.length} 
+          ${maticTxns.length} 
           ${poaps.length}
-          ${polygonTransactions.length} 
-          ${polygonErc721Transactions.length} 
-          ${polygonErc20Transactions.length} 
-          ${polygonErc1155Transactions.length}
           ${attempts} attempts` )
           attempts = attempts + 1;
           if (attempts < 5) {
-            return calculateScore(address, prisma, unstoppableName, attempts);
+            // return calculateScore(address, prisma, unstoppableName, attempts);
           } else {
             throw new Error('Unable to calculate score');
           }
         }
 
         const allTransactions = [
-          ...transactions,
-          ...erc721Transactions,
-          ...erc20Transactions,
-          ...erc1155Transactions,
-          ...applyPolygonProperty(polygonTransactions),
-          ...applyPolygonProperty(polygonErc721Transactions),
-          ...applyPolygonProperty(polygonErc20Transactions),
-          ...applyPolygonProperty(polygonErc1155Transactions)
+          ...mainnetTxns.transfers,
+          ...mainnetTxnsTo.transfers,
+          ...applyPolygonProperty(maticTxns.transfers),
+          ...applyPolygonProperty(maticTxnsTo.transfers),
         ];
 
         totalTransactions = allTransactions.length;
         if (totalTransactions) {
-          activeSince = new Date(allTransactions[0].timeStamp * 1000);
+          let firstBlock = await alchemy
+            .forNetwork(Network.ETH_MAINNET)
+            .core
+            .getBlock(allTransactions[0].blockNum);
+          activeSince = new Date(firstBlock.timestamp * 1000);
         }
 
         const markStepCompleted = (j: any = '', k: any = '', l: any = '') => {
@@ -296,15 +295,18 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
                     totalPointsForThisAchievement += step.points;
 
+                    // if (allTransactions[i].hash === '0x2346de0727c1f3e0cf9fdaa486c0d7ecdfc1533dc41428c9467e0b7ea43f4d97') console.log(allTransactions[i])
                     if (!isComplete(j, k, l)) {
 
                       switch (step.type) {
                         case 'transaction_to_address_count':
 
+
                           // @ts-ignore
                           addresses = convertToLowerCase(step.params.address || address);
 
-                          if (allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) {
+                          if ((allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) || 
+                            (allTransactions[i].rawContract?.address?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].rawContract?.address))) > -1) {
                             
                             if (!sentTransactions[j]) {
                               sentTransactions[j] = [] as Array<Array<number>>;
@@ -355,9 +357,9 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                           // Don't count dupes or sidechain transactions
                           if (isDupeTransaction || allTransactions[i].chainID) continue;
                           
-                          const amountSent = parseFloat(allTransactions[i].value) / Math.pow(10, 18);
+                          const amountSent = allTransactions[i].value;
                           // @ts-ignore
-                          if (amountSent >= step.params.amount && allTransactions[i].contractAddress === "") { // filter out contract allTransactions
+                          if (amountSent >= step.params.amount && (allTransactions[i].category === "external" || allTransactions[i].category === "internal")) { // filter out contract allTransactions
                             // console.log('step completed: send_eth_amount', step.name, step.points, goal.name, achievement.name)
                             markStepCompleted(j, k, l);
                             // if step is completed, include step points in score
@@ -399,7 +401,8 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                           // @ts-ignore
                           addresses = convertToLowerCase(address);
 
-                          if (addresses.indexOf(convertToLowerCase(allTransactions[i].from)) > -1 !== false) {
+                          if ((addresses.indexOf(convertToLowerCase(allTransactions[i].from)) > -1 !== false) ||
+                              (allTransactions[i].rawContract?.address && addresses.indexOf(convertToLowerCase(allTransactions[i].rawContract?.address)) > -1 !== false)) {
                             const amountSpent = spentOnGas;
 
                             // @ts-ignore
@@ -435,10 +438,10 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                           }
 
 
-                          // if above method failed, try method #2 - etherscan
+                          // if above method failed, try method #2 - alchemy
                           if (
-                            (allTransactions[i].contractAddress && addresses.indexOf(convertToLowerCase(allTransactions[i].contractAddress)) > -1) || 
-                            (allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) ||
+                            (allTransactions[i].to && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) || 
+                            (allTransactions[i].rawContract?.address && addresses.indexOf(convertToLowerCase(allTransactions[i].rawContract.address)) > -1) ||
                             tokensFound) {
 
                             if (!ownedTokens[j]) {
@@ -572,6 +575,34 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       name
     }
   };
+
+  async function fetchTxns(address: string, network: Network, useTo?: boolean, pageKey?: string) {
+
+    let params = {
+      fromBlock: "0x0",
+      fromAddress: address,
+      excludeZeroValue: true,
+      category: ["external", "erc20", "erc721", "erc1155"],
+      pageKey
+    };
+
+    if (useTo) {
+      params.toAddress = address;
+      params.fromAddress = undefined;
+    }
+
+    const results = await alchemy
+      .forNetwork(network)
+      .core.getAssetTransfers(params);
+
+
+    if (results.pageKey) {
+      const nextPage = await fetchTxns(address, network, useTo, results.pageKey);
+      results.transfers = results.transfers.concat(nextPage.transfers);
+    }
+
+    return results;
+  }
 }
 
 // we need to distinguish polygon transactions from mainnet

@@ -258,10 +258,10 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               <h4>Transactions</h4>
               <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
             </div>
-            <div className={`${styles.stat} stat`}>
+            {/* <div className={`${styles.stat} stat`}>
               <h4>Spent on Gas</h4>
               <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
-            </div>
+            </div> */}
             <div className={`${styles.stat} stat`}>
               <h4>Active Since</h4>
               <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
@@ -273,10 +273,10 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
                 <h4>Transactions</h4>
                 <h2>1023</h2>
               </div>
-              <div className={`${styles.stat} stat`}>
+              {/* <div className={`${styles.stat} stat`}>
                 <h4>Spent on Gas</h4>
                 <h2>Ξ12.2</h2>
-              </div>
+              </div> */}
               <div className={`${styles.stat} stat`}>
                 <h4>Active Since</h4>
                 <h2>2015</h2>

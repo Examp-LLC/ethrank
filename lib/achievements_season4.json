@@ -14,7 +14,7 @@
                     {
                         "name": "Send ETH to >= 25 unique addresses",
                         "points": 10,
-                        "type": "transaction_to_address_count",
+                        "type": "transaction_from_address_count",
                         "params": {
                             "count": 25
                         }
@@ -22,7 +22,7 @@
                     {
                         "name": "Send ETH to >= 50 unique addresses",
                         "points": 10,
-                        "type": "transaction_to_address_count",
+                        "type": "transaction_from_address_count",
                         "params": {
                             "count": 50
                         }
@@ -30,7 +30,7 @@
                     {
                         "name": "Send ETH to >= 75 unique addresses",
                         "points": 10,
-                        "type": "transaction_to_address_count",
+                        "type": "transaction_from_address_count",
                         "params": {
                             "count": 75
                         }
@@ -38,7 +38,7 @@
                     {
                         "name": "Send ETH to >= 100 unique addresses",
                         "points": 10,
-                        "type": "transaction_to_address_count",
+                        "type": "transaction_from_address_count",
                         "params": {
                             "count": 100
                         }
@@ -54,7 +54,7 @@
                     {
                         "name": "Receive ETH from >= 25 unique addresses",
                         "points": 10,
-                        "type": "transaction_from_address_count",
+                        "type": "transaction_to_address_count",
                         "params": {
                             "count": 25
                         }
@@ -62,7 +62,7 @@
                     {
                         "name": "Receive ETH from >= 50 unique addresses",
                         "points": 10,
-                        "type": "transaction_from_address_count",
+                        "type": "transaction_to_address_count",
                         "params": {
                             "count": 50
                         }
@@ -70,7 +70,7 @@
                     {
                         "name": "Receive ETH from >= 75 unique addresses",
                         "points": 10,
-                        "type": "transaction_from_address_count",
+                        "type": "transaction_to_address_count",
                         "params": {
                             "count": 75
                         }
@@ -78,7 +78,7 @@
                     {
                         "name": "Receive ETH from >= 100 unique addresses",
                         "points": 10,
-                        "type": "transaction_from_address_count",
+                        "type": "transaction_to_address_count",
                         "params": {
                             "count": 100
                         }
@@ -1144,10 +1144,14 @@
                     {
                         "name": "Interact with Polygon (MATIC) Bridge",
                         "points": 30,
-                        "type": "transaction_to_address_count",
+                        "type": "transaction_from_address_count",
                         "params": {
                             "count": 1,
-                            "address": "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77"
+                            "address": [
+                                "0xA0c68C638235ee32657e8f720a23ceC1bFc77C77",
+                                "0x8484ef722627bf18ca5ae6bcf031c23e6e922b30",
+                                "0x40ec5b33f54e0e8a33a975908c5ba1c14e5bbbdf"
+                            ]
                         }
                     },
                     {
@@ -1157,38 +1161,6 @@
                         "params": {
                             "count": 1,
                             "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF"
-                        }
-                    }
-                ]
-            },
-            {
-                "name": "Gas Guzzler",
-                "slug": "gas-guzzler",
-                "category": "defi",
-                "points": 50,
-                "steps": [
-                    {
-                        "name": "Spend >= .1 ETH on gas (mainnet)",
-                        "points": 10,
-                        "type": "spend_gas_amount",
-                        "params": {
-                            "amount": ".1"
-                        }
-                    },
-                    {
-                        "name": "Spend >= .5 ETH on gas (mainnet)",
-                        "points": 10,
-                        "type": "spend_gas_amount",
-                        "params": {
-                            "amount": ".5"
-                        }
-                    },
-                    {
-                        "name": "Spend >= 1 ETH on gas (mainnet)",
-                        "points": 10,
-                        "type": "spend_gas_amount",
-                        "params": {
-                            "amount": "1"
                         }
                     }
                 ]

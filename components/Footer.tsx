@@ -69,7 +69,10 @@ function Footer() {
     <div className={styles.about}>
       <h1>ETHRank</h1>
       <p>The Ethereum Leaderboard.</p>
-     <p className={styles.copyright}>Created by <a href="http://examp.com/" target="_blank" rel="noreferrer">Examp, LLC</a></p>
+      <a href="https://alchemy.com/?r=zk3OTkzMTkwMjU5M">
+        <img style={{width:240,height:40}} src="https://static.alchemyapi.io/images/marketing/alchemy-wagbi-badge-dark.png" alt="Alchemy Supercharged" />
+      </a>
+      <p className={styles.copyright}>Created by <a href="http://examp.com/" target="_blank" rel="noreferrer">Examp, LLC</a></p>
     </div>
     <div className={styles.links}>
       <ul>
