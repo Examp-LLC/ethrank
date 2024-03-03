@@ -186,24 +186,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             getHeaders(url)).then((res) => res.json()))
         ).catch((e) => console.log);
 
-        // Note: 10 concurrent request limit for nextjs reached with season 3
 
         // Mainnet
         const tokens = results[0] && results[0].tokens || [];
-
-        // // Etherscan
-        // const transactions = results[1] && typeof results[1].result === "object" && results[1].result || false;
-        // const erc721Transactions = results[2] && typeof results[2].result === "object" && results[2].result || false;
-        // const erc20Transactions = results[3] && typeof results[3].result === "object" && results[3].result || false;
-        // const erc1155Transactions = results[4] && typeof results[4].result === "object" && results[4].result || false;
         
         const poaps = results[1] && Array.isArray(results[1]) && results[1] || false;
-
-        // // Polygon
-        // const polygonTransactions = results[6] && typeof results[6].result === "object" && results[6].result || false;
-        // const polygonErc721Transactions = results[7] && typeof results[7].result === "object" && results[7].result || false;
-        // const polygonErc20Transactions = results[8] && typeof results[8].result === "object" && results[8].result || false;
-        // const polygonErc1155Transactions = results[9] && typeof results[9].result === "object" && results[9].result || [];
 
         if (!mainnetTxns || !mainnetTxns.transfers?.length ||
           !maticTxns || !maticTxns.transfers?.length || 
@@ -590,12 +577,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       params.toAddress = address;
       params.fromAddress = undefined;
     }
-
+    
     const results = await alchemy
       .forNetwork(network)
       .core.getAssetTransfers(params);
-
-
+    
     if (results.pageKey && depth < 4) {
       const nextPage = await fetchTxns(address, network, useTo, results.pageKey, depth + 1);
       results.transfers = results.transfers.concat(nextPage.transfers);
