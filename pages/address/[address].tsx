@@ -91,19 +91,21 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
   const connectedWallet = useAccount();
 
-  // @ts-ignore
-  useEffect(async () => {
-    if (error) {
-      router.push('/error');
-    }
+  useEffect(() => {
+    async function fetchData() {
+      if (error) {
+        router.push('/error');
+      }
 
-    const connectedUserScoreAndRankRequest = await fetch(`/api/address/${connectedWallet.address}?${new Date().getTime()}`);
-    if (connectedUserScoreAndRankRequest.ok) {
-      const connectedUserETHRank = await connectedUserScoreAndRankRequest.json();
-      if (connectedUserETHRank.progress.indexOf(CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX) > -1) {
-        setOwnsNFT(true);
+      const connectedUserScoreAndRankRequest = await fetch(`/api/address/${connectedWallet.address}?${new Date().getTime()}`);
+      if (connectedUserScoreAndRankRequest.ok) {
+        const connectedUserETHRank = await connectedUserScoreAndRankRequest.json();
+        if (connectedUserETHRank.progress.indexOf(CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX) > -1) {
+          setOwnsNFT(true);
+        }
       }
     }
+    fetchData();
   });
 
   const convertBigNumberToShorthand = (n: number) => {
@@ -237,10 +239,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               query: { address, achievement: achievement.slug },
             }}>
               <div className={`${styles.achievement} achievement animate__animated`}>
-                <h4><Link href={{
-                  pathname: '/address/[address]/[achievement]',
-                  query: { address, achievement: achievement.slug },
-                }}>{achievement.name}</Link></h4>
+                <h4>{achievement.name}</h4>
                 {/* <h2>{(percentages / achievement.goals.length * 100).toFixed(0)} %</h2> */}
                 <ProgressBar percent={percentages / achievement.goals.length} />
               </div>
@@ -252,8 +251,16 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       <div className={styles.statsWrapper}>
         <img width="103" height="32" src="/logo-sm.png" className={styles.statsLogo} alt="ethrank.io" />
         <h3>Statistics <span className="pill lifetime">Lifetime</span></h3>
+
+
         {ownsNFT ?
           <div className={`${styles.cellParent} ${styles.stats}`}>
+
+            <div className={`${styles.stat} stat`}>
+              <h4>Rank</h4>
+              <h2>{rank}</h2>
+            </div>
+
             <div className={`${styles.stat} stat`}>
               <h4>Transactions</h4>
               <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
@@ -269,7 +276,13 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
           </div>
           :
           <div className={`${styles.cellParent} ${styles.stats}`}>
-            <div className={`${styles.stat} stat`}>
+
+              <div className={`${styles.stat} stat`}>
+                <h4>Rank</h4>
+                <h2>13</h2>
+              </div>
+
+              <div className={`${styles.stat} stat`}>
                 <h4>Transactions</h4>
                 <h2>1023</h2>
               </div>

@@ -73,10 +73,7 @@ const Achievement = ({ calcScoreResult, labels }: AddressProps) => {
               query: { address, achievement: achievement.slug, goal: goal.slug },
             }}>
               <div className={`${styles.achievement} achievement animate__animated`} key={i}>
-                <h4><Link href={{
-                  pathname: '/address/[address]/[achievement]/[goal]',
-                  query: { address, achievement: achievement.slug, goal: goal.slug },
-                }}>{goal.name}</Link></h4>
+                <h4>{goal.name}</h4>
                 <ProgressBar percent={calculateProgress(i) / goal.steps.length} />
               </div>
             </Link>

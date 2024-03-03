@@ -76,16 +76,16 @@ function Footer() {
     </div>
     <div className={styles.links}>
       <ul>
-        <li><Link href="/"><a>Home</a></Link></li>
-        <li><Link href="/leaderboard"><a>Leaderboard</a></Link></li>
-        <li><Link href="/faqs"><a>FAQs</a></Link></li>
-        <li><Link href="/api-docs"><a>API</a></Link></li>
+        <li><Link href="/">Home</Link></li>
+        <li><Link href="/leaderboard">Leaderboard</Link></li>
+        <li><Link href="/faqs">FAQs</Link></li>
+        <li><Link href="/api-docs">API</Link></li>
       </ul>
     </div>
     <div className={styles.links}>
       <ul>
-        <li><Link href="/privacy"><a>Privacy</a></Link></li>
-        <li><Link href="/terms"><a>Terms of Use</a></Link></li>
+        <li><Link href="/privacy">Privacy</Link></li>
+        <li><Link href="/terms">Terms of Use</Link></li>
         <li><a href="https://docs.google.com/forms/d/1NWrtRONleo-MoEJpLamxtRQrzpxPpam89Gwn6NzE98Y" target="_blank" rel="noreferrer">Partner Request</a></li>
       </ul>
     </div>

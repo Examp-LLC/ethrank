@@ -20,9 +20,9 @@ import Head from 'next/head'
 import { ReactNode } from 'react'
 // import ConnectButtonProvider from '../components/ConnectButtonProvider'
 import Footer from '../components/Footer'
-import Header from '../components/Header'
 import { User } from '../lib/User.interface'
 import styles from '../styles/Home.module.scss'
+import dynamic from 'next/dynamic'
 // import { useWeb3Modal } from './Web3ModalContext'
 
 // add to this every new season
@@ -40,10 +40,13 @@ interface PageProps {
   user?: User
 }
 
+const Header = dynamic(() => import('../components/Header'), { ssr: false })
+
 const Page = (props: PageProps) => {
 
   return (
       <div className={styles.container}>
+        
         <Head>
           <title>{props.title}</title>
           <meta name="description" content="ETHRank - An open source achievement system and API for every Ethereum address" />

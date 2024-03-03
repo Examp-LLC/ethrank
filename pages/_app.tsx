@@ -1,43 +1,33 @@
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiProvider } from 'wagmi' 
+import { mainnet, optimism } from 'wagmi/chains'
+import { createWeb3Modal } from '@web3modal/wagmi/react'
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
-import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
-import { Web3Modal } from '@web3modal/react'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import { mainnet } from 'wagmi/chains'
-
-const chains = [mainnet]
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID || ''
-
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors: w3mConnectors({ projectId, version: 1, chains }),
-  publicClient
-})
-const ethereumClient = new EthereumClient(wagmiConfig, chains)
-
 const queryClient = new QueryClient()
+
+const metadata = {
+  name: 'ETHRank',
+  description: 'The open source achievement system for every Ethereum address.',
+  url: 'https://ethrank.io',
+  icons: ['https://avatars.githubusercontent.com/u/37784886']
+}
+
+const wagmiConfig = defaultWagmiConfig({ chains: [mainnet, optimism], projectId, metadata })
+createWeb3Modal({ wagmiConfig, projectId })
 
 export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <WagmiConfig config={wagmiConfig}>
+        <WagmiProvider config={wagmiConfig}>
           <Component {...pageProps} />
-        </WagmiConfig>
+        </WagmiProvider>
       </QueryClientProvider>
-      <Web3Modal
-        projectId={process.env.NEXT_PUBLIC_WC_PROJECT_ID || ''}
-        ethereumClient={ethereumClient} 
-        themeVariables={{
-          '--w3m-font-family': 'Roboto, sans-serif',
-          '--w3m-accent-color': 'var(--main-color2)',
-          '--w3m-background-color': 'var(--main-color2)'
-        }}
-      />
     </>
   )
 }

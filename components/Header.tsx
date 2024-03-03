@@ -24,7 +24,6 @@ import { Web3Button } from '@web3modal/react'
 
 const Header = () => {
 
-
   // const { setTheme } = useWeb3ModalTheme()
   // setTheme({ themeColor: 'green' });
 
@@ -37,21 +36,22 @@ const Header = () => {
     setIsFlyoutMenuActive(!isFlyoutMenuActive);
   }
 
+
   return (
     <div className={`${styles.header} header`}>
       <h1>
-        <img src="/favicon_season4.png" height="59" width="59" className={styles.logo} /><Link href="/"><a>ETHRank</a></Link>
+        <img src="/favicon_season4.png" height="59" width="59" className={styles.logo} /><Link href="/">ETHRank</Link>
         <span className={`${styles.pill} pill`}>Season IV</span>
       </h1>
       <ul>
         <li>
-          <Link href="/"><a>Home</a></Link>
+          <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/leaderboard"><a>Leaderboard</a></Link>
+          <Link href="/leaderboard">Leaderboard</Link>
         </li>
       </ul>
-      <div className={styles.btn}>
+      <div className={styles.btn} >
         {isConnected ?
           (<div><div className={styles.flyoutMenuWrapper} onClick={expandMenu}>
             <span className={`${styles.pill} pill`}>{truncateEthAddress(address || '')}</span>

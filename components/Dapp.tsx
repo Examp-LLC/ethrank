@@ -21,7 +21,7 @@ import styles from '../styles/Home.module.scss';
 import { Badge } from './season-four/Badge';
 import Web3 from 'web3';
 import { reverseLookup } from '../lib/reverseLookup';
-import { useAccount, useContractRead, useContractWrite, useNetwork } from 'wagmi';
+import { useAccount, useReadContract, useWriteContract } from 'wagmi';
 import { Web3Button } from '@web3modal/react'
 
 const ContractAbi = require('../lib/ETHRankBadge.json').abi;
@@ -31,8 +31,7 @@ const Dapp = () => {
   // const { setTheme } = useWeb3ModalTheme()
   // setTheme({ themeColor: 'green' });
 
-  const { isConnected, address } = useAccount();
-  const { chain } = useNetwork()
+  const { isConnected, address, chain } = useAccount();
 
   const [networkConfig, setNetworkConfig] = useState(CollectionConfig.mainnet);
 
@@ -105,34 +104,32 @@ const Dapp = () => {
   }
 
 
-  const costFromContract = useContractRead(getReadConfig('cost'));
-  const pausedFromContract = useContractRead(getReadConfig('paused'));
-  const maxSupplyFromContract = useContractRead(getReadConfig('maxSupply'));
-  const totalSupplyFromContract = useContractRead(getReadConfig('totalSupply'));
+  const costFromContract = useReadContract(getReadConfig('cost'));
+  const pausedFromContract = useReadContract(getReadConfig('paused'));
+  const maxSupplyFromContract = useReadContract(getReadConfig('maxSupply'));
+  const totalSupplyFromContract = useReadContract(getReadConfig('totalSupply'));
 
-  const mintCall = useContractWrite({
-    address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]! as `0xstring`,
-    abi: ContractAbi,
-    functionName: 'mint',
-    args: [1],
-    value: tokenPrice,
-    account: address,
-    onError(e) {
+  const { writeContract } = useWriteContract({mutation:{
+    onError(e: Error) {
       // @ts-ignore
       setErrorMsg(e.shortMessage || e.message)
     },
     onSuccess() {
       setMintComplete(true)
     }
-  })
+  }})
 
   const mintTokens = async (amount: number): Promise<void> => {
     try {
       if (!tokenPrice) return setErrorMsg('no token price');
-
-      if (!mintCall.write) return (setErrorMsg('contract not found'));
-
-      mintCall.write();
+      writeContract({
+        address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]! as `0xstring`,
+        abi: ContractAbi,
+        functionName: 'mint',
+        args: [1],
+        value: tokenPrice,
+        account: address,
+      })
       
     } catch (e) {
       setErrorMsg('Unable to mint token');

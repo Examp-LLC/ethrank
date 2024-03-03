@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
 */
 
-import { utils } from 'ethers';
+import { formatEther } from 'ethers';
 import React from 'react';
 import btnStyles from '../styles/ConnectButton.module.scss';
 
@@ -51,7 +51,7 @@ export default class MintWidget extends React.Component<Props> {
             <div className={btnStyles.controls}>
               <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => this.mint()}>
                 <strong>Claim 
-                {<span> (Ξ {this.props.tokenPrice ? utils.formatEther(this.props.tokenPrice) : 'Loading'}<span></span>)</span>}
+                {<span> (Ξ {this.props.tokenPrice ? formatEther(this.props.tokenPrice) : 'Loading'}<span></span>)</span>}
                 </strong>
               </button>
             </div>
