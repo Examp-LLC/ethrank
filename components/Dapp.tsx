@@ -18,6 +18,7 @@ import React, { useEffect, useState } from 'react';
 import CollectionConfig from '../lib/CollectionConfig';
 import MintWidget from './MintWidget';
 import styles from '../styles/Home.module.scss';
+import btnStyles from '../styles/ConnectButton.module.scss';
 import { Badge } from './season-four/Badge';
 import Web3 from 'web3';
 import { reverseLookup } from '../lib/reverseLookup';
@@ -152,13 +153,16 @@ const Dapp = () => {
 
         {!isConnected ?
           <div className={styles.connectBtn}>
-            <button onClick={() => open()}><strong>Connect</strong></button>
+            <button 
+              className={`${btnStyles.btn}`} 
+              onClick={() => open()}>
+                <strong>Connect</strong>
+              </button>
           </div> : null
         }
 
         {isConnected ?
           <>
-            
               <div className={styles.mintDapp}>
                 <MintWidget
                   isMainnet={isMainnet()}
@@ -167,7 +171,6 @@ const Dapp = () => {
                   mintTokens={(mintAmount) => mintTokens(mintAmount)}
                 />
               </div>
-             
           </>
           : null
         }

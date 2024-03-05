@@ -91,13 +91,20 @@
       display:inline-block;
     }
   } 
-  w3m-core-button{
-    display: inline-block;
-    justify-content: left;
-    margin:20px 0;
+  .connect {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 0;
+    align-content: center;
+    align-items: center;
   }
   .manualOption {
     font-size:14px;
+    padding-left:20px;
+    a {
+      position:relative;
+      left:10px;
+    }
   }
 }
 

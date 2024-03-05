@@ -142,17 +142,18 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
             Check your <strong>Ethereum blockchain score</strong> <em>instantly</em>
           </h1>
 
-          <div className={`${btnStyles.connect} connect`}>
-            {hasWalletPluginInstalled && <>
+          <div className={`${btnStyles.connect} ${styles.connect} connect`}>
+
+            
+            {hasWalletPluginInstalled && <div className={styles.btnWrapper}>
               {isConnected ?
                 (
                   <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
                 ) :
-                <div className={btnStyles.btnWrapper}>
-                  <button onClick={() => open()}><strong>Connect</strong></button>
-                </div>
-              }
-            </>}
+                  <button className={btnStyles.btn} onClick={() => open()}><strong>Connect</strong></button>
+                }
+                </div>}
+            
 
             {hasWalletPluginInstalled && <div className={styles.manualOption}>
               or <a href="#nogo" onClick={() => {

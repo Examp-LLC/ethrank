@@ -5,6 +5,7 @@
   display:inline-block;
   border-radius: 8px;
   border-bottom:none !important;
+  height:43px;
   strong {
     background: black;
     color: var(--white);
@@ -38,6 +39,7 @@
 .connect .manualAddressInput {
   margin-top: 30px;
   max-width: 400px;
+  width:100%;
 
   input {
     color: var(--white);
@@ -97,9 +99,6 @@
     }
   }
 
-  div {
-    display: none;
-  }
 
   &:hover div {
     display: block;
@@ -108,7 +107,6 @@
 }
 
 .supported {
-  background-color: var(--black);
   margin: 10px auto;
   padding: 10px;
   border-radius: 10px;

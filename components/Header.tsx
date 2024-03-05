@@ -79,7 +79,11 @@ const Header = () => {
           )
           :
           <div className={`${btnStyles.connect} connect`}>
-            <button onClick={() => open()}><strong>Connect</strong></button>
+            <button 
+              className={`${btnStyles.btn} btn`} 
+              onClick={() => open()}>
+                <strong>Connect</strong>
+            </button>
           </div>
         }
       </div>
