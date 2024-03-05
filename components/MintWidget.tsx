@@ -53,7 +53,7 @@ const MintWidget = ({tokenPrice, isPaused, isMainnet, mintTokens}: Props) => {
             <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => mint()}>
               <strong>Claim 
                 <span>
-                  (Ξ ${formatEther(tokenPrice)})
+                  (Ξ {formatEther(tokenPrice)})
                 </span>
               </strong>
             </button>
