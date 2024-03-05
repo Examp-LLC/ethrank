@@ -146,7 +146,8 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         // const schemaUID = "";
 
         // sepolia
-        const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
+        // const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
+        const schemaUID = "0x282b501c8ee8c7d05fb7d7bc2ecbebba2b58fc45e27ea7895ab45b997ea0dbdf";
 
         const tx = await eas.attest(
           {
@@ -156,8 +157,8 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               expirationTime: BigInt(0),
               revocable: false,
               data: encodedData,
-              // value: BigInt(3432122320000)
-              value: BigInt(0)
+              value: BigInt(3432122320000)
+              // value: BigInt(0)
             },
           },
           {
