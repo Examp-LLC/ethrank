@@ -157,7 +157,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               expirationTime: BigInt(0),
               revocable: false,
               data: encodedData,
-              value: BigInt(3432122320000)
+              // value: BigInt(3432122320000)
               // value: BigInt(0)
             },
           },
