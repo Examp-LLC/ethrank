@@ -138,9 +138,9 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
         const schemaEncoder = new SchemaEncoder("uint32 Score,uint8 Season,uint32 Rank");
         const encodedData = schemaEncoder.encodeData([
-          { name: "Score", value: "0", type: "uint32" },
-          { name: "Season", value: "0", type: "uint8" },
-          { name: "Rank", value: "0", type: "uint32" }
+          { name: "Score", value: score, type: "uint32" },
+          { name: "Season", value: 4, type: "uint8" },
+          { name: "Rank", value: rank, type: "uint32" }
         ]);
 
         // mainnet
