@@ -158,7 +158,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               expirationTime: BigInt(0),
               revocable: false,
               data: encodedData,
-              value: BigInt(271722235145510)
+              value: BigInt(271722235145510) // ~$1
             },
           },
           {
@@ -172,10 +172,8 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
           setAttestSuccess(true);
         }
 
-        // notification.success("Attestation signed successfully! UID: " + newAttestationUID);
       } catch (e) {
         console.log("Error signing attestation: ", e);
-        // notification.error("Error signing attestation: " + e);
       } finally {
         setIsLoading(false);
       }
@@ -324,7 +322,10 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
           <ul className={styles.claimBox} style={{}}>
             <li>Evolves with you</li>
             <li>ERC-721 on mainnet</li>
-            <li><span className={styles.oldPrice}>.05 ETH</span> .025 ETH
+            {/* <li><span className={styles.oldPrice}>Ξ0.05</span> Ξ0.025
+              <span className={styles.sale}>SALE</span>
+            </li> */}
+            <li>Ξ0.05 
               <span className={styles.sale}>SALE</span>
             </li>
           </ul>
@@ -402,7 +403,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       <div className={styles.statsWrapper}>
         <img width="103" height="32" src="/logo-sm.png" className={styles.statsLogo} alt="ethrank.io" />
         <h3>Statistics <span className="pill lifetime">Lifetime</span></h3>
-
 
         {ownsNFT ?
           <div className={`${styles.cellParent} ${styles.stats}`}>
