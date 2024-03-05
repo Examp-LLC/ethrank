@@ -148,7 +148,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
         // sepolia
         // with custom reoslver copy pasted from example on eas docs
-        const schemaUID = "0x98e255160d210b9b7a48a9d9d3d14df7fabca97e6292635aa1ef3477701d1c59";
+        const schemaUID = "0xcd24186c3c41e547cb470b94c7e98be7aa9c973779a80b0188cab14a52ea3e0a";
         // with custom resolver written by chatgpt
         // const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
         // with no resolver
