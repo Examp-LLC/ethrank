@@ -93,6 +93,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
   const router = useRouter()
 
   const [ownsNFT, setOwnsNFT] = useState(false);
+  const [attestSuccess, setAttestSuccess] = useState(false);
 
   const connectedWallet = useAccount();
 
@@ -171,7 +172,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
         const newAttestationUID = await tx.wait();
 
-        console.log("New attestation UID:", newAttestationUID);
 
         // notification.success("Attestation signed successfully! UID: " + newAttestationUID);
       } catch (e) {
@@ -179,6 +179,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         // notification.error("Error signing attestation: " + e);
       } finally {
         setIsLoading(false);
+        setAttestSuccess(true);
       }
     }
   };
@@ -336,29 +337,39 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             <h3>Attest your score</h3>
             <p>Using the Ethereum Attestation Service (EAS) on <span className={styles.red}>Optimism</span></p>
           </div>
-          {connectedWallet.isDisconnected && 
+
+          {attestSuccess && 
+            <p>
+              Attestation Successful!
+            </p>
+          }
+
+          {!attestSuccess && connectedWallet.isDisconnected && 
             <div className={`${btnStyles.connect} connect`}>
               <Web3Button />
             </div>
           }
-          {connectedWallet.isConnected && 
+          
+          {!attestSuccess && connectedWallet.isConnected && 
             <>
               {isOptimism() ?
                 <button
-                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""
-                    }`}
+                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""}`}
                   disabled={isLoading}
                   onClick={async () => await signAttestation()}
                 >
-                  {!isLoading && (
+                  {isLoading ? 
+                    <strong>
+                      Loading...
+                    </strong>
+                    :
                     <strong>
                       Attest Score
                     </strong>
-                  )}
+                  }
                 </button> :
                 <button
-                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""
-                    }`}
+                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""}`}
                   disabled={!switchChain}
                   onClick={() => switchChain({ chainId: optimism.id })}
                 ><strong>Switch to Optimism</strong></button>
