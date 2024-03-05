@@ -17,46 +17,57 @@
 import { formatEther } from 'ethers';
 import React from 'react';
 import btnStyles from '../styles/ConnectButton.module.scss';
+import { mainnet } from 'viem/chains';
+import { useSwitchChain } from 'wagmi';
 
 interface Props {
   tokenPrice: bigint;
+  isMainnet: boolean;
   isPaused: boolean;
   mintTokens(mintAmount: number): Promise<void>;
 }
 
-export default class MintWidget extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
+const MintWidget = ({tokenPrice, isPaused, isMainnet, mintTokens}: Props) => {
 
+  const { switchChain } = useSwitchChain();
+
+  const canMint = (): boolean => {
+    return !isPaused;
   }
 
-  private canMint(): boolean {
-    return !this.props.isPaused;
+  const mint = async (): Promise<void> => {
+    if (!isPaused) await mintTokens(1);
   }
 
-  private async mint(): Promise<void> {
-    if (!this.props.isPaused) {
-      await this.props.mintTokens(1);
-
-      return;
-    }
-
+  const switchNetwork = async (): Promise<void> => {
+    await switchChain({ chainId: mainnet.id })
   }
 
-  render() {
-    return (
-      <>
-        {this.canMint() &&
-          <div className="mint-widget">
-            <div className={btnStyles.controls}>
-              <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => this.mint()}>
-                <strong>Claim 
-                {<span> (Ξ {this.props.tokenPrice ? formatEther(this.props.tokenPrice) : 'Loading'}<span></span>)</span>}
-                </strong>
-              </button>
-            </div>
-          </div>}
-      </>
-    );
-  }
+  return (
+    <>
+      {canMint() &&
+        <div className="mint-widget">
+          <div className={btnStyles.controls}>
+            
+          {tokenPrice ? 
+            <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => mint()}>
+              <strong>Claim 
+                <span>
+                  (Ξ ${formatEther(tokenPrice)})
+                </span>
+              </strong>
+            </button>
+
+            :
+
+            <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => switchNetwork()}>
+              <strong>Switch to Mainnet</strong>
+            </button>
+            }
+          </div>
+        </div>}
+    </>
+  );
 }
+
+export default MintWidget;

@@ -20,7 +20,8 @@ import btnStyles from '../styles/ConnectButton.module.scss';
 // import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
 import truncateEthAddress from 'truncate-eth-address';
 import { useAccount, useDisconnect } from 'wagmi';
-import { Web3Button } from '@web3modal/react'
+// import { Web3Button } from '@web3modal/react'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 const Header = () => {
 
@@ -36,6 +37,7 @@ const Header = () => {
     setIsFlyoutMenuActive(!isFlyoutMenuActive);
   }
 
+  const { open } = useWeb3Modal()
 
   return (
     <div className={`${styles.header} header`}>
@@ -77,7 +79,7 @@ const Header = () => {
           )
           :
           <div className={`${btnStyles.connect} connect`}>
-            <Web3Button />
+            <button onClick={() => open()}><strong>Connect</strong></button>
           </div>
         }
       </div>

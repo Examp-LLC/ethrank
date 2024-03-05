@@ -26,8 +26,9 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { useAccount } from 'wagmi';
-import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
+// import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
 import Dapp from '../components/Dapp'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -110,6 +111,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
   // const { setTheme } = useWeb3ModalTheme()
   // setTheme({ themeColor: 'green' });
+  const { open } = useWeb3Modal()
 
   const [hasWalletPluginInstalled, setHasWalletPluginInstalled] = useState(true)
   const [manualAddressInput, setManualAddressInput] = useState('')
@@ -147,7 +149,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
                   <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
                 ) :
                 <div className={btnStyles.btnWrapper}>
-                  <Web3Button />
+                  <button onClick={() => open()}><strong>Connect</strong></button>
                 </div>
               }
             </>}

@@ -22,21 +22,17 @@ import { Badge } from './season-four/Badge';
 import Web3 from 'web3';
 import { reverseLookup } from '../lib/reverseLookup';
 import { useAccount, useReadContract, useWriteContract } from 'wagmi';
-import { Web3Button } from '@web3modal/react'
+import { useWeb3Modal } from '@web3modal/wagmi/react';
+import { readContract } from '@wagmi/core'
+import { wagmiConfig, wagmiConfigExternal } from '../pages/_app';
+import { mainnet } from 'viem/chains';
+import { ReadContractParameters } from 'viem';
 
 const ContractAbi = require('../lib/ETHRankBadge.json').abi;
 
 const Dapp = () => {
 
-  // const { setTheme } = useWeb3ModalTheme()
-  // setTheme({ themeColor: 'green' });
-
   const { isConnected, address, chain } = useAccount();
-
-  const [networkConfig, setNetworkConfig] = useState(CollectionConfig.mainnet);
-
-  const [totalSupply, setTotalSupply] = useState(0)
-  const [maxSupply, setMaxSupply] = useState(0)
   const [rank, setRank] = useState(1900)
   const [progress, setProgress] = useState([])
   const [score, setScore] = useState(420)
@@ -44,19 +40,13 @@ const Dapp = () => {
   const [loadingBadge, setLoadingBadge] = useState(false)
   const [errorLoadingBadge, setErrorLoadingBadge] = useState(false)
   const [mintComplete, setMintComplete] = useState(false)
-  const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState(0)
   const [tokenPrice, setTokenPrice] = useState<bigint>()
-  const [isPaused, setIsPaused] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
   const [errorMsg, setErrorMsg] = useState<null | string>(null)
 
   useEffect(() => {
-    renderBadgePreview();
-
-    setTokenPrice(costFromContract.data as unknown as bigint)
-    setMaxSupply(maxSupplyFromContract.data as unknown as number)
-    setTotalSupply(totalSupplyFromContract.data as unknown as number)
-    setIsPaused(pausedFromContract.data as unknown as boolean)
-  }, [address]);
+      reFetchContractData();
+  }, [address, chain]);
 
   const renderBadgePreview = async () => {
 
@@ -88,26 +78,24 @@ const Dapp = () => {
       setLoadingBadge(false);
       setErrorLoadingBadge(true);
     }
-
-    if (!address || !chain) {
-      return;
-    }
-
-    if (chain.id === CollectionConfig.mainnet.chainId) {
-      setNetworkConfig(CollectionConfig.mainnet);
-    } else if (chain.id === CollectionConfig.testnet.chainId) {
-      setNetworkConfig(CollectionConfig.testnet);
-    } else {
-      setErrorMsg('Unsupported network - Please switch to mainnet');
-      return;
-    }
   }
 
 
-  const costFromContract = useReadContract(getReadConfig('cost'));
-  const pausedFromContract = useReadContract(getReadConfig('paused'));
-  const maxSupplyFromContract = useReadContract(getReadConfig('maxSupply'));
-  const totalSupplyFromContract = useReadContract(getReadConfig('totalSupply'));
+  const fetchPriceAndPausedStatus = async () => {
+    const costFromContract = await readContract(wagmiConfig, getReadConfig('cost') as ReadContractParameters);
+    const pausedFromContract = await readContract(wagmiConfig, getReadConfig('paused') as ReadContractParameters);
+    setTokenPrice(costFromContract as bigint);
+    setIsPaused(pausedFromContract as boolean);
+  }
+
+  const reFetchContractData = async () => {
+
+    if (chain?.id === mainnet.id) {
+      await fetchPriceAndPausedStatus();
+    }
+  
+    renderBadgePreview();
+  }
 
   const { writeContract } = useWriteContract({mutation:{
     onError(e: Error) {
@@ -121,7 +109,8 @@ const Dapp = () => {
 
   const mintTokens = async (amount: number): Promise<void> => {
     try {
-      if (!tokenPrice) return setErrorMsg('no token price');
+      if (!tokenPrice) await fetchPriceAndPausedStatus();
+
       writeContract({
         address: CollectionConfig.contractAddress[CollectionConfig.currentSeason]! as `0xstring`,
         abi: ContractAbi,
@@ -136,21 +125,11 @@ const Dapp = () => {
     }
   }
 
-  const isContractReady = (): boolean => {
-    return !!tokenPrice && !isPaused;
+  const isMainnet = (): boolean => {
+    return isConnected && chain?.id === CollectionConfig.mainnet.chainId;
   }
 
-  const isSoldOut = (): boolean => {
-    return maxSupply !== 0 && totalSupply < maxSupply;
-  }
-
-  const isNotMainnet = (): boolean => {
-    return !!isConnected && chain?.id !== CollectionConfig.mainnet.chainId;
-  }
-
-  const isSaleOpen = (): boolean => {
-    return !isPaused;
-  }
+  const { open } = useWeb3Modal()
 
   return (
     <>
@@ -173,37 +152,33 @@ const Dapp = () => {
 
         {!isConnected ?
           <div className={styles.connectBtn}>
-            <Web3Button />
+            <button onClick={() => open()}><strong>Connect</strong></button>
           </div> : null
         }
 
         {isConnected ?
           <>
-            {isContractReady() && tokenPrice ?
+            
               <div className={styles.mintDapp}>
                 <MintWidget
-                  tokenPrice={tokenPrice}
+                  isMainnet={isMainnet()}
+                  tokenPrice={tokenPrice || BigInt(0)}
                   isPaused={isPaused}
                   mintTokens={(mintAmount) => mintTokens(mintAmount)}
                 />
               </div>
-              :
-              <div className={styles.mintDapp}>
-                <span className="loading-spinner"></span> Reticulating splines...
-              </div>
-            }
+             
           </>
           : null
         }
       </div>
 
-
-      {isNotMainnet() ?
+      {/* {isMainnet() ?
         <div className="not-mainnet">
           You are not connected to the main network.
           <span className="small"> Current network: <strong>{chain?.name}</strong></span>
         </div>
-        : null}
+        : null} */}
 
       {errorMsg ? <div className={styles.error}><p>{errorMsg}</p><button onClick={() => setErrorMsg(null)}>Close</button></div> : null}
 
@@ -211,9 +186,11 @@ const Dapp = () => {
 
     </>
   );
+
 }
 
 export default Dapp;
+
 
 function getReadConfig(functionName: string) {
   return {
@@ -222,3 +199,4 @@ function getReadConfig(functionName: string) {
     functionName,
   };
 }
+

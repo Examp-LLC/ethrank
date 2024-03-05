@@ -149,10 +149,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         // sepolia
         // with custom reoslver copy pasted from example on eas docs
         // const schemaUID = "0xcd24186c3c41e547cb470b94c7e98be7aa9c973779a80b0188cab14a52ea3e0a";
-        // with custom resolver written by chatgpt
-        // const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
-        // with no resolver
-        // const schemaUID = "0xb778c7fccfa54293fa3d86dfe5f35c586933e9df72255f41d129cf8b1ae62b5a";
 
         const tx = await eas.attest(
           {
@@ -172,6 +168,9 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
         const newAttestationUID = await tx.wait();
 
+        if (newAttestationUID) {
+          setAttestSuccess(true);
+        }
 
         // notification.success("Attestation signed successfully! UID: " + newAttestationUID);
       } catch (e) {
@@ -179,7 +178,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         // notification.error("Error signing attestation: " + e);
       } finally {
         setIsLoading(false);
-        setAttestSuccess(true);
       }
     }
   };

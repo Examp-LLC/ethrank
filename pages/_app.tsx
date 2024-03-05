@@ -16,16 +16,18 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const wagmiConfig = defaultWagmiConfig({ 
+export const wagmiConfigExternal = {
   chains: [
-    mainnet, 
-    optimism, 
+    mainnet,
+    optimism,
     optimismSepolia
-  ], 
+  ],
   enableCoinbase: false,
-  projectId, 
-  metadata 
-})
+  projectId,
+  metadata
+}
+// @ts-ignore
+export const wagmiConfig = defaultWagmiConfig(wagmiConfigExternal)
 createWeb3Modal({ wagmiConfig, projectId })
 
 export default function App({ Component, pageProps }: AppProps) {
