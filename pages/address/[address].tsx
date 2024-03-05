@@ -30,8 +30,13 @@ import { getLabelsForAddress } from '../api/labels/[address]';
 import { Goal } from '../../lib/Achievement.interface';
 import { Badge } from '../../components/season-four/Badge';
 import truncateEthAddress from 'truncate-eth-address';
-import { useAccount } from 'wagmi';
+import { useAccount, useSwitchChain } from 'wagmi';
 import btnStyles from '../../styles/ConnectButton.module.scss';
+import { useEthersSigner } from '../../lib/ethers';
+import { EAS, SchemaEncoder, TransactionSigner } from '@ethereum-attestation-service/eas-sdk';
+import CollectionConfig from '../../lib/CollectionConfig';
+import { optimism, optimismSepolia } from 'viem/chains';
+import { Web3Button } from '@web3modal/react';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -107,6 +112,75 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
     }
     fetchData();
   });
+
+
+  const [visible, setVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [newMember, setNewMember] = useState("");
+
+  const { switchChain } = useSwitchChain();
+
+  const signer = useEthersSigner();
+
+  const EASContractAddress = "0x4200000000000000000000000000000000000021";
+  const eas = new EAS(EASContractAddress);
+
+  const signAttestation = async () => {
+
+    const currentSigner = await signer;
+
+    if (connectedWallet.address && currentSigner) {
+      setIsLoading(true);
+
+      try {
+        eas.connect(currentSigner as TransactionSigner);
+
+        const schemaEncoder = new SchemaEncoder("uint32 Score,uint8 Season,uint32 Rank");
+        const encodedData = schemaEncoder.encodeData([
+          { name: "Score", value: "0", type: "uint32" },
+          { name: "Season", value: "0", type: "uint8" },
+          { name: "Rank", value: "0", type: "uint32" }
+        ]);
+
+        // mainnet
+        // const schemaUID = "";
+
+        // sepolia
+        const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
+
+        const tx = await eas.attest(
+          {
+            schema: schemaUID,
+            data: {
+              recipient: address,
+              expirationTime: BigInt(0),
+              revocable: false,
+              data: encodedData,
+              value: BigInt(3432122320000)
+            },
+          },
+          {
+            gasLimit: 300000,
+          },
+        );
+
+        const newAttestationUID = await tx.wait();
+
+        console.log("New attestation UID:", newAttestationUID);
+
+        // notification.success("Attestation signed successfully! UID: " + newAttestationUID);
+      } catch (e) {
+        console.log("Error signing attestation: ", e);
+        // notification.error("Error signing attestation: " + e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const isOptimism = (): boolean => {
+    return connectedWallet.isConnected && (connectedWallet.chain?.id === optimism.id || connectedWallet.chain?.id === optimismSepolia.id);
+  }
 
   const convertBigNumberToShorthand = (n: number) => {
     if (n < 1e3) return n % 1 != 0 ? n.toFixed(2) : n;
@@ -226,6 +300,69 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         </div>
       </div>
 
+
+      <div className={`${styles.cellParent} ${styles.claimRow}`}>
+        <div style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 7, display: 'inline-flex' }}>
+          <div style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex' }}>
+            <div style={{ height: 16, justifyContent: 'center', alignItems: 'center', gap: 1, display: 'inline-flex' }}>
+              <div style={{ width: 188.74, height: 0, border: '1px #18D4EB solid' }}></div>
+              <div style={{ width: 97, paddingBottom: 12, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'inline-flex' }}>
+                <div className={styles.carat}>^</div>
+                <div className={styles.carat}>^</div>
+              </div>
+              <div style={{ width: 188.74, height: 0, border: '1px #18D4EB solid' }}></div>
+            </div>
+            <div>
+              <div><h2>Claim your dynamic badge</h2></div>
+            </div>
+            <div style={{ border: '1px #18D4EB solid', width: '100%' }}></div>
+          </div>
+          <ul className={styles.claimBox} style={{}}>
+            <li>Evolves with you</li>
+            <li>ERC-721 on mainnet</li>
+            <li><span className={styles.oldPrice}>.05 ETH</span> .025 ETH
+              <span className={styles.sale}>SALE</span>
+            </li>
+          </ul>
+          <div><Link href="/" className={btnStyles.btn}><strong>Claim Badge</strong></Link></div>
+        </div>
+        <div className={`${styles.claimCell}`}>
+          <div>
+            <h3>Attest your score</h3>
+            <p>Using the Ethereum Attestation Service (EAS) on <span className={styles.red}>Optimism</span></p>
+          </div>
+          {connectedWallet.isDisconnected && 
+            <div className={`${btnStyles.connect} connect`}>
+              <Web3Button />
+            </div>
+          }
+          {connectedWallet.isConnected && 
+            <>
+              {isOptimism() ?
+                <button
+                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""
+                    }`}
+                  disabled={isLoading}
+                  onClick={async () => await signAttestation()}
+                >
+                  {!isLoading && (
+                    <strong>
+                      Attest Score
+                    </strong>
+                  )}
+                </button> :
+                <button
+                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""
+                    }`}
+                  disabled={!switchChain}
+                  onClick={() => switchChain({ chainId: optimism.id })}
+                ><strong>Switch to Optimism</strong></button>
+              }
+            </>
+          }
+        </div>
+      </div>
+
       <div>
         <h3>Achievements <span className="pill">Season IV</span></h3>
         <div className={`${styles.cellParent} ${styles.achievements}`}>
@@ -277,27 +414,27 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
           :
           <div className={`${styles.cellParent} ${styles.stats}`}>
 
-              <div className={`${styles.stat} stat`}>
-                <h4>Rank</h4>
-                <h2>13</h2>
-              </div>
+            <div className={`${styles.stat} stat`}>
+              <h4>Rank</h4>
+              <h2>13</h2>
+            </div>
 
-              <div className={`${styles.stat} stat`}>
-                <h4>Transactions</h4>
-                <h2>1023</h2>
-              </div>
-              {/* <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat`}>
+              <h4>Transactions</h4>
+              <h2>1023</h2>
+            </div>
+            {/* <div className={`${styles.stat} stat`}>
                 <h4>Spent on Gas</h4>
                 <h2>Ξ12.2</h2>
               </div> */}
-              <div className={`${styles.stat} stat`}>
-                <h4>Active Since</h4>
-                <h2>2015</h2>
-              </div>
-              <div className={styles.cta}>
-                <h2>Dynamic Badge required to view stats</h2>
-                <Link href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></Link>
-              </div>
+            <div className={`${styles.stat} stat`}>
+              <h4>Active Since</h4>
+              <h2>2015</h2>
+            </div>
+            <div className={styles.cta}>
+              <h2>Dynamic Badge required to view stats</h2>
+              <Link href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></Link>
+            </div>
           </div>
         }
 
@@ -307,53 +444,53 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         <h3>Labels <span className="pill lifetime">Lifetime</span></h3>
 
         {ownsNFT ?
-        <ul className={`${styles.cellParent} ${styles.labels}`}>
-          {labels.filter(({ name }, index) => {
-            return index === labels.findIndex((goal) => goal.name === name)
-          }).map((goal, i) => {
-            return (
-              <li className={`${styles.stat} ${styles[goal.category]} label`} key={i}>
-                <img src={getLabelIcon(goal.category)} />
-                <label>{goal.name}</label>
-              </li>
-            )
-          })}
-        </ul>
+          <ul className={`${styles.cellParent} ${styles.labels}`}>
+            {labels.filter(({ name }, index) => {
+              return index === labels.findIndex((goal) => goal.name === name)
+            }).map((goal, i) => {
+              return (
+                <li className={`${styles.stat} ${styles[goal.category]} label`} key={i}>
+                  <img src={getLabelIcon(goal.category)} />
+                  <label>{goal.name}</label>
+                </li>
+              )
+            })}
+          </ul>
           :
           <div className={`${styles.cellParent} ${styles.labels}`}>
             <ul>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/users-solid.svg' />
-                  <label>Lorem Ipsum Dolor Set</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/users-solid.svg' />
-                  <label>If you are reading this</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/gem-solid.svg' />
-                  <label>Please buy a badge</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/microchip-solid.svg' />
-                  <label>Or reach out for some work</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/users-solid.svg' />
-                  <label>Lorem Ipsum Dolor Set</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/users-solid.svg' />
-                  <label>If you are reading this</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/gem-solid.svg' />
-                  <label>Please buy a badge</label>
-                </li>
-                <li className={`${styles.stat} users label`}>
-                  <img src='/microchip-solid.svg' />
-                  <label>Or reach out for some work</label>
-                </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/users-solid.svg' />
+                <label>Lorem Ipsum Dolor Set</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/users-solid.svg' />
+                <label>If you are reading this</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/gem-solid.svg' />
+                <label>Please buy a badge</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/microchip-solid.svg' />
+                <label>Or reach out for some work</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/users-solid.svg' />
+                <label>Lorem Ipsum Dolor Set</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/users-solid.svg' />
+                <label>If you are reading this</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/gem-solid.svg' />
+                <label>Please buy a badge</label>
+              </li>
+              <li className={`${styles.stat} users label`}>
+                <img src='/microchip-solid.svg' />
+                <label>Or reach out for some work</label>
+              </li>
             </ul>
             <div className={styles.cta}>
               <h2>Dynamic Badge required to view labels</h2>

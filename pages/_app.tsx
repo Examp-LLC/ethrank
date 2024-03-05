@@ -2,7 +2,7 @@ import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiProvider } from 'wagmi' 
-import { mainnet, optimism } from 'wagmi/chains'
+import { mainnet, optimism, optimismSepolia} from 'wagmi/chains'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
@@ -16,7 +16,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const wagmiConfig = defaultWagmiConfig({ chains: [mainnet, optimism], projectId, metadata })
+const wagmiConfig = defaultWagmiConfig({ chains: [mainnet, optimism, optimismSepolia], projectId, metadata })
 createWeb3Modal({ wagmiConfig, projectId })
 
 export default function App({ Component, pageProps }: AppProps) {

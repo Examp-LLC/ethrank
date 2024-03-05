@@ -45,14 +45,18 @@ const Attest = () => {
         try {
           eas.connect(currentSigner as TransactionSigner);
   
-          const schemaEncoder = new SchemaEncoder("uint16 Score,uint8 Season,uint32 Rank");
+          const schemaEncoder = new SchemaEncoder("uint32 Score,uint8 Season,uint32 Rank");
           const encodedData = schemaEncoder.encodeData([
-            { name: "Score", value: "0", type: "uint16" },
+            { name: "Score", value: "0", type: "uint32" },
             { name: "Season", value: "0", type: "uint8" },
             { name: "Rank", value: "0", type: "uint32" }
           ]);
   
-          const schemaUID = "0x3626f0deccc804b58b4427385bd574a2d0d8cdad5bfc6a89e42095f2d37ff57d";
+          // mainnet
+          // const schemaUID = "";
+          
+          // sepolia
+          const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
   
           const tx = await eas.attest(
             {
@@ -62,6 +66,7 @@ const Attest = () => {
                 expirationTime: BigInt(0),
                 revocable: false,
                 data: encodedData,
+                value: BigInt(3432122320000)
               },
             },
             {

@@ -14,9 +14,10 @@
 }
 
 .cellParent {
-    a {
+    > a {
         display:block;
         width:100%;
+        border-bottom: none;
     }
     h3 {
         margin:0;
@@ -60,6 +61,12 @@
     width: 100%;
     background:var(--dark-grey);
     border-radius: 10px;
+    &:hover {
+        background:var(--main-color2);
+         h4 {
+            color:var(--main-color1)
+         }
+    }
 }
 
 .achievement h4 {
@@ -140,6 +147,73 @@
             font-size:16px;
             margin:20px 0 10px;
         }
+    }
+}
+
+
+.claimRow {
+    grid-template-columns: 48% 48%;
+    text-align:center;
+    row-gap: 30px;
+    column-gap: 4%;
+    justify-items: center;
+    box-sizing:content-box;
+    .oldPrice {
+        text-decoration: line-through;
+        opacity:50%;
+    }
+    .sale {
+        font-size:12px;
+        color: #FF0000;
+        padding-left:5px;
+    }
+    .red {
+        color: #FF0000;
+    }
+    .carat {
+        width: 127px; 
+        height: 11px;
+        text-align: center;
+        color: #18D4EB; 
+        font-size: 54px;
+        font-family: "BankGothic";
+        font-weight: 400;
+        word-wrap: break-word;
+    }
+    h2 {
+        color:var(--main-color3);
+        font-size:30px;
+        margin:0;
+    }
+    ul {
+        text-align: left;
+    }
+    .claimCell {
+        background: url('../public/bg_rectangle2.svg') no-repeat 50% 50%;
+        background-size:contain;
+        padding: 40px 90px;
+        min-height:200px;
+        vertical-align: middle;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        &:first-child {
+            background: url('../public/bg_rectangle1.svg') no-repeat 50% 50%;
+            background-size:contain;
+        }
+        &:last-child {
+            background: url('../public/bg_rectangle3.svg') no-repeat 50% 50%;
+            background-size:contain;
+        }
+        h3 {
+            font-size:26px;
+            margin:20px 0 10px;
+        }
+    }
+    a, button {
+        padding: 10px 1px;
+        font-family: "BankGothic DB";
     }
 }
 
@@ -262,11 +336,38 @@
     }
 }
 
+@include tablet {
+    .claimRow {
+        grid-template-columns: 100%;
+        h2 {
+            font-size: 25px;
+        }
+        .claimCell {
+            max-width:400px;
+            padding: 40px 50px;
+        }
+    }
+}
+
 @include mobile {
     .cellParent, .categoryRow {
         grid-template-columns: 100%;
     }
     .address h1 {
         font-size:8vw !important;
+    }
+    .claimRow {
+        margin-top:40px;
+        h2 {
+            font-size: 20px;
+        }
+        .claimCell {
+            max-width:400px;
+            padding: 40px 20px;
+        }
+        .carat {
+            height:9px;
+            font-size:44px;
+        }
     }
 }
