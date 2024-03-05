@@ -144,11 +144,11 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         ]);
 
         // mainnet
-        // const schemaUID = "";
+        const schemaUID = "0x282b501c8ee8c7d05fb7d7bc2ecbebba2b58fc45e27ea7895ab45b997ea0dbdf";
 
         // sepolia
         // with custom reoslver copy pasted from example on eas docs
-        const schemaUID = "0xcd24186c3c41e547cb470b94c7e98be7aa9c973779a80b0188cab14a52ea3e0a";
+        // const schemaUID = "0xcd24186c3c41e547cb470b94c7e98be7aa9c973779a80b0188cab14a52ea3e0a";
         // with custom resolver written by chatgpt
         // const schemaUID = "0x4e3cd72e8534413031db49cf35ce829e911110cc98293a699e78063e4f4a64ef";
         // with no resolver
