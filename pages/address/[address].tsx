@@ -153,7 +153,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         // with no resolver
         // const schemaUID = "0xb778c7fccfa54293fa3d86dfe5f35c586933e9df72255f41d129cf8b1ae62b5a";
 
-
         const tx = await eas.attest(
           {
             schema: schemaUID,
@@ -162,7 +161,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               expirationTime: BigInt(0),
               revocable: false,
               data: encodedData,
-              value: BigInt(3432122320000)
+              value: BigInt(271722235145510)
             },
           },
           {
