@@ -578,19 +578,23 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       params.fromAddress = undefined;
     }
     
-    const results = await alchemy
-      .forNetwork(network)
-      .core.getAssetTransfers(params);
-    
-    if (results.pageKey && depth < 2) {
-      try {
-        const nextPage = await fetchTxns(address, network, useTo, results.pageKey, depth + 1);
-        results.transfers = results.transfers.concat(nextPage.transfers);
-      } catch(e) {
-      }
+    try {
+      const results = await alchemy
+        .forNetwork(network)
+        .core.getAssetTransfers(params);
+      
+      if (results.pageKey && depth < 2) {
+          const nextPage = await fetchTxns(address, network, useTo, results.pageKey, depth + 1);
+          results.transfers = results.transfers.concat(nextPage.transfers);
+      
+      }  
+
+      return results;
+    } catch(e) {
+      console.log('err', e);
+      return new Promise.reject();
     }
 
-    return results;
   }
 }
 

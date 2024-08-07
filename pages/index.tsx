@@ -104,11 +104,12 @@ const getBannerText = () => {
   return introText[Math.floor(Math.random() * introText.length)];
 }
 
-const bannerText = getBannerText();
 
 const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
 
+  const bannerText = getBannerText();
+  
   // const { setTheme } = useWeb3ModalTheme()
   // setTheme({ themeColor: 'green' });
   const { open } = useWeb3Modal()
