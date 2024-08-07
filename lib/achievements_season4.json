@@ -1144,7 +1144,7 @@
                     {
                         "name": "Interact with Polygon (MATIC) Bridge",
                         "points": 30,
-                        "type": "transaction_from_address_count",
+                        "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
                             "address": [

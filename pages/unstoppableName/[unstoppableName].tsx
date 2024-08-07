@@ -66,9 +66,15 @@ export default UnstoppableRedirect
 export async function lookupUnstoppableName(unstoppableName: string) {
   let address = '';
   let error = false;
-  if (unstoppableName && typeof unstoppableName === "string") {
 
-    const res = await fetch(`https://unstoppabledomains.com/api/v1/${unstoppableName}`);
+  if (unstoppableName && typeof unstoppableName === "string") {
+    const UNSTOPPABLE_API_KEY = process.env.UNSTOPPABLE_API_KEY;
+
+    const res = await fetch(`https://api.unstoppabledomains.com/resolve/domains/${unstoppableName}`, {
+      headers: {
+        'Authorization': `Bearer ${UNSTOPPABLE_API_KEY}`
+      }
+    });
     const resJson = await res.json();
 
     if (resJson && resJson.meta && resJson.meta.owner) {

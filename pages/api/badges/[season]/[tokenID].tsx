@@ -56,7 +56,8 @@ export default async function handler(
   res.writeHead(200, {
     'Content-Type': 'image/svg+xml;charset=utf-8',
     'Content-Length': new TextEncoder().encode(image).length,
-    'Cache-Control': 'public, s-maxage=43200, stale-while-revalidate=86400'
+    'Cache-Control': 'public, s-maxage=43200, stale-while-revalidate=86400',
+    'Access-Control-Allow-Origin': '*'
   });
   return res.end(image)
 }

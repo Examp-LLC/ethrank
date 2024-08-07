@@ -582,9 +582,12 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       .forNetwork(network)
       .core.getAssetTransfers(params);
     
-    if (results.pageKey && depth < 4) {
-      const nextPage = await fetchTxns(address, network, useTo, results.pageKey, depth + 1);
-      results.transfers = results.transfers.concat(nextPage.transfers);
+    if (results.pageKey && depth < 2) {
+      try {
+        const nextPage = await fetchTxns(address, network, useTo, results.pageKey, depth + 1);
+        results.transfers = results.transfers.concat(nextPage.transfers);
+      } catch(e) {
+      }
     }
 
     return results;
