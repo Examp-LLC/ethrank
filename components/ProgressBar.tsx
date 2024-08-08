@@ -25,7 +25,8 @@ const ProgressBar = ({
   percent
 }: ProgressBarProps) => (
   <div className={styles.outer}>
-    <div style={{ width: `${100 - (percent * 100)}%` }} className={styles.inner}></div>
+    <div style={{ width: `${percent * 100}%`}} className={styles.inner}></div>
+    {/* <div style={{ width: `${100 - (percent * 100)}%` }} className={styles.inner}></div> */}
   </div>
 )
 ProgressBar.propTypes = {

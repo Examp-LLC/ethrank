@@ -50,7 +50,7 @@ const MintWidget = ({tokenPrice, isPaused, isMainnet, mintTokens}: Props) => {
           <div className={btnStyles.controls}>
             
           {tokenPrice ? 
-            <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => mint()}>
+            <button className={`${btnStyles.btn} ${btnStyles.wide} ${btnStyles.mintBtn}`} onClick={() => mint()}>
               <strong>Claim 
                 <span>
                   (Ξ {formatEther(tokenPrice)})
@@ -60,8 +60,8 @@ const MintWidget = ({tokenPrice, isPaused, isMainnet, mintTokens}: Props) => {
 
             :
 
-            <button className={`${btnStyles.btn} ${btnStyles.mintBtn}`} onClick={() => switchNetwork()}>
-              <strong>Switch to Mainnet</strong>
+            <button className={`${btnStyles.btn} ${btnStyles.wide} ${btnStyles.mintBtn}`} onClick={() => switchNetwork()}>
+              <strong>Claim</strong>
             </button>
             }
           </div>

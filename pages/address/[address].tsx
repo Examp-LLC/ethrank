@@ -28,7 +28,7 @@ import Page from '../../components/Page';
 import { getCalcMethod } from '../api/address/[address]';
 import { getLabelsForAddress } from '../api/labels/[address]';
 import { Goal } from '../../lib/Achievement.interface';
-import { Badge } from '../../components/season-four/Badge';
+import { Badge } from '../../components/season-five/Badge';
 import truncateEthAddress from 'truncate-eth-address';
 import { useAccount, useSwitchChain } from 'wagmi';
 import btnStyles from '../../styles/ConnectButton.module.scss';
@@ -278,11 +278,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
-      <div className={styles.address}>
-        <h1>
-          {displayAddress}
-        </h1>
-      </div>
 
       <div className={styles.categoryRow}>
         <div className={styles.colOne}>
@@ -292,6 +287,9 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         </div>
 
         <div className={styles.colTwo}>
+          <h1>
+            {displayAddress}
+          </h1>
           <div className={styles.categories}>
             {categoryData.map((category, i) => {
               return <div
@@ -305,54 +303,42 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         </div>
       </div>
 
-
       <div className={`${styles.cellParent} ${styles.claimRow}`}>
-        <div style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 7, display: 'inline-flex' }}>
-          <div style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex' }}>
-            <div style={{ height: 16, justifyContent: 'center', alignItems: 'center', gap: 1, display: 'inline-flex' }}>
-              <div style={{ width: 188.74, height: 0, border: '1px #18D4EB solid' }}></div>
-              <div style={{ width: 97, paddingBottom: 12, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'inline-flex' }}>
-                <div className={styles.carat}>^</div>
-                <div className={styles.carat}>^</div>
-              </div>
-              <div style={{ width: 188.74, height: 0, border: '1px #18D4EB solid' }}></div>
-            </div>
-            <div>
-              <div><h2>Claim your dynamic badge</h2></div>
-            </div>
-            <div style={{ border: '1px #18D4EB solid', width: '100%' }}></div>
-          </div>
-          <ul className={styles.claimBox} style={{}}>
+
+        <div className={`${styles.claimCell} greybox`}>
+          <img src="/bg-arrow-up.png" width="90" height="60" className={styles.claimArrow} />
+          <h2>Claim your dynamic badge</h2>
+          <ul className={styles.claimBox}>
             <li>Evolves with you</li>
             <li>ERC-721 on mainnet</li>
-            {/* <li><span className={styles.oldPrice}>Ξ0.05</span> Ξ0.025
-              <span className={styles.sale}>SALE</span>
-            </li> */}
-            <li>Ξ0.05 
+            <li><span className={styles.oldPrice}>Ξ0.1</span> Ξ0.05
               <span className={styles.sale}>SALE</span>
             </li>
+            {/* <li>Ξ0.05 
+              <span className={styles.sale}>SALE</span>
+            </li> */}
           </ul>
           <div><Link href="/" className={btnStyles.btn}><strong>Claim Badge</strong></Link></div>
         </div>
-        <div className={`${styles.claimCell}`}>
+        <div className={`${styles.claimCell} greybox`}>
           <div>
-            <h3>Attest your score</h3>
+            <h2>Attest your score</h2>
             <p>Using the Ethereum Attestation Service (EAS) on <span className={styles.red}>Optimism</span></p>
           </div>
 
-          {attestSuccess && 
+          {attestSuccess &&
             <p>
               Attestation Successful!
             </p>
           }
 
-          {!attestSuccess && connectedWallet.isDisconnected && 
+          {!attestSuccess && connectedWallet.isDisconnected &&
             <div className={`${btnStyles.connect} connect`}>
               <Web3Button />
             </div>
           }
-          
-          {!attestSuccess && connectedWallet.isConnected && 
+
+          {!attestSuccess && connectedWallet.isConnected &&
             <>
               {isOptimism() ?
                 <button
@@ -360,7 +346,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
                   disabled={isLoading}
                   onClick={async () => await signAttestation()}
                 >
-                  {isLoading ? 
+                  {isLoading ?
                     <strong>
                       Loading...
                     </strong>
@@ -371,7 +357,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
                   }
                 </button> :
                 <button
-                  className={`${btnStyles.btn} ${isLoading ? "loading" : ""}`}
+                  className={`${btnStyles.btn} ${btnStyles.wide} ${isLoading ? "loading" : ""}`}
                   disabled={!switchChain}
                   onClick={() => switchChain({ chainId: optimism.id })}
                 ><strong>Switch to Optimism</strong></button>
@@ -393,7 +379,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
               pathname: '/address/[address]/[achievement]',
               query: { address, achievement: achievement.slug },
             }}>
-              <div className={`${styles.achievement} achievement animate__animated`}>
+              <div className={`${styles.achievement} greybox achievement animate__animated`}>
                 <h4>{achievement.name}</h4>
                 {/* <h2>{(percentages / achievement.goals.length * 100).toFixed(0)} %</h2> */}
                 <ProgressBar percent={percentages / achievement.goals.length} />
@@ -410,20 +396,20 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         {ownsNFT ?
           <div className={`${styles.cellParent} ${styles.stats}`}>
 
-            <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat greybox`}>
               <h4>Rank</h4>
               <h2>{rank}</h2>
             </div>
 
-            <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat greybox`}>
               <h4>Transactions</h4>
               <h2>{convertBigNumberToShorthand(parseFloat(totalTransactions))}</h2>
             </div>
-            {/* <div className={`${styles.stat} stat`}>
+            {/* <div className={`${styles.stat} stat greybox`}>
               <h4>Spent on Gas</h4>
               <h2>Ξ{convertBigNumberToShorthand(parseFloat(spentOnGas))}</h2>
             </div> */}
-            <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat greybox`}>
               <h4>Active Since</h4>
               <h2>{activeSince ? new Date(activeSince).getFullYear() : 'Unknown'}</h2>
             </div>
@@ -431,12 +417,12 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
           :
           <div className={`${styles.cellParent} ${styles.stats}`}>
 
-            <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat greybox`}>
               <h4>Rank</h4>
               <h2>13</h2>
             </div>
 
-            <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat greybox`}>
               <h4>Transactions</h4>
               <h2>1023</h2>
             </div>
@@ -444,7 +430,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
                 <h4>Spent on Gas</h4>
                 <h2>Ξ12.2</h2>
               </div> */}
-            <div className={`${styles.stat} stat`}>
+            <div className={`${styles.stat} stat greybox`}>
               <h4>Active Since</h4>
               <h2>2015</h2>
             </div>

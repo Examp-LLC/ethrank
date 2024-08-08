@@ -56,7 +56,7 @@
 
 .connect .manualAddressInput {
   width:100%;
-
+  min-width: 339px;
   input {
     color: var(--white);
     padding: 10px;
@@ -90,10 +90,11 @@
     padding: 10px 40px;
     border-bottom: none !important;
     display: inline-block;
+    line-height: 33px;
     > span {
       padding-left:10px;
       font-size:14px;
-      color:var(--main-color2);
+      color:var(--main-color4);
     }
   }
 }

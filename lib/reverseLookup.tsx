@@ -4,6 +4,7 @@ import namehash from '@ensdomains/eth-ens-namehash';
 import Resolution, { UnsLocation } from '@unstoppabledomains/resolution';
 import Web3 from 'web3';
 
+const NEXT_PUBLIC_UNSTOPPABLE_SDK_KEY = process.env.NEXT_PUBLIC_UNSTOPPABLE_SDK_KEY;
 export async function reverseLookup(address: string, web3: Web3) {
 
   try {
@@ -20,7 +21,8 @@ export async function reverseLookup(address: string, web3: Web3) {
   } catch (e) { }
   
   try {
-    const resolution = new Resolution();
+    // @ts-ignore
+    const resolution = new Resolution({ apiKey: NEXT_PUBLIC_UNSTOPPABLE_SDK_KEY });
     const domain = await resolution
       .reverse(address, {location: UnsLocation.Layer2})
       .then((domain) => domain);

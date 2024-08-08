@@ -11,11 +11,14 @@
 }
 
 .topRow {
-  min-height:458px;
-  background:url('../public/bg_subscribe.svg') no-repeat 50% 0;
-  text-align: center;
+  min-height:258px;
+  background:url('../public/bg-subscribe.png') no-repeat 50% 0;
+  background-size: contain;
+  padding-left:4vw;
   h2 {
     font-size:38px;
+    margin-bottom:0;
+    text-transform: uppercase;
   }
   p {
     font-size:12px;
@@ -23,30 +26,11 @@
   }
 }
 
-.dot {
-  background:url('../public/dot.svg') no-repeat 0 0;
-  width:30px;
-  height:30px;
+.coin {
   position:absolute;
-  top:-2px;
-  left:-15px;
-  &.topRight {
-    right:-15px;
-    left:auto;
-  }
-  &.bottomRight {
-    right:-15px;
-    left:auto;
-    top:auto;
-    bottom:-15px;
-  }
-  &.bottomLeft {
-    bottom:-15px;
-    top:auto;
-  }
+  right: 0;
+  top: -105px;
 }
-
-
 
 .topRow, .secondRow {
   display: grid;
@@ -54,31 +38,33 @@
   align-content: space-between;
   justify-items: center;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   position:relative;
 }
 
 .form {
-  margin-top: 25%;
   width:100%;
 }
 
 .form input[type=submit] {
-  background: black;
+  background:url("../public/btn-mid.png") no-repeat;
+  background-size: contain;
   color: var(--white);
-  padding: 10px 20px;
+  padding: 10px 13px;
   text-transform: uppercase;
   font-size: 14px;
-  border-bottom: none;
-  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
-  font-family: "BankGothic DB";
   border:none;
 }
 
 .form input[type=email] {
   color: var(--white);
+  fill: linear-gradient(180deg, rgba(37, 37, 37, 0.20) 0%, rgba(15, 15, 15, 0.20) 100%);
+  stroke-width: 1px;
+  stroke: rgba(255, 255, 255, 0.32);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.32) inset;
+  backdrop-filter: blur(42px);
   padding:10px;
   margin-right:10px;
   border:1px solid var(--white);
@@ -112,6 +98,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
   align-items: center;
+  margin-top:20px;
    h3 {
     margin: 10px 0;
     white-space: nowrap;
@@ -179,11 +166,12 @@
 }
 
 @include tablet {
-  .dot {
-    top: calc(-13vw + 126px)
+  .topRow {
+    background-size: auto;
+    border-radius: 35px;
   }
-  .dot.bottomRight, .dot.bottomLeft {
-    bottom: calc(-18vw + 163px)
+  .coin {
+    display:none;
   }
 }
 
@@ -197,14 +185,19 @@
     padding:20px;
   }
   .social {
-    margin-top: 100px;
+    margin-top: 0;
+    text-align: center;
   }
   .secondRow {
     padding:20px;
     margin-top:50px;
     grid-template-columns: 100%;
   }
-  .dot {
+  .topRow {
+    background-size: auto;
+    border-radius: 35px;
+  }
+  .coin {
     display:none;
   }
 }

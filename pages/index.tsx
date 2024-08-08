@@ -41,7 +41,7 @@ export async function getServerSideProps({ res }: NextPageContext) {
   }
 
   const leaderboard = await prisma.address.findMany({
-    take: 6,
+    take: 5,
     select: {
       address: true,
       name: true,
@@ -58,7 +58,7 @@ export async function getServerSideProps({ res }: NextPageContext) {
     }
   });
   const latestScores = await prisma.address.findMany({
-    take: 6,
+    take: 5,
     select: {
       address: true,
       name: true,
@@ -138,7 +138,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
       </div>
       <div className={`${styles.home} content`}>
 
-        <div className={`${styles.mainRow} ${styles.box}`}>
+        <div className={`${styles.mainRow} ${styles.checkRow} greybox`}>
           <div className={`${styles.colOne}`}>
             <img src="/bg-gem.png" width={473} height={393} />
           </div>
@@ -154,7 +154,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               {hasWalletPluginInstalled && <div className={styles.btnWrapper}>
                 {isConnected ?
                   (
-                    <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
+                    <a className={`${btnStyles.btn} ${btnStyles.wide} ${styles.btn}`} href={`/address/${address}`}><strong>Check now</strong></a>
                     ) :
                     <button className={btnStyles.btn} onClick={() => open()}><strong>Connect</strong></button>
                   }
@@ -212,7 +212,22 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               })}
             </ol>
           </div>
-          <img src="/bg-trophy.png" width="730" height="730" alt="Trophy" />
+          <img src="/bg-trophy.png" width="500" height="500" alt="Trophy" />
+        </div>
+
+        <div className={`${styles.mainRow} ${styles.devOfferings} ${styles.homeRow} greybox`}>
+          <div className={`${styles.box}`}>
+            <h3>API / Developer Offerings</h3>
+            <p>ETHRank offers two free APIs for public use: <strong>Address</strong> and <strong>Labels</strong>.
+             Our APIs are a public good, free for public use, subject to reasonable rate limits. With our APIs, you can build:</p>
+            <ul>
+              <li>Reputation systems: Leverage our achievements to gamify your audience.</li>
+              <li>Identity solutions: Give your users a sense of identity and personalization to your app. </li>
+              <li>Distribution mechanism: Token-gate project launches based on reputation or specific tokens.</li>
+              <li>Loyalty programs: Reward your most loyal users and customers.</li>
+            </ul>
+            <a href="/api-docs" className={`${btnStyles.btn} ${btnStyles.wide}`}><strong>API Documentation</strong></a>
+          </div>
         </div>
 
         <div className={`${styles.latestScores} ${styles.homeRow}`}>

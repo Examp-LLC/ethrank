@@ -86,10 +86,16 @@ h1 {
 }
 
 h3 {
-  font-size: 24px;
+  background: linear-gradient(180deg, #FFF 50%, #EEBAFF 75%, #664BFF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 38px;
 } 
 
-h1, h2, h3, h4, h5, button {
+button {
   text-transform: uppercase;
 }
 
@@ -121,6 +127,14 @@ h1, h2, h3, h4, h5, button {
   
 }
 
+.greybox {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.07) 100%);
+  backdrop-filter: blur(42px);
+  border-radius: 32px;
+  padding:20px;
+}
+
 .header .connect span {
   font-size:10px !important;
   text-align: center;
@@ -143,6 +157,7 @@ h1, h2, h3, h4, h5, button {
   left: 20px;
   font-weight: lighter;
   color: var(--main-color5);
+  -webkit-text-fill-color: var(--main-color5);
   letter-spacing: 3px;
 }
 

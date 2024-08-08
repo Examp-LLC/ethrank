@@ -4,10 +4,9 @@
 
 .cellParent, .categoryRow {
     display: grid;
-    grid-template-columns: 48% 48%;
+    grid-template-columns: 49% 49%;
     text-align:center;
-    row-gap: 30px;
-    column-gap: 4%;
+    column-gap: 2%;
     justify-items: center;
     box-sizing:content-box;
     position:relative;
@@ -59,35 +58,27 @@
     padding:20px;
     text-align:left;
     width: 100%;
-    background:var(--dark-grey);
     border-radius: 10px;
+    margin:0 0 20px;
+    transition: all;
+    transition-duration: 200ms;
+
     &:hover {
-        background:var(--main-color2);
-         h4 {
-            color:var(--main-color1)
-         }
+        // background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.24) 50%, rgba(255, 255, 255, 0.27) 100%);
+        //  h4 {
+        //     color:var(--white)
+        //  }
+      filter:hue-rotate(15deg);
+      filter:brightness(1.25);
     }
 }
 
 .achievement h4 {
-    margin: 0 0 20px 0;
-    font-size:24px;
+    margin: 0 0 10px 0;
+    font-size:18px;
     text-transform: uppercase;
-    font-weight: 400;
-}
-
-.address {
-    h1 {
-        text-align:center !important;
-        color: var(--main-color5);
-        max-width:100% !important;
-        font-size:60px !important;
-    }
-    align-items: center;
-    margin: auto;
-    text-align: center;
-    margin: 0 20px;
-
+    font-weight: 600;
+    color:var(--white);
 }
 
 .address h2 {
@@ -96,9 +87,10 @@
 }
 
 .categoryRow {
-    grid-template-columns: 40% 40%;
+    grid-template-columns: 45% 45%;
     justify-content: center;
     align-items: center;
+    column-gap: 10%;
 
     svg {
         width:100%;
@@ -106,7 +98,20 @@
     
     .colTwo {
         text-align: left;
-        width:100%;
+        width:100%; 
+        h1 {
+            background: linear-gradient(180deg, #FFF 50%, #EEBAFF 75%, #664BFF 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 35px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 4rem; /* 153.846% */
+            letter-spacing: -0.13rem;
+            text-transform: uppercase;
+        }
+        
     }
 } 
 
@@ -123,19 +128,9 @@
     justify-items: center;
     box-sizing:content-box;
     .stat {
-        background: url('../public/bg_rectangle2.svg') no-repeat 50% 50%;
-        background-size:contain;
         padding: 20px;
         min-height:200px;
         width:100%;
-        &:first-child {
-            background: url('../public/bg_rectangle1.svg') no-repeat 50% 50%;
-            background-size:contain;
-        }
-        &:last-child {
-            background: url('../public/bg_rectangle3.svg') no-repeat 50% 50%;
-            background-size:contain;
-        }
         h2 {
             color:var(--main-color1);
             font-size:65px;
@@ -152,68 +147,77 @@
 
 
 .claimRow {
-    grid-template-columns: 48% 48%;
+    display:grid;
+    margin:40px 0;
+    grid-template-columns: 45% 45%;
     text-align:center;
     row-gap: 30px;
-    column-gap: 4%;
+    column-gap: 10%;
     justify-items: center;
     box-sizing:content-box;
+    justify-content: center;
     .oldPrice {
         text-decoration: line-through;
         opacity:50%;
     }
     .sale {
-        font-size:12px;
-        color: #FF0000;
-        padding-left:5px;
+        font-size:10px;
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        background: linear-gradient(94deg, #CF6EFF 0%, #923AFF 89.8%);
+        padding:3px;
+        color:var(--white);
+        text-transform: uppercase;
+        margin-left:10px;
     }
     .red {
         color: #FF0000;
     }
-    .carat {
-        width: 127px; 
-        height: 11px;
-        text-align: center;
-        color: #18D4EB; 
-        font-size: 54px;
-        font-family: "BankGothic";
-        font-weight: 400;
-        word-wrap: break-word;
-    }
     h2 {
-        color:var(--main-color3);
-        font-size:30px;
-        margin:0;
+        background: linear-gradient(180deg, #FFF 50%, #EEBAFF 75%, #664BFF 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 500;
+        letter-spacing: -0.13rem;
+        margin:20px 0 0;
+        text-transform: none;
     }
     ul {
         text-align: left;
     }
     .claimCell {
-        background: url('../public/bg_rectangle2.svg') no-repeat 50% 50%;
-        background-size:contain;
-        padding: 40px 90px;
+        padding: 10px 50px;
+        display:grid; 
         min-height:200px;
         vertical-align: middle;
         display: grid;
         align-items: center;
         justify-items: center;
         align-content: center;
-        &:first-child {
-            background: url('../public/bg_rectangle1.svg') no-repeat 50% 50%;
-            background-size:contain;
+
+        img {
+            margin-top:-30px;
+            position: relative;
+            width:70px;
+            height:auto;
         }
-        &:last-child {
-            background: url('../public/bg_rectangle3.svg') no-repeat 50% 50%;
-            background-size:contain;
+
+        ul {
+            margin:20px 0 0;
+            padding:0;
         }
-        h3 {
-            font-size:26px;
-            margin:20px 0 10px;
+
+        li {
+            list-style: none;
+            padding:8px 0 8px 30px;
+            background:url('../public/bg-arrow-right.png') no-repeat 0 50%;
+            background-size: 8%;
         }
     }
     a, button {
         padding: 10px 1px;
-        font-family: "BankGothic DB";
     }
 }
 
@@ -338,13 +342,8 @@
 
 @include tablet {
     .claimRow {
-        grid-template-columns: 100%;
         h2 {
             font-size: 25px;
-        }
-        .claimCell {
-            max-width:400px;
-            padding: 40px 50px;
         }
     }
 }
@@ -353,21 +352,18 @@
     .cellParent, .categoryRow {
         grid-template-columns: 100%;
     }
-    .address h1 {
-        font-size:8vw !important;
+    .categoryRow {
+        .colTwo {
+            order: -1;
+        }
     }
     .claimRow {
-        margin-top:40px;
+        margin-top:0px;
         h2 {
             font-size: 20px;
         }
         .claimCell {
-            max-width:400px;
-            padding: 40px 20px;
-        }
-        .carat {
-            height:9px;
-            font-size:44px;
+            width: 100%;
         }
     }
 }

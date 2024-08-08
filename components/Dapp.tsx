@@ -32,6 +32,7 @@ import ParticlesBackground from './ParticlesBackground';
 
 const ContractAbi = require('../lib/ETHRankBadge.json').abi;
 
+const NEXT_PUBLIC_INFURA_API_KEY = process.env.NEXT_PUBLIC_INFURA_API_KEY;
 const Dapp = () => {
 
   const { isConnected, address, chain } = useAccount();
@@ -67,7 +68,7 @@ const Dapp = () => {
       const { rank, score, progress } = await ethRankResponse.json();
       let web3Domain;
       // ENS stuff - resolve 0x21ada3.. to nick.eth
-      const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`);
+      const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${NEXT_PUBLIC_INFURA_API_KEY}`);
       web3Domain = await reverseLookup(address?.toLowerCase() || '', web3);
 
       setBadgeAddress(web3Domain || address)

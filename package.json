@@ -16,7 +16,7 @@
     "@tsparticles/engine": "^3.5.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.5.0",
-    "@unstoppabledomains/resolution": "^8.3.3",
+    "@unstoppabledomains/resolution": "^9.2.2",
     "@web3modal/ethereum": "^2.4.7",
     "@web3modal/react": "^2.4.7",
     "@web3modal/wagmi": "^4.0.11",

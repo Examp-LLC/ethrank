@@ -20,6 +20,8 @@ import { useEffect } from 'react';
 import { NextPageContext } from 'next';
 import Page from '../../components/Page';
 
+const UNSTOPPABLE_API_KEY = process.env.UNSTOPPABLE_API_KEY;
+
 export async function getServerSideProps(context: NextPageContext) {
   const { unstoppableName } = context.query;
 
@@ -68,7 +70,6 @@ export async function lookupUnstoppableName(unstoppableName: string) {
   let error = false;
 
   if (unstoppableName && typeof unstoppableName === "string") {
-    const UNSTOPPABLE_API_KEY = process.env.UNSTOPPABLE_API_KEY;
 
     const res = await fetch(`https://api.unstoppabledomains.com/resolve/domains/${unstoppableName}`, {
       headers: {
