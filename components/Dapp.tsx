@@ -28,6 +28,7 @@ import { readContract } from '@wagmi/core'
 import { wagmiConfig, wagmiConfigExternal } from '../pages/_app';
 import { mainnet } from 'viem/chains';
 import { ReadContractParameters } from 'viem';
+import ParticlesBackground from './ParticlesBackground';
 
 const ContractAbi = require('../lib/ETHRankBadge.json').abi;
 
@@ -52,8 +53,6 @@ const Dapp = () => {
   const renderBadgePreview = async () => {
 
     if (!isConnected || !address) return;
-
-    console.log('about to do somehting bad')
 
     const ethRankResponse = await fetch(`/api/address/${address}`,
       {
@@ -144,6 +143,8 @@ const Dapp = () => {
           <><span className="loading-spinner"></span> Badge Loading</> : 
           <Badge address={badgeAddress} score={score} rank={rank} progress={progress} />
           }
+
+          <ParticlesBackground />
         </div>
       </div>
 

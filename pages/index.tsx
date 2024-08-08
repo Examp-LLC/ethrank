@@ -29,6 +29,7 @@ import { useAccount } from 'wagmi';
 // import { useWeb3ModalTheme, Web3Button } from '@web3modal/react'
 import Dapp from '../components/Dapp'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import ParticlesBackground from '../components/ParticlesBackground'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 

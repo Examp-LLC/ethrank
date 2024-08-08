@@ -153,6 +153,7 @@
   margin:20px auto;
   max-width:var(--max-width);
   .colOne {
+    position: relative;
     margin:0 0 -3vh -3vw;
     background: url('../public/bg-badge.png') no-repeat 50% 50%;
     background-size: contain;
@@ -160,6 +161,10 @@
     grid-area: 1 / 2 / 1 / 2;
     svg {
       width: 100%;
+      z-index: 2;
+      position: relative;
+      transform: scale(1);
+      animation: pulse 6s infinite;
     }
   }
   h1 {
@@ -338,4 +343,19 @@
       font-size:30px;
     }
   }
+}
+
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.98);
+	}
+
+	50% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(0.98);
+	}
 }
