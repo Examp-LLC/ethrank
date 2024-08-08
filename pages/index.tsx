@@ -196,24 +196,27 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
           </div>
         </div>
 
-        <div className={styles.homeRow}>
-          <div className={`${styles.leaderboard} ${styles.box}`}>
-            <h2>Leaderboard</h2>
+        <div className={`${styles.leaderboard} ${styles.homeRow}`}>
+          <h2>Leaderboard</h2>
+          <div className={`${styles.box}`}>
             <ol>
               {leaders.map((user: User, i: number) => {
                 let displayName = user.address.substr(0, 10);
                 if (user.name && user.name.length) {
                   displayName = user.name
                 }
-                return <li key={i}><a href={`/address/${user.address}`}>{displayName}</a><span>{user.score}</span></li>
+                return <li key={i}><a href={`/address/${user.address}`}>{i === 0 && '🏆'}
+                {i === 1 && '🥈'}
+                {i === 2 && '🥉'} {displayName}</a><span>{user.score}</span></li>
               })}
             </ol>
           </div>
+          <img src="/bg-trophy.png" width="730" height="730" alt="Trophy" />
         </div>
 
-        <div className={styles.homeRow}>
-          <div className={`${styles.latestScores} ${styles.box}`}>
-            <h2>Latest Scores</h2>
+        <div className={`${styles.latestScores} ${styles.homeRow}`}>
+          <h2>Latest Scores</h2>
+          <div className={`${styles.box}`}>
             <ol>
               {latestUsers.map((user: User, i: number) => {
                 let displayName = user.address.substr(0, 10);
@@ -224,6 +227,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               })}
             </ol>
           </div>
+          <img src="/bg-star.png" width="755" height="402" alt="Stars" />
         </div>
       </div>
     </Page>
