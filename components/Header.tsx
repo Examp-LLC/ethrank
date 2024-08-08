@@ -42,8 +42,8 @@ const Header = () => {
   return (
     <div className={`${styles.header} header`}>
       <h1>
-        <img src="/favicon_season4.png" height="59" width="59" className={styles.logo} /><Link href="/">ETHRank</Link>
-        <span className={`${styles.pill} pill`}>Season IV</span>
+        <img src="/ethrank_logo.png" height="59" width="59" className={styles.logo} /><Link href="/">ETHRank</Link>
+        <span className={`${styles.pill} pill`}>Season V</span>
       </h1>
       <ul>
         <li>
@@ -80,7 +80,7 @@ const Header = () => {
           :
           <div className={`${btnStyles.connect} connect`}>
             <button 
-              className={`${btnStyles.btn} btn`} 
+              className={`${btnStyles.btn} ${btnStyles.short} btn`} 
               onClick={() => open()}>
                 <strong>Connect</strong>
             </button>

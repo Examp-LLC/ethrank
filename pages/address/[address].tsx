@@ -99,9 +99,12 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
   useEffect(() => {
     async function fetchData() {
+
       if (error) {
         router.push('/error');
       }
+
+      if (!connectedWallet.address) return;
 
       const connectedUserScoreAndRankRequest = await fetch(`/api/address/${connectedWallet.address}?${new Date().getTime()}`);
       if (connectedUserScoreAndRankRequest.ok) {
@@ -112,7 +115,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       }
     }
     fetchData();
-  });
+  }, [connectedWallet]);
 
 
   const [visible, setVisible] = useState(true);
@@ -379,7 +382,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       </div>
 
       <div>
-        <h3>Achievements <span className="pill">Season IV</span></h3>
+        <h3>Achievements <span className="pill">Season V</span></h3>
         <div className={`${styles.cellParent} ${styles.achievements}`}>
           {achievements.map((achievement, i) => {
             const goals = achievement.goals;

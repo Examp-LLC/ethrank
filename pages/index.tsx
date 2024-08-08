@@ -92,13 +92,13 @@ const getBannerText = () => {
   const introText = [
     'Created by @blankey1337',
     `What's your ETHRank?`,
-    `Season 4 has started!`,
-    `Season 4: it has begun!`,
+    `Season 5 has started!`,
+    `Season 5: it has begun!`,
     `Now this is podracing!`,
     `Your journey starts here`,
     `Promoting creative and ambitious web3 projects`,
     `We support integrity, creativity, and transparency`,
-    `Over 80 projects featured in Season 4!`,
+    `Over 80 projects featured in Season 5!`,
     `Your destiny awaits`,
   ]
   return introText[Math.floor(Math.random() * introText.length)];
@@ -109,7 +109,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
 
   const bannerText = getBannerText();
-  
+
   // const { setTheme } = useWeb3ModalTheme()
   // setTheme({ themeColor: 'green' });
   const { open } = useWeb3Modal()
@@ -131,63 +131,68 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
   return (
     <Page title="ETHRank - An open source achievement system and API for every Ethereum address">
 
-      <div className={styles.banner}>{bannerText}</div>
+      {/* <div className={styles.banner}>{bannerText}</div> */}
       <div className={`${styles.claimRow} ${styles.box}`}>
         <Dapp />
       </div>
       <div className={`${styles.home} content`}>
 
         <div className={`${styles.mainRow} ${styles.box}`}>
+          <div className={`${styles.colOne}`}>
+            <img src="/bg-gem.png" width={473} height={393} />
+          </div>
+          <div className={`${styles.colTwo}`}>
 
-          <h1 className={styles.title}>
-            Check your <strong>Ethereum blockchain score</strong> <em>instantly</em>
-          </h1>
+            <h1 className={styles.title}>
+              Instantly check your<br /><strong>Ethereum blockchain score</strong>
+            </h1>
 
-          <div className={`${btnStyles.connect} ${styles.connect} connect`}>
+            <div className={`${btnStyles.connect} ${styles.connect} connect`}>
 
-            
-            {hasWalletPluginInstalled && <div className={styles.btnWrapper}>
-              {isConnected ?
-                (
-                  <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
-                ) :
-                  <button className={btnStyles.btn} onClick={() => open()}><strong>Connect</strong></button>
+              
+              {hasWalletPluginInstalled && <div className={styles.btnWrapper}>
+                {isConnected ?
+                  (
+                    <a className={`${btnStyles.btn} ${styles.btn}`} href={`/address/${address}`}><strong>Check score now</strong></a>
+                    ) :
+                    <button className={btnStyles.btn} onClick={() => open()}><strong>Connect</strong></button>
+                  }
+                  </div>}
+              
+
+              {hasWalletPluginInstalled && <div className={styles.manualOption}>
+                or <a href="#nogo" onClick={() => {
+                  setHasWalletPluginInstalled(false);
+                }}>input address manually</a>
+              </div>}
+
+              {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
+                e.preventDefault();
+                if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
+                  Router.push(`/ensName/${manualAddressInput}`)
+                } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
+                  Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
+                } else {
+                  Router.push(`/address/${manualAddressInput}`)
                 }
-                </div>}
-            
+              }} className={btnStyles.manualAddressInput}>
 
-            {hasWalletPluginInstalled && <div className={styles.manualOption}>
-              or <a href="#nogo" onClick={() => {
-                setHasWalletPluginInstalled(false);
-              }}>input address manually</a>
-            </div>}
+                <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
+                  setManualAddressInput(e.target.value);
+                }} /> <button className={`${btnStyles.btn} ${btnStyles.short}`}><strong>Go</strong></button>
 
-            {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
-              e.preventDefault();
-              if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
-                Router.push(`/ensName/${manualAddressInput}`)
-              } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
-                Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
-              } else {
-                Router.push(`/address/${manualAddressInput}`)
-              }
-            }} className={btnStyles.manualAddressInput}>
-
-              <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
-                setManualAddressInput(e.target.value);
-              }} /> <button className={btnStyles.btn}><strong>Go</strong></button>
-
-              <div className={btnStyles.tooltip}>
-                <strong>examples</strong>
-                <div className={btnStyles.supported}>
-                  <ol>
-                    <li>Public address: <span>0xd3be5d3fe342e...</span></li>
-                    <li>Unstoppable Domains: <span>yourname.crypto</span></li>
-                    <li>ENS: <span>yourname.eth</span></li>
-                  </ol>
+                <div className={btnStyles.tooltip}>
+                  <strong>examples</strong>
+                  <div className={btnStyles.supported}>
+                    <ol>
+                      <li>Public address: <span>0xd3be5d3fe342e...</span></li>
+                      <li>Unstoppable Domains: <span>yourname.crypto</span></li>
+                      <li>ENS: <span>yourname.eth</span></li>
+                    </ol>
+                  </div>
                 </div>
-              </div>
-            </form>}
+              </form>}
+            </div>
           </div>
         </div>
 
@@ -204,6 +209,9 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               })}
             </ol>
           </div>
+        </div>
+
+        <div className={styles.homeRow}>
           <div className={`${styles.latestScores} ${styles.box}`}>
             <h2>Latest Scores</h2>
             <ol>

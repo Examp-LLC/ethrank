@@ -9,29 +9,30 @@
 
 .box {
 
-  font-family: 'BankGothic DB', sans-serif;
   ol {
-    background: url('../public/bg_rectangle1.svg') no-repeat;
-    background-size:contain;
-    padding: 20px 4vw;
-    min-height:337px;
+    padding: 20px 2vw;
   }
 
 }
 
 .main h1 {
   text-align:left;
-  font-size:38px;
+  font-size:52px;
   text-transform: unset;
-  font-weight:300;
+  font-weight:500;
   max-width:650px;
+  letter-spacing: -1px;
+  text-wrap: nowrap;
   strong {
-    color:var(--main-color3);
-    font-weight:400;
+    background: linear-gradient(180deg, var(--main-color5) 0, var(--main-color4) 25%, var(--main-color3) 50%, var(--main-color2) 85%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight:700;
   }
   em {
     font-style: normal;
-    font-weight:400;
+    font-weight:500;
   }
 }
 
@@ -43,6 +44,7 @@
   row-gap: 20px;
   column-gap: 2%;
   justify-items: center;
+  border-radius: 2rem;
 
   .box {
     width:100%;
@@ -75,13 +77,17 @@
 }
 
 .mainRow {
-  padding:5vh 4vw;
+  position:relative;
   max-width:var(--max-width);
-  background: url('../public/ethrank_logo.svg') no-repeat 100% 50%;
-  background-size:26%;
-  max-width:var(--max-width);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.07) 100%);
+  backdrop-filter: blur(42px);
+  border-radius: 32px;
+  display:grid;
+  grid-template-columns: 40% 50%;
   margin: 40px auto 0;
-  min-height: 373px;
+  column-gap: 5vw;
+  align-items: center;
   a.btn {
     margin:20px 0;
     strong {
@@ -94,7 +100,7 @@
   .connect {
     display: flex;
     justify-content: flex-start;
-    margin: 20px 0;
+    margin: 20px 0 0;
     align-content: center;
     align-items: center;
   }
@@ -104,6 +110,15 @@
     a {
       position:relative;
       left:10px;
+    }
+  }
+  .colOne {
+    margin:-10vh 0 0;
+  }
+
+  .colTwo {
+    h1 {
+      font-size:40px;
     }
   }
 }
@@ -126,24 +141,22 @@
   margin:20px auto;
   background:url('../public/bg_rectangle4.svg') no-repeat 50% 50%;
   background-size:contain;
-  font-family: 'BankGothic DB', sans-serif;
 }
 
 .claimRow {
-  margin-top:20px;
   display: grid;
-  grid-template-columns: 50% 38%;
+  grid-template-columns: 46% 54%;
   text-align:left;
   row-gap: 2%;
-  column-gap: 4vw;
-  justify-items: center;
   align-items: center;
   margin:20px auto;
-  // background: var(--dark-grey) url('../public/bg_mintnow.svg') no-repeat 0 50%;
   max-width:var(--max-width);
-  background-size: 50%;
   .colOne {
-    margin:0 0 -3vh 10%;
+    margin:0 0 -3vh -3vw;
+    background: url('../public/bg-badge.png') no-repeat 50% 50%;
+    background-size: contain;
+    padding:20% 20%;
+    grid-area: 1 / 2 / 1 / 2;
     svg {
       width: 100%;
     }
@@ -152,11 +165,12 @@
     margin-bottom:20px;
   }
   h3 {
-    margin: 0 0 10px;
+    margin: 2vh 0;
     font-weight:normal;
-    color:var(--main-color4);
+    color:var(--white);
     text-transform: none;
     font-size:18px;
+    opacity:.5;
   }
   h2 {
     font-weight:300;
@@ -175,6 +189,11 @@
     padding:10px 40px;
     border-bottom:none !important;
     display:inline-block;
+  }
+  .colTwo {
+    grid-area: 1 / 1 / 1 / 1;
+    position:relative;
+    left: 2vw;
   }
 }
 
@@ -217,6 +236,9 @@
       font-size:12px;
     }
   }
+  .main h1 {
+    font-size:36px;
+  }
 }
 
 
@@ -230,16 +252,18 @@
   }
   .claimRow .colOne {  
     margin: -20px 0;
+    grid-area: 1 / 1 / 1 / 1;
   }
   .claimRow .colTwo {
     padding:5vh 8vw;
+    grid-area: 2 / 1 / 2 / 1;
   }
   .homeRow {
     grid-template-columns: 100%;
     .box {
       padding:8vw;
       ol {
-        padding:4vw;
+        padding:2vw;
         min-height:300px;
       }
       li {

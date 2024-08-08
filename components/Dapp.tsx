@@ -19,7 +19,7 @@ import CollectionConfig from '../lib/CollectionConfig';
 import MintWidget from './MintWidget';
 import styles from '../styles/Home.module.scss';
 import btnStyles from '../styles/ConnectButton.module.scss';
-import { Badge } from './season-four/Badge';
+import { Badge } from './season-five/Badge';
 import Web3 from 'web3';
 import { reverseLookup } from '../lib/reverseLookup';
 import { useAccount, useReadContract, useWriteContract } from 'wagmi';
@@ -51,7 +51,9 @@ const Dapp = () => {
 
   const renderBadgePreview = async () => {
 
-    if (!isConnected) return;
+    if (!isConnected || !address) return;
+
+    console.log('about to do somehting bad')
 
     const ethRankResponse = await fetch(`/api/address/${address}`,
       {
@@ -147,9 +149,8 @@ const Dapp = () => {
 
       <div className={styles.colTwo}>
 
-        <h3>Now Minting</h3>
-
-        <h1 className={styles.title}>Season IV <strong>Dynamic Badges</strong></h1>
+        <h1 className={styles.title}>Claim your Season V<br /><strong>Dynamic Badge</strong></h1>
+        <h3>Updates daily with your score and rank</h3>
 
         {!isConnected ?
           <div className={styles.connectBtn}>

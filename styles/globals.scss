@@ -1,5 +1,3 @@
-@import 'rubik.font.scss';
-@import 'bankgothic.font.scss';
 @import 'breakpoints.scss';
 
 :root {
@@ -31,6 +29,13 @@
   --main-color4: #18CFE8;
   --main-color5: #95CADC;
 
+  // Season 5
+  --main-color1: #0B181D;
+  --main-color2: #7154FF;
+  --main-color3: #E9B7FF;
+  --main-color4: #f3d0ff;
+  --main-color5: #f7e0ff;
+
   --white: #fff;
   --black: #000;
   --dark-grey: rgba(48, 151, 186, .1);
@@ -44,7 +49,7 @@ button {
 html,
 body {
   margin: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: #0e0e0e;
   // background:radial-gradient(circle, #111d23 0%, #0d1113 64%, #0e0e0e 100%);
   color:var(--main-color5);
@@ -66,7 +71,7 @@ body {
 
 
 body {
-  background:url('../public/bg_page.png') 50% 0 repeat-x, url('../public/bg_footer.png') 50% 100% repeat-x;
+  background:url('../public/bg-page.png') 50% -800px repeat-y;
   height:auto;
 }
 
@@ -86,7 +91,6 @@ h3 {
 
 h1, h2, h3, h4, h5, button {
   text-transform: uppercase;
-  font-family: 'BankGothic DB', sans-serif;
 }
 
 * {
@@ -139,7 +143,6 @@ h1, h2, h3, h4, h5, button {
   left: 20px;
   font-weight: lighter;
   color: var(--main-color5);
-  font-family: 'BankGothic DB', sans-serif;
   letter-spacing: 3px;
 }
 

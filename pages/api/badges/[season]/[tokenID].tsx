@@ -4,6 +4,7 @@ import { Badge as SeasonOneBadge, Badge } from '../../../../components/season-on
 import { Badge as SeasonTwoBadge } from '../../../../components/season-two/Badge';
 import { Badge as SeasonThreeBadge } from '../../../../components/season-three/Badge';
 import { Badge as SeasonFourBadge } from '../../../../components/season-four/Badge';
+import { Badge as SeasonFiveBadge } from '../../../../components/season-five/Badge';
 import ReactDOMServer from 'react-dom/server';
 import { checkAndGenerateBadge } from '../../../../lib/utilities';
 
@@ -73,5 +74,7 @@ const getCurrentSeasonBadge = (season, props) => {
       return SeasonThreeBadge(props)
     case 4:
       return SeasonFourBadge(props)
+    case 5:
+      return SeasonFiveBadge(props)
   }
 }

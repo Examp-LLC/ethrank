@@ -591,8 +591,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
       return results;
     } catch(e) {
-      console.log('err', e);
-      return new Promise.reject();
+      return false;
     }
 
   }

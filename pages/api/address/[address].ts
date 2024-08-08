@@ -20,6 +20,7 @@ import { calculateScore as calculateScoreSeasonOne } from "../../../lib/calculat
 import { calculateScore as calculateScoreSeasonTwo } from "../../../lib/calculateScore_season2";
 import { calculateScore as calculateScoreSeasonThree } from "../../../lib/calculateScore_season3";
 import { calculateScore as calculateScoreSeasonFour } from "../../../lib/calculateScore_season4";
+import { calculateScore as calculateScoreSeasonFive } from "../../../lib/calculateScore_season5";
 import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import { CURRENT_SEASON } from '../../../lib/constants';
@@ -83,6 +84,9 @@ export function getCalcMethod (season: string|number = CURRENT_SEASON) {
       break;
     case 4:
       seasonScoringMethod = calculateScoreSeasonFour
+      break;
+    case 5:
+      seasonScoringMethod = calculateScoreSeasonFive
       break;
     default:
       seasonScoringMethod = calculateScoreSeasonOne

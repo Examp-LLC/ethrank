@@ -22,11 +22,15 @@ import seasonTwoAchievements from './achievements_season2.json';
 import seasonThreeAchievements from './achievements_season3.json';
 // Season 4
 import seasonFourAchievements from './achievements_season4.json';
+// Season 5
+import seasonFiveAchievements from './achievements_season5.json';
 
-export const CURRENT_SEASON: number = 4;
+export const CURRENT_SEASON: number = 5;
 
 export const CURRENT_SEASON_ACHIEVEMENTS = getAchievements(CURRENT_SEASON);
-export const CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX = '403';
+
+// Unlocks labels and stats for users who have this achievement
+export const CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX = '404';
 
 interface Achievement {
   name: string;
@@ -65,6 +69,8 @@ export function getAchievements(season: number = CURRENT_SEASON): Achievement[] 
       return seasonThreeAchievements;
     case 4:
       return seasonFourAchievements;
+    case 5:
+      return seasonFiveAchievements;
   }
   return seasonFourAchievements;
 }

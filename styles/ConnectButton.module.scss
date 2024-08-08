@@ -1,28 +1,46 @@
 @import 'breakpoints.scss';
 .btn {
-  padding:3px;
-  @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to bottom right');
-  display:inline-block;
-  border-radius: 8px;
-  border-bottom:none !important;
-  min-height:43px;
+  // padding:3px;
+  // @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to bottom right');
+  // display:inline-block;
+  // border-radius: 8px;
+  // border-bottom:none !important;
+  // min-height:43px;
+  padding:0;
+  border:none;
   strong {
-    background: black;
+    display:grid;
+    // background: black;
     color: var(--white);
-    padding: 10px 20px;
     text-transform: uppercase;
     font-size: 14px;
+    background:url(../public/btn-mid.png) no-repeat;
     // @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
-    border-bottom: none;
-    border-radius: 10px;
+    // border-bottom: none;
+    // border-radius: 10px;
     cursor: pointer;
     font-weight:bold;
+    width:163px;
+    height:52px;
+    vertical-align: middle;
+    text-align: center;
+    align-items: center;
+    transition: all;
+    transition-duration: 200ms;
   }
   &:hover {
     strong {
-      background:var(--white);
-      color:var(--black);
+      filter:hue-rotate(15deg);
+      filter:brightness(1.25);
     }
+  }
+  &.wide strong {
+    width:199px;
+    background:url(../public/btn-wide.png) no-repeat;
+  }
+  &.short strong {
+    width:147px;
+    background:url(../public/btn-short.png) no-repeat;
   }
 }
 
@@ -37,8 +55,6 @@
 }
 
 .connect .manualAddressInput {
-  margin-top: 30px;
-  max-width: 400px;
   width:100%;
 
   input {
@@ -50,7 +66,7 @@
   }
 
   input {
-    width: 70%;
+    width: 50%;
 
     &:focus {
       // background: var(--main-color2);
@@ -107,6 +123,7 @@
 }
 
 .supported {
+  display:none;
   margin: 10px auto;
   padding: 10px;
   border-radius: 10px;
@@ -117,6 +134,7 @@
   left:calc(50% - 110px);
   ol {
     list-style: none;
+    background: rgba(0,0,0,.5);
     margin: 0;
     padding: 0;
   }

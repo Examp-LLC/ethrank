@@ -30,7 +30,8 @@ export const SEASONS = [
   'achievements_season1',
   'achievements_season2',
   'achievements_season3',
-  'achievements_season4'
+  'achievements_season4',
+  'achievements_season5'
 ];
 
 
@@ -51,7 +52,9 @@ const Page = (props: PageProps) => {
           <title>{props.title}</title>
           <meta name="description" content="ETHRank - An open source achievement system and API for every Ethereum address" />
           <link rel="icon" href="/favicon_season4.png" />
-          <link rel="preload" href="/fonts/BankGothic-Regular.woff2" as="font" type="font/woff2"></link>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
         </Head>
 
         <Header />
