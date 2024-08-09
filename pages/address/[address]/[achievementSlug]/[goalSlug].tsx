@@ -73,15 +73,16 @@ const Goal = ({ calcScoreResult, labels }: AddressProps) => {
         <h3>{goal && goal.name}</h3>
         <div className={goalStyles.list}>
           {goal && goal.steps.map((step, i) => {
-            return <div className={`${styles.step} animate__animated`} key={i}>
-              <h4> {
+            const percent = calculateProgress(i) / 1;
+            return <div className={`${styles.achievement} greybox ${percent === 1 && styles.completed} animate__animated`} key={i}>
+              <h4>{
                 step.url && (
                   <a href={
                     step.url
                   }>{step.name}</a>
                 ) || step.name
               }</h4>
-              <ProgressBar percent={calculateProgress(i) / 1} />
+              <ProgressBar percent={percent} />
             </div>
           })}
           <div>

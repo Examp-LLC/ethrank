@@ -145,27 +145,54 @@
   background-size:contain;
 }
 
-.claimRow {
+
+.mintWidget {
   display: grid;
   grid-template-columns: 46% 54%;
   text-align:left;
   row-gap: 2%;
   align-items: center;
+}
+
+
+.claimRow {
   margin:20px auto;
   max-width:var(--max-width);
+  min-height:490px;
   .colOne {
+    min-height:475px;
     position: relative;
     margin:0 0 -3vh -3vw;
-    background: url('../public/bg-badge.png') no-repeat 50% 50%;
-    background-size: contain;
-    padding:20% 20%;
+    // background: url('../public/bg-badge.png') no-repeat 50% 50%;
+    // background-size: contain;
     grid-area: 1 / 2 / 1 / 2;
+    .badgeContainer {
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      grid-template-columns: 100%;
+    }
+    .badgeLoading {
+      grid-area: 1 / 1 / 1 / 1;
+      position: relative;
+      z-index: 3;
+    }
     svg {
-      width: 100%;
       z-index: 2;
       position: relative;
       transform: scale(1);
       animation: pulse 6s infinite;
+      max-width: 62%;
+      grid-area: 1 / 1 / 1 / 1;
+      position: relative;
+      left: 11px;
+    }
+    video {
+      width: 92%;
+      grid-area: 1 / 1 / 1 / 1;
+      mix-blend-mode: lighten;
     }
   }
   h1 {
@@ -200,7 +227,8 @@
   .colTwo {
     grid-area: 1 / 1 / 1 / 1;
     position:relative;
-    left: 2vw;
+    left: 4vw;
+    min-height: 237px;
   }
 }
 
@@ -212,7 +240,7 @@
     font-size: 3rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 5rem;
+    margin:20px 0;
     background: linear-gradient(180deg, #FFF 30%, #999 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -250,15 +278,21 @@
   }
   img {
     grid-area: 2 / 2 / 2 / 2;
+    max-width: 100%;
+    height: auto;
   }
 }
 
 .latestScores {
   img {
     grid-area: 2 / 1 / 2 / 1;
+    z-index: 1;
+    position: relative;
   }
   .box {
     grid-area: 2 / 2 / 2 / 2;
+    z-index: 2;
+    position: relative;
   }
 }
 
@@ -327,11 +361,18 @@
     grid-template-columns:100%;
     justify-items: center;
   }
+  .colOne {
+    video {
+      top: 18%;
+      left: 3%;
+      width: 92%;
+    }
+  }
 }
 
 
 @include mobile {
-  .claimRow {
+  .mintWidget {
     grid-template-columns: 100%;
     column-gap: 4%;
     h2 {
@@ -345,11 +386,12 @@
   .claimRow .colTwo {
     padding:5vh 8vw;
     grid-area: 2 / 1 / 2 / 1;
+    left:0;
   }
   .homeRow {
     grid-template-columns: 100%;
     .box {
-      padding:8vw;
+      padding:0 8vw 4vh;
       grid-area: auto;
       ol {
         padding:2vw;
@@ -364,6 +406,11 @@
     }
     img { display:none; }
 
+  }
+  .devOfferings {
+    .box {
+      padding: 0;
+    }
   }
   .mainRow {
     padding:5vh 8vw;
@@ -385,20 +432,12 @@
     grid-template-columns:100%;
     justify-items: center;
   }
+  .colOne {
+    video {
+      top: 18%;
+      left: 3%;
+      width: 92%;
+    }
+  }
   
-}
-
-
-@keyframes pulse {
-	0% {
-		transform: scale(0.98);
-	}
-
-	50% {
-		transform: scale(1);
-	}
-
-	100% {
-		transform: scale(0.98);
-	}
 }

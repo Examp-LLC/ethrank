@@ -32,6 +32,8 @@ import ParticlesBackground from './ParticlesBackground';
 
 const ContractAbi = require('../lib/ETHRankBadge.json').abi;
 
+const DEFAULT_ADDRESS = 'YOURNAME.ETH';
+
 const NEXT_PUBLIC_INFURA_API_KEY = process.env.NEXT_PUBLIC_INFURA_API_KEY;
 const Dapp = () => {
 
@@ -39,7 +41,7 @@ const Dapp = () => {
   const [rank, setRank] = useState(1900)
   const [progress, setProgress] = useState([])
   const [score, setScore] = useState(420)
-  const [badgeAddress, setBadgeAddress] = useState('YOURNAME.ETH')
+  const [badgeAddress, setBadgeAddress] = useState(DEFAULT_ADDRESS)
   const [loadingBadge, setLoadingBadge] = useState(false)
   const [errorLoadingBadge, setErrorLoadingBadge] = useState(false)
   const [mintComplete, setMintComplete] = useState(false)
@@ -48,21 +50,20 @@ const Dapp = () => {
   const [errorMsg, setErrorMsg] = useState<null | string>(null)
 
   useEffect(() => {
-      reFetchContractData();
+    reFetchContractData();
   }, [address, chain]);
 
   const renderBadgePreview = async () => {
 
     if (!isConnected || !address) return;
 
-    const ethRankResponse = await fetch(`/api/address/${address}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
     setLoadingBadge(true);
+
+    const ethRankResponse = await fetch(`/api/address/${address}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
 
     if (ethRankResponse.ok) {
       const { rank, score, progress } = await ethRankResponse.json();
@@ -96,19 +97,23 @@ const Dapp = () => {
     if (chain?.id === mainnet.id) {
       await fetchPriceAndPausedStatus();
     }
-  
+
+    // If badge has already been loaded, don't re-fetch
+    if (badgeAddress != DEFAULT_ADDRESS) return;
     renderBadgePreview();
   }
 
-  const { writeContract } = useWriteContract({mutation:{
-    onError(e: Error) {
-      // @ts-ignore
-      setErrorMsg(e.shortMessage || e.message)
-    },
-    onSuccess() {
-      setMintComplete(true)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError(e: Error) {
+        // @ts-ignore
+        setErrorMsg(e.shortMessage || e.message)
+      },
+      onSuccess() {
+        setMintComplete(true)
+      }
     }
-  }})
+  })
 
   const mintTokens = async (amount: number): Promise<void> => {
     try {
@@ -122,7 +127,7 @@ const Dapp = () => {
         value: tokenPrice,
         account: address,
       })
-      
+
     } catch (e) {
       setErrorMsg('Unable to mint token');
     }
@@ -135,45 +140,46 @@ const Dapp = () => {
   const { open } = useWeb3Modal()
 
   return (
-    <>
-
-  
+    <div className={styles.mintWidget}>
       <div className={styles.colOne}>
-        <div className={isConnected && styles.badgeLoading || styles.badge}>
-          {loadingBadge ?
-          <><span className="loading-spinner"></span> Badge Loading</> : 
-          <Badge address={badgeAddress} score={score} rank={rank} progress={progress} />
-          }
+        <div className={styles.badgeContainer}>
+            {loadingBadge ?
+              <div className={styles.badgeLoading}>
+                <span className="loading-spinner"></span> Badge Loading
+              </div> :
+              <Badge address={badgeAddress} score={score} rank={rank} progress={progress} />
+            }
 
-          <ParticlesBackground />
-        </div>
+            <ParticlesBackground />
+            <video src="/bg-video3-optimized.mp4" autoPlay playsInline muted loop />
+          </div>
       </div>
 
       <div className={styles.colTwo}>
 
-        <h1 className={styles.title}>Claim your Season V<br /><strong>Dynamic Badge</strong></h1>
+        <h1 className={styles.title}>Claim your Season 5<br /><strong>Dynamic Badge</strong></h1>
         <h3>Updates daily with your score and rank</h3>
 
         {!isConnected ?
           <div className={styles.connectBtn}>
-            <button 
-              className={`${btnStyles.btn}`} 
+            <button
+              className={`${btnStyles.btn}`}
               onClick={() => open()}>
-                <strong>Connect</strong>
-              </button>
+              <strong>Connect</strong>
+            </button>
           </div> : null
         }
 
         {isConnected ?
           <>
-              <div className={styles.mintDapp}>
-                <MintWidget
-                  isMainnet={isMainnet()}
-                  tokenPrice={tokenPrice || BigInt(0)}
-                  isPaused={isPaused}
-                  mintTokens={(mintAmount) => mintTokens(mintAmount)}
-                />
-              </div>
+            <div className={styles.mintDapp}>
+              <MintWidget
+                isMainnet={isMainnet()}
+                tokenPrice={tokenPrice || BigInt(0)}
+                isPaused={isPaused}
+                mintTokens={(mintAmount) => mintTokens(mintAmount)}
+              />
+            </div>
           </>
           : null
         }
@@ -190,7 +196,7 @@ const Dapp = () => {
 
       {mintComplete ? <div className={styles.success}><p>Mint successful! Your badge is now in your wallet. View your updated profile <a href={`/address/${address}?${new Date().getTime()}`}>here</a>.</p><button onClick={() => setMintComplete(false)}>Close</button></div> : null}
 
-    </>
+    </div>
   );
 
 }

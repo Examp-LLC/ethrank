@@ -68,13 +68,14 @@ const Achievement = ({ calcScoreResult, labels }: AddressProps) => {
         <h3>{achievement && achievement.name}</h3>
         <div className={styles.cellParent}>
           {achievement && achievement.goals.map((goal, i) => {
+            const percent = calculateProgress(i) / goal.steps.length;
             return <Link key={i} href={{
               pathname: '/address/[address]/[achievement]/[goal]',
               query: { address, achievement: achievement.slug, goal: goal.slug },
             }}>
-              <div className={`${styles.achievement} achievement animate__animated`} key={i}>
+              <div className={`${styles.achievement} ${percent === 1 && styles.completed} achievement greybox animate__animated`} key={i}>
                 <h4>{goal.name}</h4>
-                <ProgressBar percent={calculateProgress(i) / goal.steps.length} />
+                <ProgressBar percent={percent} />
               </div>
             </Link>
           })}

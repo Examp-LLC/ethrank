@@ -30,6 +30,8 @@
   position:absolute;
   right: 0;
   top: -105px;
+  transform: scale(1);
+  animation: pulse 5s infinite;
 }
 
 .topRow, .secondRow {
@@ -81,17 +83,26 @@
 }
 
 .secondRow {
-  border-top:1px solid rgba(255, 255, 255, .5);
+  border-top:1px solid rgba(255, 255, 255, .09);
   grid-template-columns: 33% 33% 33%;
   margin-top:100px;
   padding-top:60px;
   justify-items: start;
-  h1 {
+  p {
+    color: var(--white);
+    opacity: .5;
   }
 }
 
 .links {
   justify-self: end;
+  a {
+    color: var(--white);
+    opacity: .5;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .social {
@@ -111,7 +122,7 @@
   }
   li {
     display:inline-block; 
-    margin: 0 15px;
+    margin: 0 10px;
     
     // @include gradient-border(var(--main-color1), var(--main-color3), var(--main-color5), 1px, 'to right');
     &.twitter a {

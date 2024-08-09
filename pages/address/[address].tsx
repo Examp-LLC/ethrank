@@ -37,6 +37,7 @@ import { EAS, SchemaEncoder, TransactionSigner } from '@ethereum-attestation-ser
 import CollectionConfig from '../../lib/CollectionConfig';
 import { optimism, optimismSepolia } from 'viem/chains';
 import { Web3Button } from '@web3modal/react';
+import ParticlesBackground from '../../components/ParticlesBackground';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -281,8 +282,12 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
       <div className={styles.categoryRow}>
         <div className={styles.colOne}>
-          <div className={styles.badge}>
+
+          <div className={styles.badgeContainer}>
             <Badge address={displayAddress} score={score} rank={rank} progress={progress} />
+
+            <ParticlesBackground />
+            <video src="/bg-video3-optimized.mp4" autoPlay playsInline muted loop />
           </div>
         </div>
 
@@ -375,14 +380,15 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             const percentages = goals.map((goal, j) => {
               return calculateProgress(i, j) / goal.steps.length
             }).reduce((partial_sum, a) => partial_sum + a, 0)
+            const percent = percentages / achievement.goals.length;
             return <Link key={i} href={{
               pathname: '/address/[address]/[achievement]',
               query: { address, achievement: achievement.slug },
             }}>
-              <div className={`${styles.achievement} greybox achievement animate__animated`}>
+              <div className={`${styles.achievement} ${percent === 1 && styles.completed} greybox achievement animate__animated`}>
                 <h4>{achievement.name}</h4>
                 {/* <h2>{(percentages / achievement.goals.length * 100).toFixed(0)} %</h2> */}
-                <ProgressBar percent={percentages / achievement.goals.length} />
+                <ProgressBar percent={percent} />
               </div>
             </Link>
           })}
@@ -390,7 +396,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       </div>
 
       <div className={styles.statsWrapper}>
-        <img width="103" height="32" src="/logo-sm.png" className={styles.statsLogo} alt="ethrank.io" />
+        <img width="114" height="41" src="/ethrank_logo_sm.png" className={styles.statsLogo} alt="ethrank.io" />
         <h3>Statistics <span className="pill lifetime">Lifetime</span></h3>
 
         {ownsNFT ?
@@ -436,7 +442,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             </div>
             <div className={styles.cta}>
               <h2>Dynamic Badge required to view stats</h2>
-              <Link href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></Link>
+              <Link href="/" className={`${btnStyles.btn} ${btnStyles.wide}`}><strong>Claim yours now</strong></Link>
             </div>
           </div>
         }
@@ -497,7 +503,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
             </ul>
             <div className={styles.cta}>
               <h2>Dynamic Badge required to view labels</h2>
-              <Link href="/" className={btnStyles.btn}><strong>Claim your badge now</strong></Link>
+              <Link href="/" className={`${btnStyles.btn} ${btnStyles.wide}`}><strong>Claim yours now</strong></Link>
             </div>
           </div>
         }

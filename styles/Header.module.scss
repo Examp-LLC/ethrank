@@ -6,8 +6,8 @@
   max-width: var(--max-width);
   height: 80px;
   margin: 0 auto 20px;
-
-  background: var(--dark-grey);
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  // background: var(--dark-grey);
   backdrop-filter: blur(7.5px);
   border-radius: 10px;
   .pill {
@@ -36,7 +36,7 @@
 .header .btn {
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 13px;
   text-align: right;
 }
 

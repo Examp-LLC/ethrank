@@ -221,7 +221,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             .forNetwork(Network.ETH_MAINNET)
             .core
             .getBlock(allTransactions[0].blockNum);
-          activeSince = new Date(firstBlock.timestamp * 1000);
+          if (firstBlock) {
+            activeSince = new Date(firstBlock.timestamp * 1000);
+          } else {
+            activeSince = new Date();
+          }
         }
 
         const markStepCompleted = (j: any = '', k: any = '', l: any = '') => {
@@ -237,7 +241,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         for (let i = 0; i < allTransactions.length; i++) {
 
           // skip failed txs
-          if (allTransactions[i].isError === "1") {
+          if (allTransactions[i]?.isError === "1") {
             continue;
           }
 
@@ -515,7 +519,6 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           };
 
           if (addressCache?.id) {
-            console.log('updating cache', data);
             const updated = await prisma.address.update({
               where: {
                 id: addressCache.id,
@@ -523,7 +526,6 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
               data
             });
           } else {
-            console.log('creating cache', data);
             const created = await prisma.address.create({
               data
             });
