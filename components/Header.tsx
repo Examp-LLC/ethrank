@@ -42,7 +42,7 @@ const Header = () => {
   return (
     <div className={`${styles.header} header`}>
       <h1>
-        <img src="/ethrank_logo.png" height="59" width="59" className={styles.logo} /><Link href="/">ETHRank</Link>
+        <img src="/ethrank_logo.png" height="59" width="59" className={styles.logo} /><Link href="/">ETH<em>Rank</em></Link>
         <span className={`${styles.pill} pill`}>Season V</span>
       </h1>
       <ul>

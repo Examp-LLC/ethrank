@@ -22,6 +22,7 @@
   max-width:650px;
   letter-spacing: -1px;
   text-wrap: nowrap;
+  white-space: pre;
   strong {
     background: linear-gradient(180deg, var(--main-color5) 0, var(--main-color4) 25%, var(--main-color3) 50%, var(--main-color2) 85%);
     background-clip: text;
@@ -240,7 +241,7 @@
     font-size: 3rem;
     font-style: normal;
     font-weight: 500;
-    margin:20px 0;
+    margin: 40px 0 -40px;
     background: linear-gradient(180deg, #FFF 30%, #999 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -439,5 +440,10 @@
       width: 92%;
     }
   }
-  
+
+  .leaderboard, .latestScores {
+    h2 {
+      margin:40px 0 0;
+    }
+  }
 }

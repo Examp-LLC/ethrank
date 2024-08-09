@@ -10,6 +10,7 @@
   // background: var(--dark-grey);
   backdrop-filter: blur(7.5px);
   border-radius: 10px;
+  z-index: 10;
   .pill {
     top: -8px;
   }
@@ -30,6 +31,14 @@
   a {
     position: relative;
     z-index: 1;
+  }
+
+  em {
+    font-style: normal;
+    background: linear-gradient(180deg, #FFF 50%, #EEBAFF 75%, #664BFF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
@@ -88,14 +97,14 @@
   right: 10px;
 
   .pill {
-    top:-3px;
+    top:4px;
     left:auto;
   }
 }
 
 .flyoutMenu {
   position: absolute;
-  top: 20px;
+  top: 26px;
   right: 0px;
   width: 140px;
   color: var(--white);
