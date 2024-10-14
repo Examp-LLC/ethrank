@@ -24,6 +24,7 @@ import { reverseLookup } from './reverseLookup';
 
 import { AlchemyMultichainClient } from './alchemy-multichain-client';
 import { Network } from 'alchemy-sdk';
+import { getChainData } from './utilities';
 
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
@@ -75,7 +76,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
     network: Network.ETH_MAINNET
   };
   const overrides = {
-    [Network.MATIC_MAINNET]: { apiKey: ALCHEMY_MATIC_MAINNET_KEY, maxRetries: 10 }
+    [Network.MATIC_MAINNET]: { apiKey: ALCHEMY_MATIC_MAINNET_KEY, maxRetries: 10 },
+    [Network.LINEA_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
+    [Network.ARBITRUM_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
+    [Network.OP_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
+    [Network.BASE_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 }
   };
   const alchemy = new AlchemyMultichainClient(defaultConfig, overrides);
 
@@ -161,6 +166,15 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         const mainnetTxnsTo = await fetchTxns(address, Network.ETH_MAINNET, true)
         const maticTxns = await fetchTxns(address, Network.MATIC_MAINNET)
         const maticTxnsTo = await fetchTxns(address, Network.MATIC_MAINNET, true)
+        const arbitrumTxns = await fetchTxns(address, Network.ARB_MAINNET)
+        const arbitrumTxnsTo = await fetchTxns(address, Network.ARB_MAINNET, true)
+        const opTxns = await fetchTxns(address, Network.OPT_MAINNET)
+        const opTxnsTo = await fetchTxns(address, Network.OPT_MAINNET, true)
+        const baseTxns = await fetchTxns(address, Network.BASE_MAINNET)
+        const baseTxnsTo = await fetchTxns(address, Network.BASE_MAINNET, true)
+        // Linea not yet supported - https://docs.alchemy.com/reference/feature-support-by-chain
+        // const lineaTxns = await fetchTxns(address, Network.LINEA_MAINNET)
+        // const lineaTxnsTo = await fetchTxns(address, Network.LINEA_MAINNET, true)
 
         const urls = [
           // ERC-20 token holdings
@@ -190,19 +204,21 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         // Mainnet
         const tokens = results[0] && results[0].tokens || [];
         
-        const poaps = results[1] && Array.isArray(results[1]) && results[1] || false;
+        const poaps = results[1] && Array.isArray(results[1]) && results[1] || [];
 
-        if (!mainnetTxns || !mainnetTxns.transfers?.length ||
-          !maticTxns || !maticTxns.transfers?.length || 
-          !poaps) {
+        // must have some txns on mainnet
+        if (!mainnetTxns || !mainnetTxns.transfers?.length) {
           console.log(`Error fetching upstream data, trying again 
-          ${mainnetTxns.length} 
-          ${maticTxns.length} 
-          ${poaps.length}
+          Mainnet txns: ${mainnetTxns.transfers?.length} 
+          Matic txns: ${maticTxns.transfers?.length}
+          Arbitrum txns: ${arbitrumTxns.transfers?.length}
+          Optimism txns: ${opTxns.transfers?.length}
+          Base txns: ${baseTxns.transfers?.length}
+          POAPS: ${poaps.length}
           ${attempts} attempts` )
           attempts = attempts + 1;
           if (attempts < 5) {
-            // return calculateScore(address, prisma, unstoppableName, attempts);
+            return calculateScore(address, prisma, unstoppableName, attempts);
           } else {
             throw new Error('Unable to calculate score');
           }
@@ -211,12 +227,21 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         const allTransactions = [
           ...mainnetTxns.transfers || [],
           ...mainnetTxnsTo.transfers || [],
-          ...applyPolygonProperty(maticTxns.transfers || []),
-          ...applyPolygonProperty(maticTxnsTo.transfers || []),
+          ...applyNetworkName(maticTxns.transfers || [], Network.MATIC_MAINNET),
+          ...applyNetworkName(maticTxnsTo.transfers || [], Network.MATIC_MAINNET),
+          ...applyNetworkName(arbitrumTxns.transfers || [], Network.ARB_MAINNET),
+          ...applyNetworkName(arbitrumTxnsTo.transfers || [], Network.ARB_MAINNET),
+          ...applyNetworkName(opTxns.transfers || [], Network.OPT_MAINNET),
+          ...applyNetworkName(opTxnsTo.transfers || [], Network.OPT_MAINNET),
+          ...applyNetworkName(baseTxns.transfers || [], Network.BASE_MAINNET),
+          ...applyNetworkName(baseTxnsTo.transfers || [], Network.BASE_MAINNET),
+          // ...applyNetworkName(lineaTxns.transfers || [], Network.LINEA_MAINNET),
+          // ...applyNetworkName(lineaTxnsTo.transfers || [], Network.LINEA_MAINNET),
         ];
 
         totalTransactions = allTransactions.length;
         if (totalTransactions) {
+          // NOTE: Assumes all first transactions are on mainnet
           let firstBlock = await alchemy
             .forNetwork(Network.ETH_MAINNET)
             .core
@@ -258,7 +283,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           }
 
 
-          if (!isDupeTransaction && !allTransactions[i].chainID) {
+          if (!isDupeTransaction && !allTransactions[i].network) {
             // @ts-ignore
             if (convertToLowerCase(address).indexOf(convertToLowerCase(allTransactions[i].from)) > -1 !== false) {
               spentOnGas = Number(spentOnGas) + (parseFloat(allTransactions[i].gasPrice) / Math.pow(10, 18) +
@@ -346,7 +371,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
                         case 'send_eth_amount':
                           // Don't count dupes or sidechain transactions
-                          if (isDupeTransaction || allTransactions[i].chainID) continue;
+                          if (isDupeTransaction || allTransactions[i].network) continue;
                           
                           const amountSent = allTransactions[i].value;
                           // @ts-ignore
@@ -387,7 +412,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
                         case 'spend_gas_amount':
                           // Don't count dupes or sidechain transactions
-                          if (isDupeTransaction || allTransactions[i].chainID) continue;
+                          if (isDupeTransaction || allTransactions[i].network) continue;
 
                           // @ts-ignore
                           addresses = convertToLowerCase(address);
@@ -602,10 +627,10 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 }
 
 // we need to distinguish polygon transactions from mainnet
-function applyPolygonProperty(transactions: IBlockScoutTx[]) {
+function applyNetworkName(transactions: IBlockScoutTx[], network: keyof typeof Network) {
   return transactions.map((transaction) => {
     return {
-      ...{ chainID: 137 },
+      ...{ network },
       ...transaction
     }
   })

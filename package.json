@@ -20,7 +20,7 @@
     "@web3modal/ethereum": "^2.4.7",
     "@web3modal/react": "^2.4.7",
     "@web3modal/wagmi": "^4.0.11",
-    "alchemy-sdk": "^2.10.0",
+    "alchemy-sdk": "^3.4.3",
     "animate.css": "^4.1.1",
     "chart.js": "^3.8.0",
     "cors": "^2.8.5",

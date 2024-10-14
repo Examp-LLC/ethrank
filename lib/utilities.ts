@@ -33,7 +33,9 @@ export function getChainData(chainId?: number): IChainData | null {
   )[0]
 
   if (!chainData) {
-    throw new Error('ChainId missing or not supported')
+    throw new Error(
+      `ChainId missing or not supported: ${chainId}`
+    )
   }
 
   const API_KEY = process.env.NEXT_PUBLIC_INFURA_API_KEY;

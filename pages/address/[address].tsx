@@ -95,6 +95,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
   const [ownsNFT, setOwnsNFT] = useState(false);
   const [attestSuccess, setAttestSuccess] = useState(false);
+  const [scoreFetched, setScoreFetched] = useState('');
 
   const connectedWallet = useAccount();
 
@@ -107,6 +108,8 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
       if (!connectedWallet.address) return;
 
+      setScoreFetched(connectedWallet.address);
+
       const connectedUserScoreAndRankRequest = await fetch(`/api/address/${connectedWallet.address}?${new Date().getTime()}`);
       if (connectedUserScoreAndRankRequest.ok) {
         const connectedUserETHRank = await connectedUserScoreAndRankRequest.json();
@@ -115,7 +118,9 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
         }
       }
     }
-    fetchData();
+    if (!scoreFetched.length || scoreFetched !== connectedWallet.address) {
+      fetchData();
+    }
   }, [connectedWallet]);
 
 

@@ -501,11 +501,61 @@
                 ]
             },
             {
+                "name": "L2s on mainnet",
+                "slug": "l2s-on-mainnet",
+                "category": "defi",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own 1 Mantle Token ($MNT)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0x3c3a81e81dc49A522A592e7622A7E711c06bf354"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 Arbitrum Token ($ARB)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xB50721BCf8d664c30412Cfbc6cf7a15145234ad1"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 Starknet Token ($STARK)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
                 "name": "DAO Organizooor",
                 "slug": "dao-organizer",
                 "category": "defi",
                 "points": 50,
                 "steps": [
+                    {
+                        "name": "Own 1 Lido DAO Token ($LDO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32"
+                        }
+                    },
                     {
                         "name": "Own 1 PeopleDAO Token ($PEOPLE)",
                         "points": 10,
@@ -561,24 +611,6 @@
                         }
                     },
                     {
-                        "name": "Own 1 Bankless DAO Token ($BANK)",
-                        "points": 10,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x2d94AA3e47d9D5024503Ca8491fcE9A2fB4DA198"
-                        }
-                    },
-                    {
-                        "name": "Own 1 dHedge DAO Token ($DHT)",
-                        "points": 10,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0xca1207647Ff814039530D7d35df0e1Dd2e91Fa84"
-                        }
-                    },
-                    {
                         "name": "Own 1 SporkDAO Token ($SPORK)",
                         "points": 10,
                         "type": "own_token_by_address",
@@ -596,28 +628,56 @@
                 "points": 50,
                 "steps": [
                     {
-                        "name": "Own 1 PEPE Token ($PEPE)",
+                        "name": "Own 1 MEME Token ($MEME)",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": "0x6982508145454ce325ddbe47a25d4ec3d2311933"
+                            "address": "0xb131f4A55907B10d1F0A50d8ab8FA09EC342cd74"
                         }
                     },
                     {
-                        "name": "Own 1 Shiba Inu ($SHIB)",
+                        "name": "Own 1 BONK ($BONK)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x1151CB3d861920e07a38e03eEAd12C32178567F6"
+                        }
+                    },
+                    {
+                        "name": "Own 1 FLOKI ($FLOKI)",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
                             "address": [
-                                "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
-                                "0x6f8a06447ff6fcf75d803135a7de15ce88c1d4ec"
+                                "0xcf0C122c6b73ff809C693DB761e7BaeBe62b6a2E"
                             ]
                         }
                     },
                     {
-                        "name": "Own 1 ApeCoin $APE",
+                        "name": "Own 1 Turbo ($TURBO)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xA35923162C49cF95e6BF26623385eb431ad920D3"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 Ben Coin ($BEN)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x9bf1D7D63dD7a4ce167CF4866388226EEefa702E"
+                        }
+                    },
+                    {
+                        "name": "Own 1 ApeCoin ($APE)",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
@@ -629,25 +689,12 @@
                         }
                     },
                     {
-                        "name": "Own 1 DodoBird Token ($DODO)",
+                        "name": "Own 1 PEPE Token ($PEPE)",
                         "points": 10,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
-                            "address": [
-                                "0x43Dfc4159D86F3A37A5A4B3D4580b888ad7d4DDd"
-                            ]
-                        }
-                    },
-                    {
-                        "name": "Own 1 Akita Inu Token ($AKITA)",
-                        "points": 10,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": [
-                                "0x3301ee63fb29f863f2333bd4466acb46cd8323e6"
-                            ]
+                            "address": "0x6982508145454ce325ddbe47a25d4ec3d2311933"
                         }
                     }
                 ]
@@ -733,60 +780,6 @@
                 ]
             },
             {
-                "name": "Generative Art Lover",
-                "slug": "generative-art-lover",
-                "category": "nfts",
-                "points": 200,
-                "steps": [
-                    {
-                        "name": "Own 1 Fidenza",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Metagon",
-                        "points": 20,
-                        "url": "https://metagon.dev/",
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x694774E494B26039e282b24cF5022b544eAB26BE"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Nouns",
-                        "points": 20,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Toha by Rich Poole",
-                        "points": 20,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0xd8b7cc75e22031a72d7b8393113ef2536e17bde6"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Factura by Mathias Isaksen",
-                        "points": 20,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x27787755137863bb7f2387ed34942543c9f24efe"
-                        }
-                    }
-                ]
-            },
-            {
                 "name": "Domain Collector",
                 "slug": "domain-collector",
                 "category": "nfts",
@@ -865,6 +858,20 @@
                 "category": "nfts",
                 "points": 1000,
                 "steps": [
+                    
+                    {
+                        "name": "Own 1 Pudgy Penguin or Lil Pudgy",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xBd3531dA5CF5857e7CfAA92426877b022e612cf8",
+                                "0x524cAB2ec69124574082676e6F654a18df49A048"
+                            ]
+                        }
+                    },
+                    
                     {
                         "name": "Own 1 Azuki",
                         "points": 50,
@@ -874,6 +881,17 @@
                             "address": "0xED5AF388653567Af2F388E6224dC7C4b3241C544"
                         }
                     },
+
+                    {
+                        "name": "Own 1 Art Blocks",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xa7d8d9ef8D8Ce8992Df33D8b8CF4Aebabd5bD270"
+                        }
+                    },
+                    
                     {
                         "name": "Own 1 BAYC",
                         "points": 50,
@@ -883,6 +901,17 @@
                             "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
                         }
                     },
+
+                    {
+                        "name": "Own 1 Mutant Ape Yacht Club",
+                        "points": 50,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x60E4d786628Fea6478F785A6d7e704777c86a7c6"
+                        }
+                    },
+
                     {
                         "name": "Own 1 CloneX",
                         "points": 50,
@@ -911,95 +940,15 @@
                         }
                     },
                     {
-                        "name": "Own 1 Opepen Edition",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x6339e5e072086621540d0362c4e3cea0d643e114"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Milady",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x5af0d9827e0c53e4799bb226655a1de152a425a5"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Reddit Avatar (Drip Squad, Singularity, Meme Team, Aww Friends, WallStreetBets)",
+                        "name": "Own 1 Milady or Remilio Babies",
                         "points": 50,
                         "type": "own_token_by_address",
                         "params": {
                             "count": 1,
                             "address": [
-                                "0xbfd670667053e517a97afe56c91e4f83f1160bd3",
-                                "0x466a330887bdf62d53f968ea824793150f07762e",
-                                "0xb9c042c3275bc49799688eea1a29b1405d02946b",
-                                "0x6acb8fb82880d39c2b8446f8778a14d34ee6cfb7",
-                                "0xA3396AF20ce52Bd3C7ab6D7046Be617257F60Eb9"
+                                "0x5af0d9827e0c53e4799bb226655a1de152a425a5",
+                                "0xD3D9ddd0CF0A5F0BFB8f7fcEAe075DF687eAEBaB"
                             ]
-                        }
-                    }
-                ]
-            },
-
-            {
-                "name": "Card Collector",
-                "slug": "card-collector",
-                "category": "nfts",
-                "points": 200,
-                "steps": [
-                    {
-                        "name": "Own 1 Ethereum Rookie Card",
-                        "url": "https://erc-1.com/",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x79b8d8bd5dc219887416064b5ad411b71e034e21"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Living Legends Ethereum Rookie Card",
-                        "url": "https://legends.erc-1.com/",
-                        "points": 10,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0xDD9492a5714aE827AA2749BAadD6594b598Dc459"
-                        }
-                    },
-                    {
-                        "name": "Own 10 Living Legends Ethereum Rookie Cards",
-                        "url": "https://legends.erc-1.com/",
-                        "points": 50,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 10,
-                            "address": "0xDD9492a5714aE827AA2749BAadD6594b598Dc459"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Parallel Card",
-                        "points": 10,
-                        "url": "https://parallel.life/",
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x76BE3b62873462d2142405439777e971754E8E77"
-                        }
-                    },
-                    {
-                        "name": "Own 10 Parallel Cards",
-                        "points": 50,
-                        "url": "https://parallel.life/",
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 10,
-                            "address": "0x76BE3b62873462d2142405439777e971754E8E77"
                         }
                     }
                 ]
@@ -1052,6 +1001,33 @@
                 "category": "staking",
                 "points": 50,
                 "steps": [
+                    {
+                        "name": "Own some USDe from Ethena Labs",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": ["0x9D39A5DE30e57443BfF2A8307A4256c8797A3497","0x4c9EDD5852cd905f086C759E8383e09bff1E68B3"]
+                        }
+                    },
+                    {
+                        "name": "Own some rsETH from Stader Labs",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7"
+                        }
+                    },
+                    {
+                        "name": "Own some swETH from Swell Network",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xf951E335afb289353dc249e82926178EaC7DEd78"
+                        }
+                    },
                     {
                         "name": "Own some rETH from RocketPool",
                         "points": 20,
@@ -1223,6 +1199,34 @@
                         "params": {
                             "count": 1,
                             "address": "0x8DfbeE5338a012Ce7746bDE4428c9d9df87a6C5E"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Airdrop Hunter",
+                "slug": "airdrop-hunter",
+                "category": "reputation",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own 1 SAFE Token ($SAFE)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x5aFE3855358E112B5647B952709E6165e1c1eEEe"
+                        }   
+                    },
+                    {
+                        "name": "Own 1 Starknet Token ($STARK)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766"
+                            ]
                         }
                     }
                 ]
@@ -1403,6 +1407,41 @@
                         "params": {
                             "count": 1,
                             "address": "0x0521fa0bf785ae9759c7cb3cbe7512ebf20fbdaa"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Web3 Gamer",
+                "slug": "web3-gamer",
+                "category": "reputation",
+                "points": 50,
+                "steps": [
+                    {
+                        "name": "Own 1 Farm Land by Pixels ($FARM)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x5C1A0CC6DAdf4d0fB31425461df35Ba80fCBc110"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Sandbox Token ($SAND)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x3845badAde8e6dFF049820680d1F14bD3903a5d0"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Decentraland Mana ($MANA)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x0F5D2fB29fb7d3CFeE444a200298f468908cC942"
                         }
                     }
                 ]

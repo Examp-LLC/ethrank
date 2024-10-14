@@ -7,13 +7,15 @@
 
 The Ethereum Leaderboard
 
+Updated for Season 5 with 23 new, exciting projects!
+
 ## Getting Started
 
 See [this tweet](https://twitter.com/blankey1337/status/1478051718617198593) for an overview of how this site was built.
 
-## Setup a PlanetScale account
-This app uses a remote MySQL database via a service called PlanetScale.
-Please register an account at https://planetscale.com/ and create a DB to get started.
+## Setup a Neon account
+This app uses a remote PostgreSQL database via a service called Neon.
+Please register an account at https://neon.db/ and create a DB to get started.
 
 ## Update .env.development with your API keys
 
@@ -22,13 +24,7 @@ Please register an account at https://planetscale.com/ and create a DB to get st
 npm install
 ```
 
-## Connect to PlanetScale DB
-```bash
-pscale auth login
-pscale connect ethrank main --port 3309
-```
-
-If this is your first time, you may need to run `npx prisma migrate dev`
+If this is your first time, you may need to run `npx prisma migrate dev` or  `npx prisma generate`
 
 ## Run the dev server
 
