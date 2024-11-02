@@ -206,6 +206,8 @@
     text-transform: none;
     font-size:18px;
     opacity:.5;
+    background:none;
+    -webkit-text-fill-color: inherit;
   }
   h2 {
     font-weight:300;
@@ -319,6 +321,7 @@
   background:var(--main-color4);
   text-align: center;
   padding: 10px;
+  z-index: 10;
   p {
     display: inline;
     margin:0;

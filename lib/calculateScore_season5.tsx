@@ -33,6 +33,8 @@ const ETHPLORER_API_KEY = process.env.ETHPLORER_API_KEY;
 const POAP_API_KEY = process.env.POAP_API_KEY;
 const ALCHEMY_ETH_MAINNET_KEY = process.env.ALCHEMY_ETH_MAINNET_KEY;
 const ALCHEMY_MATIC_MAINNET_KEY = process.env.ALCHEMY_MATIC_MAINNET_KEY;
+const ALCHEMY_ARB_MAINNET_KEY = process.env.ALCHEMY_ARB_MAINNET_KEY;
+const ALCHEMY_OP_MAINNET_KEY = process.env.ALCHEMY_OP_MAINNET_KEY;
 
 interface ETHRankAddressResponse {
   props: {
@@ -50,12 +52,13 @@ interface ETHRankAddressResponse {
 
 
 export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[], attempts = 0): Promise<ETHRankAddressResponse> {
+  console.time('calculateScore');
   let score = 0, rank = 0;
   let totalPointsPossible = 0;
   let completedAchievements = 0;
   let totalTransactions = 0;
   let spentOnGas = 0;
-  let activeSince = new Date();
+  let activeSince: Date | null = null;
   let progress: string[] = []; // list of completed steps, goals, achievements
 
   // TODO - useState for the progress above and strongly reconsider data struct
@@ -63,6 +66,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
   let receivedTransactions = [];
   let ownedTokens = [];
   let ownedPolygonTokens = [];
+  let deployedContracts = [];
   let cached = false;
   let error = false;
   let name = '';
@@ -77,10 +81,10 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
   };
   const overrides = {
     [Network.MATIC_MAINNET]: { apiKey: ALCHEMY_MATIC_MAINNET_KEY, maxRetries: 10 },
-    [Network.LINEA_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
-    [Network.ARBITRUM_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
-    [Network.OP_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
+    [Network.ARBITRUM_MAINNET]: { apiKey: ALCHEMY_ARB_MAINNET_KEY, maxRetries: 10 },
+    [Network.OP_MAINNET]: { apiKey: ALCHEMY_OP_MAINNET_KEY, maxRetries: 10 },
     [Network.BASE_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 }
+    // [Network.LINEA_MAINNET]: { apiKey: ALCHEMY_ETH_MAINNET_KEY, maxRetries: 10 },
   };
   const alchemy = new AlchemyMultichainClient(defaultConfig, overrides);
 
@@ -111,6 +115,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
     }
 
     if (!error) {
+      console.time('cacheCheck');
       // store in cache for 24 hours
       if (addressCache && 
           addressCache.updatedAt > new Date(new Date().getTime() - (24 * 60 * 60 * 1000)) && 
@@ -119,12 +124,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         score = addressCache.score;
         name = addressCache.name;
         totalTransactions = addressCache.transactions || 0;
-        // @ts-ignore
-        spentOnGas = addressCache.spentOnGas || 0;
-        // @ts-ignore
-        activeSince = addressCache.activeSince;
+        spentOnGas = Number(addressCache.spentOnGas) || 0;
+        activeSince = addressCache.activeSince || null;
         cached = true;
       }
+      console.timeEnd('cacheCheck');
 
       // Unstoppable edge case 1 - If we find an unstoppable domain in the cache, we use that
       // TODO: do ENS the same way (no need for reverse lookup if we know the .eth address)
@@ -143,7 +147,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       }
 
       if (!cached || process.env.DEVELOPMENT) {
-
+        console.time('fetchData');
         if (unstoppableName && typeof unstoppableName === 'string') {
           const unstoppable = await lookupUnstoppableName(unstoppableName.toLowerCase());
           if (unstoppable.address && unstoppable.address.length && unstoppable.address.toLowerCase() === address.toLowerCase()) {
@@ -162,19 +166,29 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
         }
         
-        const mainnetTxns = await fetchTxns(address, Network.ETH_MAINNET)
-        const mainnetTxnsTo = await fetchTxns(address, Network.ETH_MAINNET, true)
-        const maticTxns = await fetchTxns(address, Network.MATIC_MAINNET)
-        const maticTxnsTo = await fetchTxns(address, Network.MATIC_MAINNET, true)
-        const arbitrumTxns = await fetchTxns(address, Network.ARB_MAINNET)
-        const arbitrumTxnsTo = await fetchTxns(address, Network.ARB_MAINNET, true)
-        const opTxns = await fetchTxns(address, Network.OPT_MAINNET)
-        const opTxnsTo = await fetchTxns(address, Network.OPT_MAINNET, true)
-        const baseTxns = await fetchTxns(address, Network.BASE_MAINNET)
-        const baseTxnsTo = await fetchTxns(address, Network.BASE_MAINNET, true)
-        // Linea not yet supported - https://docs.alchemy.com/reference/feature-support-by-chain
-        // const lineaTxns = await fetchTxns(address, Network.LINEA_MAINNET)
-        // const lineaTxnsTo = await fetchTxns(address, Network.LINEA_MAINNET, true)
+        const [
+            mainnetTxns,
+            mainnetTxnsTo,
+            maticTxns,
+            maticTxnsTo,
+            arbitrumTxns,
+            arbitrumTxnsTo,
+            opTxns,
+            opTxnsTo,
+            baseTxns,
+            baseTxnsTo
+        ] = await Promise.all([
+            fetchTxns(address, Network.ETH_MAINNET),
+            fetchTxns(address, Network.ETH_MAINNET, true),
+            fetchTxns(address, Network.MATIC_MAINNET),
+            fetchTxns(address, Network.MATIC_MAINNET, true),
+            fetchTxns(address, Network.ARB_MAINNET),
+            fetchTxns(address, Network.ARB_MAINNET, true),
+            fetchTxns(address, Network.OPT_MAINNET),
+            fetchTxns(address, Network.OPT_MAINNET, true),
+            fetchTxns(address, Network.BASE_MAINNET),
+            fetchTxns(address, Network.BASE_MAINNET, true)
+        ]);
 
         const urls = [
           // ERC-20 token holdings
@@ -241,9 +255,8 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
         totalTransactions = allTransactions.length;
         if (totalTransactions) {
-          // NOTE: Assumes all first transactions are on mainnet
           let firstBlock = await alchemy
-            .forNetwork(Network.ETH_MAINNET)
+            .forNetwork(allTransactions[0].network || Network.ETH_MAINNET)
             .core
             .getBlock(allTransactions[0].blockNum);
           if (firstBlock) {
@@ -261,12 +274,15 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           return progress.indexOf(`${j}${k}${l}`) > -1;
         };
 
+        console.timeEnd('fetchData');
+
+        console.time('processTransactions');
         // THE LOOP - we are only going to loop through all transactions ONCE,
         // so do whatever you need to do in here and before/after.
         for (let i = 0; i < allTransactions.length; i++) {
 
           // skip failed txs
-          if (allTransactions[i]?.isError === "1") {
+          if (allTransactions[i]?.isError === "1" || !allTransactions[i]) {
             continue;
           }
 
@@ -311,16 +327,17 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
 
                     totalPointsForThisAchievement += step.points;
 
-                    // if (allTransactions[i].hash === '0x2346de0727c1f3e0cf9fdaa486c0d7ecdfc1533dc41428c9467e0b7ea43f4d97') console.log(allTransactions[i])
                     if (!isComplete(j, k, l)) {
 
                       switch (step.type) {
+                        // Check if the transaction was sent to the specified address and count it
                         case 'transaction_to_address_count':
-
-
+                          // Convert the address to lowercase for comparison
+                          // Check if the transaction was sent to the specified address
+                          // If so, increment the count of sent transactions for this achievement
+                          // If the count matches the required count, mark the step as completed and add points to the score
                           // @ts-ignore
                           addresses = convertToLowerCase(step.params.address || address);
-
                           if ((allTransactions[i].to?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].to)) > -1) || 
                             (allTransactions[i].rawContract?.address?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].rawContract?.address))) > -1) {
                             
@@ -336,16 +353,18 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                             sentTransactions[j][k][l]++;
                             // @ts-ignore
                             if (sentTransactions[j][k][l] === step.params.count) {
-                              // console.log('step completed: transaction_to_address_count',   step.name, step.points, goal.name, achievement.name, allTransactions[i].hash)
                               markStepCompleted(j, k, l);
-                              // if step is completed, include step points in score
                               score += step.points;
                             }
                           }
                           break;
 
+                        // Check if the transaction was received from the specified address and count it
                         case 'transaction_from_address_count':
-
+                          // Convert the address to lowercase for comparison
+                          // Check if the transaction was received from the specified address
+                          // If so, increment the count of received transactions for this achievement
+                          // If the count matches the required count, mark the step as completed and add points to the score
                           // @ts-ignore
                           addresses = convertToLowerCase(step.params.address || address);
                           if (allTransactions[i].from?.length && addresses.indexOf(convertToLowerCase(allTransactions[i].from)) > -1) {
@@ -359,89 +378,100 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                               receivedTransactions[j][k][l] = 0;
                             }
                             receivedTransactions[j][k][l]++;
-
                             if (receivedTransactions[j][k][l] === step.params.count) {
-                              // console.log('step completed: transaction_from_address_count',  step.name, step.points,goal.name, achievement.name)
                               markStepCompleted(j, k, l);
-                              // if step is completed, include step points in score
                               score += step.points;
                             }
                           }
                           break;
 
+                        // Check if the user sent a specified amount of ETH
                         case 'send_eth_amount':
-                          // Don't count dupes or sidechain transactions
+                          // Skip counting if the transaction is a duplicate or from a sidechain
+                          // Check if the amount sent meets the required amount for this step
+                          // If so, mark the step as completed and add points to the score
                           if (isDupeTransaction || allTransactions[i].network) continue;
                           
                           const amountSent = allTransactions[i].value;
                           // @ts-ignore
-                          if (amountSent >= step.params.amount && (allTransactions[i].category === "external" || allTransactions[i].category === "internal")) { // filter out contract allTransactions
-                            // console.log('step completed: send_eth_amount', step.name, step.points, goal.name, achievement.name)
+                          if (amountSent >= step.params.amount && (allTransactions[i].category === "external" || allTransactions[i].category === "internal")) {
                             markStepCompleted(j, k, l);
-                            // if step is completed, include step points in score
                             score += step.points;
                           }
                           break;
 
+                        // Check if the user owns a specified number of tokens
                         case 'own_token_count':
-                          // We only want to tally this once since we are inside THE LOOP
+                          // Only tally this once since we are inside THE LOOP
+                          // Check if the user owns the required number of tokens for this achievement
+                          // If so, mark the step as completed and add points to the score
                           if (i === 0) {
                             // @ts-ignore
                             if (tokens && tokens.length >= step.params.count) {
-                              // console.log('step completed: own_token_count', step.name, step.points, goal.name, achievement.name)
                               markStepCompleted(j, k, l);
-                              // if step is completed, include step points in score
                               score += step.points;
                             }
                           }
-
                           break;
+
+                        // Check if the user owns a specified number of POAPs
                         case 'own_poap_count':
-                          // We only want to tally this once since we are inside THE LOOP
+                          // Only tally this once since we are inside THE LOOP
+                          // Check if the user owns the required number of POAPs for this achievement
+                          // If so, mark the step as completed and add points to the score
                           if (i === 0) {
                             // @ts-ignore
                             if (poaps && poaps.length >= step.params.count) {
-                              // console.log('step completed: own_poap_count', step.name, step.points, goal.name, achievement.name)
                               markStepCompleted(j, k, l);
-                              // if step is completed, include step points in score
                               score += step.points;
                             }
                           }
+                          break;
+                          
+                        // Check if the user deployed a contract
+                        case 'deploy_contract_count':
 
+                          // Check if the transaction is a contract deployment by the user
+                          if (allTransactions[i].to === null && convertToLowerCase(allTransactions[i].from) === address.toLowerCase()) {
+                            deployedContracts.push(allTransactions[i]);
+                            if (deployedContracts.length  >= step.params.count) {
+                              markStepCompleted(j, k, l);
+                              score += step.points;
+                            }
+                          }
                           break;
 
+                        // Check if the user spent a specified amount of gas
                         case 'spend_gas_amount':
-                          // Don't count dupes or sidechain transactions
+                          // Skip counting if the transaction is a duplicate or from a sidechain
+                          // Check if the user has spent the required amount of gas for this step
+                          // If so, mark the step as completed and add points to the score
                           if (isDupeTransaction || allTransactions[i].network) continue;
 
-                          // @ts-ignore
                           addresses = convertToLowerCase(address);
-
                           if ((addresses.indexOf(convertToLowerCase(allTransactions[i].from)) > -1 !== false) ||
                               (allTransactions[i].rawContract?.address && addresses.indexOf(convertToLowerCase(allTransactions[i].rawContract?.address)) > -1 !== false)) {
                             const amountSpent = spentOnGas;
 
                             // @ts-ignore
                             if (!isComplete(j, k, l) && amountSpent >= parseFloat(step.params.amount)) {
-                              // console.log('step completed: spend_gas_amount', step.name, step.points, goal.name, achievement.name, allTransactions[i].hash)
                               markStepCompleted(j, k, l);
-                              // if step is completed, include step points in score
                               score += step.points;
                             }
                           }
-
                           break;
 
+                        // Check if the user owns tokens from a specified address
                         case 'own_token_by_address':
-
+                          // Convert the address to lowercase for comparison
+                          // Check if the user owns tokens from the specified address
+                          // If so, increment the count of owned tokens for this achievement
+                          // If the count matches the required count, mark the step as completed and add points to the score
                           // @ts-ignore
                           addresses = convertToLowerCase(step.params.address || address);
-
                           let tokensFound = 0;
 
-                          // This method checks the ethplorer response and etherscan responses
-                          // for the best possible outcome.
-                          // Method 1 - ethplorer - We only want to tally this once since we are inside THE LOOP
+                          // Method 1 - Check ethplorer response
                           if (i === 0) {
                             if (tokens && tokens.length) {
                               for (let m = 0; m < tokens.length; m++) {
@@ -452,7 +482,6 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
                               }
                             }
                           }
-
 
                           // if above method failed, try method #2 - alchemy
                           if (
@@ -526,21 +555,24 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             }
           }
         }
-       
+        console.timeEnd('processTransactions');
 
+        console.time('updateCache');
         try {
           // update the cache
           const data = {
             address: address.toLowerCase(),
             score,
+            season: THIS_SEASON,
+            progress: JSON.stringify(progress),
             name,
             imageUrl: '',
             description: '',
-            progress: JSON.stringify(progress),
-            season: THIS_SEASON,
+            active: true,
+            featured: false,
             transactions: totalTransactions,
-            spentOnGas,
-            activeSince
+            spentOnGas: spentOnGas ? new Prisma.Decimal(spentOnGas) : null,
+            activeSince: activeSince || undefined
           };
 
           if (addressCache?.id) {
@@ -558,9 +590,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         } catch (e) {
           console.error(e);
         }
+        console.timeEnd('updateCache');
 
       }
 
+      console.time('calculateRank');
       const higherRankedAddresses = await prisma.address.count({
         where: {
           AND: {
@@ -574,17 +608,18 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       if (higherRankedAddresses) {
         rank = higherRankedAddresses || 0;
       }
+      console.timeEnd('calculateRank');
     }
   }
 
+  console.timeEnd('calculateScore');
   return {
     props: {
       address,
       score: score,
-      // totalPointsPossible,
       totalTransactions,
       spentOnGas: spentOnGas.toString(),
-      activeSince: activeSince?.toString(),
+      activeSince: activeSince?.toISOString() || null,
       rank,
       progress,
       error,
@@ -593,11 +628,10 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
   };
 
   async function fetchTxns(address: string, network: Network, useTo?: boolean, pageKey?: string, depth: number = 0) {
-
     let params = {
       fromBlock: "0x0",
       fromAddress: address,
-      excludeZeroValue: true,
+      excludeZeroValue: false,
       category: ["external", "erc20", "erc721", "erc1155"],
       pageKey
     };

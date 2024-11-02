@@ -21,6 +21,7 @@ import season1Achievements from '../../lib/achievements_season1.json';
 import season2Achievements from '../../lib/achievements_season2.json';
 import season3Achievements from '../../lib/achievements_season3.json';
 import season4Achievements from '../../lib/achievements_season4.json';
+import season5Achievements from '../../lib/achievements_season5.json';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
@@ -36,6 +37,7 @@ const achievements = [
   season2Achievements,
   season3Achievements,
   season4Achievements,
+  season5Achievements,
 ];
 
 export const convertToLowerCase = (input: string | Array<string> | undefined) => {

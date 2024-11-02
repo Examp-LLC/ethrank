@@ -49,14 +49,14 @@ interface CollectionConfigInterface {
 
 
 const CollectionConfig: CollectionConfigInterface = {
-  currentSeason: 4,
+  currentSeason: 5,
   testnet: Networks.ethereumTestnet,
   mainnet: Networks.ethereumMainnet,
   contractName: 'ETHRankBadge',
   tokenName: 'ETHRankBadge',
   tokenSymbol: 'RANK',
   hiddenMetadataUri: 'ipfs://__CID__/hidden.json',
-  maxSupply: 5000,
+  maxSupply: 10000,
   whitelistSale: {
     price: 0.025,
     maxMintAmountPerTx: 1,
@@ -76,6 +76,7 @@ const CollectionConfig: CollectionConfigInterface = {
     '0xE372C0922305aCEC60172307c924c6fEfe4Db874', // Season 2 (mainnet)
     '0x55efC18B06D455bff9830969b0F9935052aD63C2', // Season 3 (mainnet)
     '0x8DfbeE5338a012Ce7746bDE4428c9d9df87a6C5E', // Season 4 (mainnet)
+    '0xa12fC7de123ECfC2d9Df005d038B0885FBEC5590', // Season 5 (mainnet)
   ],
   marketplaceIdentifier: 'opensea',
 };

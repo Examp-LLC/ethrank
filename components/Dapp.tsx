@@ -107,7 +107,10 @@ const Dapp = () => {
     mutation: {
       onError(e: Error) {
         // @ts-ignore
-        setErrorMsg(e.shortMessage || e.message)
+        if (e.shortMessage != 'User rejected the request.') {
+          // @ts-ignore
+          setErrorMsg(e.shortMessage || e.message)
+        }
       },
       onSuccess() {
         setMintComplete(true)

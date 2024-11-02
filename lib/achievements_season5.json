@@ -696,6 +696,15 @@
                             "count": 1,
                             "address": "0x6982508145454ce325ddbe47a25d4ec3d2311933"
                         }
+                    },
+                    {
+                        "name": "Own 1 BRETT Token ($BRETT)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x532f27101965dd16442e59d40670faf5ebb142e4"
+                        }
                     }
                 ]
             },
@@ -766,15 +775,6 @@
                         "params": {
                             "count": 1,
                             "address": "0x23581767a106ae21c074b2276D25e5C3e136a68b"
-                        }
-                    },
-                    {
-                        "name": "Own 1 Zucklords",
-                        "points": 10,
-                        "type": "own_token_by_address",
-                        "params": {
-                            "count": 1,
-                            "address": "0x539130bd5916fe9fd1fa437cf8c61a8850938b5b"
                         }
                     }
                 ]
@@ -856,7 +856,7 @@
                 "name": "NFT Collector",
                 "slug": "nft-collector",
                 "category": "nfts",
-                "points": 1000,
+                "points": 200,
                 "steps": [
                     
                     {
@@ -1140,6 +1140,30 @@
                         }
                     }
                 ]
+            },
+            {
+                "name": "Don't worry, I'm a developer",
+                "slug": "dont-worry-im-dev",
+                "category": "reputation",
+                "points": 0,
+                "steps": [
+                    {
+                        "name": "Deploy a smart contract to any supported chain",
+                        "points": 50,
+                        "type": "deploy_contract_count",
+                        "params": {
+                            "count": 1
+                        }
+                    },
+                    {
+                        "name": "Deploy 5 smart contracts to any supported chain",
+                        "points": 50,
+                        "type": "deploy_contract_count",
+                        "params": {
+                            "count": 5
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -1198,7 +1222,7 @@
                         "url": "https://ethrank.io/",
                         "params": {
                             "count": 1,
-                            "address": "0x8DfbeE5338a012Ce7746bDE4428c9d9df87a6C5E"
+                            "address": "0xa12fC7de123ECfC2d9Df005d038B0885FBEC5590"
                         }
                     }
                 ]
@@ -1239,7 +1263,7 @@
                 "steps": [
                     {
                         "name": "Intro to DAOs",
-                        "points": 50,
+                        "points": 20,
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
@@ -1248,7 +1272,7 @@
                     },
                     {
                         "name": "Intro to DeFi",
-                        "points": 50,
+                        "points": 20,
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
@@ -1257,11 +1281,20 @@
                     },
                     {
                         "name": "Intro to NFTs",
-                        "points": 50,
+                        "points": 20,
                         "type": "transaction_to_address_count",
                         "params": {
                             "count": 1,
                             "address": "0xa3B61c077dA9Da080D22A4cE24f9Fd5f139634cA"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Quest Terminal Key (Optimism)",
+                        "points": 20,
+                        "type": "transaction_to_address_count",
+                        "params": {
+                            "count": 1,
+                            "address": "0x6Fd74033a717ebb3c60c08b37A94b6CF96DE54Ab"
                         }
                     }
                 ]
@@ -1442,6 +1475,15 @@
                         "params": {
                             "count": 1,
                             "address": "0x0F5D2fB29fb7d3CFeE444a200298f468908cC942"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Illuvium ($ILV)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x767FE9EDC9E0dF98E07454847909b5E959D7ca0E"
                         }
                     }
                 ]
