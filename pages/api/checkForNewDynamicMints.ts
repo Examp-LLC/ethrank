@@ -96,7 +96,6 @@ export async function getUpdatedScoreAndSaveETHRank(generateNFTParams: GenerateN
         data
       });
     } else {
-      console.log('creating', data)
       const created = await prisma.badge.create({
         data,
       });
