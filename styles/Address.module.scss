@@ -268,6 +268,7 @@
       position: relative;
       width: 70px;
       height: auto;
+      animation: bounce 5s infinite;
     }
 
     ul {
@@ -460,3 +461,16 @@
     }
   }
 }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px); // Adjust the height of the bounce here
+  }
+  60% {
+    transform: translateY(-2px); // Adjust the height of the bounce here
+  }
+}
+

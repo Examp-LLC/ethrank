@@ -189,9 +189,15 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
     }
   };
 
-  const isOptimism = (): boolean => {
-    return connectedWallet.isConnected && (connectedWallet.chain?.id === optimism.id || connectedWallet.chain?.id === optimismSepolia.id);
-  }
+  const [isOptimism, setIsOptimism] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (connectedWallet.isConnected) {
+      setIsOptimism(connectedWallet.chain?.id === optimism.id || connectedWallet.chain?.id === optimismSepolia.id);
+    } else {
+      setIsOptimism(false);
+    }
+  }, [connectedWallet]);
 
   const convertBigNumberToShorthand = (n: number) => {
     if (n < 1e3) return n % 1 != 0 ? n.toFixed(2) : n;
@@ -350,7 +356,7 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
 
           {!attestSuccess && connectedWallet.isConnected &&
             <>
-              {isOptimism() ?
+              {isOptimism ?
                 <button
                   className={`${btnStyles.btn} ${isLoading ? "loading" : ""}`}
                   disabled={isLoading}

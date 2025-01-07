@@ -119,6 +119,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
   const [manualAddressInput, setManualAddressInput] = useState('')
   const [isConnected, setIsConnected] = useState(false)
   const [address, setAddress] = useState<string | undefined>('')
+  const [isLoading, setIsLoading] = useState(false);
 
   const connectedWallet = useAccount()
   useEffect(() => {
@@ -169,18 +170,25 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
 
               {!hasWalletPluginInstalled && <form onSubmit={async (e) => {
                 e.preventDefault();
+                if (!manualAddressInput.length) return;
+                setIsLoading(true);
                 if (manualAddressInput.toLowerCase().indexOf('.eth') > -1) {
-                  Router.push(`/ensName/${manualAddressInput}`)
+                  await Router.push(`/ensName/${manualAddressInput}`)
                 } else if (manualAddressInput.toLowerCase().indexOf('.') > -1) {
-                  Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
+                  await Router.push(`/unstoppableName/${manualAddressInput.toLowerCase()}`)
                 } else {
-                  Router.push(`/address/${manualAddressInput}`)
+                  await Router.push(`/address/${manualAddressInput}`)
                 }
+                setIsLoading(false);
               }} className={btnStyles.manualAddressInput}>
 
                 <input type="text" value={manualAddressInput} placeholder={`Address or domain`} onChange={(e) => {
                   setManualAddressInput(e.target.value);
-                }} /> <button className={`${btnStyles.btn} ${btnStyles.short}`}><strong>Go</strong></button>
+                }} /> 
+                <button className={`${btnStyles.btn} ${btnStyles.short}`} disabled={isLoading}>
+                  <strong>Go</strong>
+                </button>
+                {isLoading && <span className={styles.spinner}></span>}
 
                 <div className={btnStyles.tooltip}>
                   <strong>examples</strong>
@@ -219,7 +227,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
           <div className={`${styles.box}`}>
             <h3>API / Developer Offerings</h3>
             <p>ETHRank offers two free APIs for public use: <strong>Address</strong> and <strong>Labels</strong>.
-             Our APIs are a public good, free for public use, subject to reasonable rate limits. With our APIs, you can build:</p>
+             With our APIs, you can build:</p>
             <ul>
               <li>Reputation systems: Leverage our achievements to gamify your audience.</li>
               <li>Identity solutions: Give your users a sense of identity and personalization to your app. </li>

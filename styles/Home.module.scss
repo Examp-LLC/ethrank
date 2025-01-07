@@ -69,7 +69,6 @@
     padding:0;
     margin: 10px 0;
     border-bottom:1px solid rgba(255,255,255, .15);
-    list-style-position: inside;
   }
   span {
     padding-left:30px;
@@ -309,6 +308,7 @@
   }
   li {
     border-bottom: none;
+    font-size:13px;
   }
 }
 
@@ -449,4 +449,20 @@
       margin:40px 0 0;
     }
   }
+}
+
+.spinner {
+  margin-left: 10px;
+  border: 2px solid var(--main-color3);
+  border-top: 2px solid var(--main-color2);
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: spin 1s linear infinite;
+  display:inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

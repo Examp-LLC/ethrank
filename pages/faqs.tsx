@@ -28,11 +28,15 @@ const Faqs = ({  }) => {
             </li>
             <li>
                 <h4>How long do seasons last?</h4>
-                <p>ETHRank Seasons currently last 6 months.</p>
+                <p>ETHRank Seasons currently last 12 months.</p>
             </li>
             <li>
                 <h4>Why did my score/rank change?</h4>
                 <p>Score and rank are dynamic, and may change with time as new users join the platform, and as additional achievements, goals, and steps are added. Further, balance tweaks to existing points may also be deemed necessary and applied at times. Finally, if a third party API is down or has changed their underlying contract address, some points may be unavailable until the issue is resolved.</p>
+            </li>
+            <li>
+                <h4>Why is my score so low?</h4>
+                <p>ETHRank tries to feature the most popular projects from across the web3 ecosystem that align with our core values of creativity, transparency, and technological innovation. We try to feature as many projects per season as possible. If we missed a project that you think we should feature, please <a href="https://docs.google.com/forms/d/1NWrtRONleo-MoEJpLamxtRQrzpxPpam89Gwn6NzE98Y" target='_blank'>let us know</a>. We'd love to hear from you!</p>
             </li>
         </ol>
       </div>

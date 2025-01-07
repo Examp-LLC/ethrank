@@ -42,6 +42,12 @@
     width:147px;
     background:url(../public/btn-short.png) no-repeat;
   }
+  &:disabled {
+    strong {
+      filter:saturate(.1);
+      cursor:default;
+    }
+  }
 }
 
 .btnWrapper {

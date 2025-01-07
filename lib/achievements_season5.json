@@ -952,6 +952,87 @@
                         }
                     }
                 ]
+            },
+            {
+                "name": "Modern Landowner",
+                "slug": "modern-landowner",
+                "category": "nfts",
+                "points": 50,
+                "steps": [
+                    
+                    {
+                        "name": "Own 1 Otherside Deed or Otherdeed",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0x790B2cF29Ed4F310bf7641f013C65D4560d28371",
+                                "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258"
+                            ]
+                        }
+                    },
+                    
+                    {
+                        "name": "Own 1 Webbland",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xA1D4657e0E6507D5a94d06DA93E94dC7C8c44b51"
+                        }
+                    },
+
+                    {
+                        "name": "Own 1 Decentraland Land ($LAND)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xF87E31492Faf9A91B02Ee0dEAAd50d51d56D5d4d"
+                        }
+                    }
+                    
+                ]
+            },
+            {
+                "name": "Card Collector",
+                "slug": "card-collector",
+                "category": "nfts",
+                "points": 50,
+                "steps": [
+                    
+                    {
+                        "name": "Own 1 Living Legends Card (legends.ERC-1.com)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0xDD9492a5714aE827AA2749BAadD6594b598Dc459"
+                        }
+                    },
+
+                    {
+                        "name": "Own 1 Autograph NFT",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x57e4Bd0Fe8C47a0d1b78dE67039e6727Af6857C2"
+                        }
+                    },
+
+                    {
+                        "name": "Own 1 Parallel Card",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x76BE3b62873462d2142405439777e971754E8E77"
+                        }
+                    }
+                    
+                ]
             }
         ]
     },
@@ -1250,6 +1331,17 @@
                             "count": 1,
                             "address": [
                                 "0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Own 1 Eigen Token ($EIGEN)",
+                        "points": 10,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": [
+                                "0xec53bF9167f50cDEB3Ae105f56099aaaB9061F83"
                             ]
                         }
                     }

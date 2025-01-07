@@ -220,8 +220,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         
         const poaps = results[1] && Array.isArray(results[1]) && results[1] || [];
 
-        // must have some txns on mainnet
-        if (!mainnetTxns || !mainnetTxns.transfers?.length) {
+        if (!mainnetTxns) {
           console.log(`Error fetching upstream data, trying again 
           Mainnet txns: ${mainnetTxns.transfers?.length} 
           Matic txns: ${maticTxns.transfers?.length}

@@ -1,4 +1,6 @@
+import { calculateScore } from '../../lib/calculateScore_season5';
 import prisma from '../../lib/prisma';
+import { getCalcMethod } from './address/[address]';
 import { GenerateNFTParams } from './badges/[season]/[tokenID]';
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -48,20 +50,20 @@ export async function getUpdatedScoreAndSaveETHRank(generateNFTParams: GenerateN
     name
   } = generateNFTParams;
 
-  const ethrankScore = `${ethrankAPIServer}/api/address/${mintAddress}?season=${season}`
 
+  let calcScore = getCalcMethod(season);
   // @ts-ignore
-  const results = await retryFetch(ethrankScore, {}, 10).then((res) => res.json())
+  const { props } = await calcScore(mintAddress, prisma);
 
-  if (!results) {
+  if (!props) {
     return {
-      error: 'Failed fetching from ethrank'
+      error: 'Failed to calculate score'
     };
   }
 
-  let score = results.score;
-  let rank = results.rank;
-  let progress = results.progress;
+  let score = props.score;
+  let rank = props.rank;
+  let progress = props.progress;
   if (!score) score = 10;
   const metadata = await generateMetadata({
     address: name || mintAddress,
@@ -94,8 +96,9 @@ export async function getUpdatedScoreAndSaveETHRank(generateNFTParams: GenerateN
         data
       });
     } else {
+      console.log('creating', data)
       const created = await prisma.badge.create({
-        data
+        data,
       });
     }
 

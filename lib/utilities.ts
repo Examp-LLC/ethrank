@@ -129,29 +129,39 @@ export async function checkAndGenerateBadge(tokenID: string, season: string, pri
     // if image is not found, check for it on etherscan
     const contractAddress = CollectionConfig.contractAddress[parseInt(season, 10)];
     const ethContractData = `https://api${testnet}.etherscan.io/api?module=account&action=tokennfttx&contractaddress=${contractAddress}&sort=desc&apikey=${process.env.ETHERSCAN_API_KEY}`
-    const contractTransactions = await fetch(ethContractData).then((res) => res.json())
 
-    if (!contractTransactions?.result?.length) {
-      return {
-        props: {
-          error: 'unable to fetch contract'
+    try {
+      const contractTransactions = await fetch(ethContractData).then((res) => res.json());
+
+      if (!contractTransactions?.result?.length) {
+        return {
+          props: {
+            error: 'unable to fetch contract'
+          }
         }
       }
-    }
 
-    // check for this in the list
-    const exists = contractTransactions.status === '1' && contractTransactions.result.filter((transaction: Transaction) => {
-      return transaction.tokenID.toString() === tokenID.toString();
-    });
+      // check for this in the list
+      const exists = contractTransactions.status === '1' && contractTransactions.result.filter((transaction: Transaction) => {
+        return transaction.tokenID.toString() === tokenID.toString();
+      });
 
-    if (!exists || !exists.length) {
+      if (!exists || !exists.length) {
+        return {
+          props: {
+            error: 'token not found'
+          }
+        }
+      } else {
+        mintAddress = exists[0].to;
+      }
+    } catch (error) {
+      console.error('Error fetching contract data:', error);
       return {
         props: {
-          error: 'token not found'
+          error: 'Failed to fetch contract data'
         }
       }
-    } else {
-      mintAddress = exists[0].to;
     }
   }
 

@@ -9,14 +9,14 @@ const dev = process.env.NODE_ENV !== 'production';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<typeof Badge>
+  res: NextApiResponse
 ) {
 
   if (!dev) return res.end();
 
   console.log('starting download');
 
-  const season = 3;
+  const season = 4;
   const dir = 'badge-output';
   const imageHostUrl = `https://ethrank-badges.s3.amazonaws.com/${season}`;
 
@@ -26,12 +26,16 @@ export default async function handler(
     }
   });
 
+  console.log('Cache length:', cache.length);
+
   if (!await fs.existsSync(dir)){
+      console.log('Directory does not exist, creating:', dir);
       await fs.mkdirSync(dir);
+  } else {
+      console.log('Directory already exists:', dir);
   }
 
   if (cache && cache.length) {
-    // const limit = 2;
     const limit = cache.length;
     for (let i=0; i<limit; i++) {
       const image = ReactDOMServer.renderToStaticMarkup(Badge({
@@ -48,14 +52,27 @@ export default async function handler(
         imageHostUrl
       });
 
-      if (!await fs.existsSync(`${dir}/${cache[i].mint}.svg`)){
-        await fs.writeFileSync(`${dir}/${cache[i].mint}.svg`, image);
-        await fs.writeFileSync(`${dir}/${cache[i].mint}.json`, JSON.stringify(metadata));
+      const svgPath = `${dir}/${cache[i].mint}.svg`;
+      const jsonPath = `${dir}/${cache[i].mint}.json`;
+
+      if (!await fs.existsSync(svgPath)){
+        console.log('Writing SVG file:', svgPath);
+        await fs.writeFileSync(svgPath, image);
+      } else {
+        console.log('SVG file already exists:', svgPath);
+      }
+
+      if (!await fs.existsSync(jsonPath)){
+        console.log('Writing JSON file:', jsonPath);
+        await fs.writeFileSync(jsonPath, JSON.stringify(metadata));
+      } else {
+        console.log('JSON file already exists:', jsonPath);
       }
     }
+  } else {
+    console.log('No cache data found for season:', season);
   }
 
   console.log('finished successfully');
-  return res.end();
-
+  res.end();
 }
