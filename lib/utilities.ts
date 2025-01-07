@@ -172,8 +172,9 @@ export async function checkAndGenerateBadge(tokenID: string, season: string, pri
       }
     }
   }
-  let ensName;
+  
   // ENS stuff - resolve 0x21ada3.. to nick.eth
+  let ensName;
   const web3 = new Web3(`wss://mainnet.infura.io/ws/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`);
   ensName = await reverseLookup(mintAddress.toLowerCase(), web3);
 
