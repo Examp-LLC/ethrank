@@ -56,3 +56,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Sunsetting a previous season's dynamic badges
+1. With server running, hit localhost:3000/api/scraper to generate a list of NFT badges
+2. Upload those to AWS
+3. Navigate to the contract page on etherscan and set urlPrefix!
+
+[url prefix](./public/docs-urlprefix.png)
