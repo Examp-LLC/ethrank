@@ -37,7 +37,7 @@ const Faqs = ({  }) => {
             </li>
             <li>
                 <h4>Why is my score so low?</h4>
-                <p>ETHRank tries to feature the most popular projects from across the web3 ecosystem that align with our core values of creativity, transparency, and technological innovation. We try to feature as many projects per season as possible. If we missed a project that you think we should feature, please <Link href="https://docs.google.com/forms/d/1NWrtRONleo-MoEJpLamxtRQrzpxPpam89Gwn6NzE98Y" target="_blank">let us know</Link>. We'd love to hear from you!</p>
+                <p>ETHRank tries to feature the most popular projects from across the web3 ecosystem that align with our core values of creativity, transparency, and technological innovation. We try to feature as many projects per season as possible. If we missed a project that you think we should feature, please <Link href="https://docs.google.com/forms/d/1NWrtRONleo-MoEJpLamxtRQrzpxPpam89Gwn6NzE98Y" target="_blank">let us know</Link>. We&apos;d love to hear from you!</p>
             </li>
         </ol>
       </div>

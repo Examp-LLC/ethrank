@@ -30,6 +30,7 @@ import { useAccount } from 'wagmi';
 import Dapp from '../components/Dapp'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import ParticlesBackground from '../components/ParticlesBackground'
+import Link from 'next/link'
 
 export async function getServerSideProps({ res }: NextPageContext) {
 
@@ -234,7 +235,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
               <li>Distribution mechanism: Token-gate project launches based on reputation or specific tokens.</li>
               <li>Loyalty programs: Reward your most loyal users and customers.</li>
             </ul>
-            <a href="/api-docs" className={`${btnStyles.btn} ${btnStyles.wide}`}><strong>API Documentation</strong></a>
+            <Link href="/api-docs" className={`${btnStyles.btn} ${btnStyles.wide}`}><strong>API Documentation</strong></Link>
           </div>
         </div>
 
@@ -247,7 +248,7 @@ const Home = ({ leaderboard, latestScores }: HomeProps) => {
                 if (user.name && user.name.length) {
                   displayName = user.name
                 }
-                return <li key={i}><a href={`/address/${user.address}`}>{displayName}</a><span>{user.score}</span></li>
+                return <li key={i}><Link href={`/address/${user.address}`}>{displayName}</Link><span>{user.score}</span></li>
               })}
             </ol>
           </div>

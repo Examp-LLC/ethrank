@@ -36,6 +36,7 @@ const ParticlesBackground = () => {
     // console.log(container);
   };
 
+  // @ts-ignore
   const options: ISourceOptions = useMemo(
     () => ({
       fullScreen:false,
