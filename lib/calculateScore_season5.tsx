@@ -52,7 +52,7 @@ interface ETHRankAddressResponse {
 
 
 export async function calculateScore(address: string, prisma: PrismaClient, unstoppableName?: string | string[], attempts = 0): Promise<ETHRankAddressResponse> {
-  console.time('calculateScore');
+  // console.time('calculateScore');
   let score = 0, rank = 0;
   let totalPointsPossible = 0;
   let completedAchievements = 0;
@@ -115,7 +115,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
     }
 
     if (!error) {
-      console.time('cacheCheck');
+      // console.time('cacheCheck');
       // store in cache for 24 hours
       if (addressCache && 
           addressCache.updatedAt > new Date(new Date().getTime() - (24 * 60 * 60 * 1000)) && 
@@ -128,7 +128,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         activeSince = addressCache.activeSince || null;
         cached = true;
       }
-      console.timeEnd('cacheCheck');
+      // console.timeEnd('cacheCheck');
 
       // Unstoppable edge case 1 - If we find an unstoppable domain in the cache, we use that
       // TODO: do ENS the same way (no need for reverse lookup if we know the .eth address)
@@ -147,7 +147,7 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       }
 
       if (!cached || process.env.DEVELOPMENT) {
-        console.time('fetchData');
+        // console.time('fetchData');
         if (unstoppableName && typeof unstoppableName === 'string') {
           const unstoppable = await lookupUnstoppableName(unstoppableName.toLowerCase());
           if (unstoppable.address && unstoppable.address.length && unstoppable.address.toLowerCase() === address.toLowerCase()) {
@@ -273,9 +273,9 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
           return progress.indexOf(`${j}${k}${l}`) > -1;
         };
 
-        console.timeEnd('fetchData');
+        // console.timeEnd('fetchData');
 
-        console.time('processTransactions');
+        // console.time('processTransactions');
         // THE LOOP - we are only going to loop through all transactions ONCE,
         // so do whatever you need to do in here and before/after.
         for (let i = 0; i < allTransactions.length; i++) {
@@ -554,9 +554,9 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
             }
           }
         }
-        console.timeEnd('processTransactions');
+        // console.timeEnd('processTransactions');
 
-        console.time('updateCache');
+        // console.time('updateCache');
         try {
           // update the cache
           const data = {
@@ -589,11 +589,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
         } catch (e) {
           console.error(e);
         }
-        console.timeEnd('updateCache');
+        // console.timeEnd('updateCache');
 
       }
 
-      console.time('calculateRank');
+      // console.time('calculateRank');
       const higherRankedAddresses = await prisma.address.count({
         where: {
           AND: {
@@ -607,11 +607,11 @@ export async function calculateScore(address: string, prisma: PrismaClient, unst
       if (higherRankedAddresses) {
         rank = higherRankedAddresses || 0;
       }
-      console.timeEnd('calculateRank');
+      // console.timeEnd('calculateRank');
     }
   }
 
-  console.timeEnd('calculateScore');
+  // console.timeEnd('calculateScore');
   return {
     props: {
       address,
