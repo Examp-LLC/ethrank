@@ -108,9 +108,9 @@ export async function getUpdatedScoreAndSaveETHRank(generateNFTParams: GenerateN
     }
   }
   return {
-    score,
+    score: score.toString(),
     address: mintAddress,
-    rank,
+    rank: rank.toString(),
     progress,
     metadata
   }

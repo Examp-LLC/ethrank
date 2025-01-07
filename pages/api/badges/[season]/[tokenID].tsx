@@ -78,3 +78,9 @@ const getCurrentSeasonBadge = (season, props) => {
       return SeasonFiveBadge(props)
   }
 }
+
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+}
