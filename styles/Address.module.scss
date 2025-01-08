@@ -167,7 +167,8 @@
   video {
     width: 100%;
     grid-area: 1 / 1 / 1 / 1;
-    mix-blend-mode: color-dodge;
+    mix-blend-mode: lighten;
+    opacity:.3;
   }
 }
 

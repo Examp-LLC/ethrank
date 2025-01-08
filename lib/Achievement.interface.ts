@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
 */
 
-export interface Achievement {
+export interface Achievement { 
     name:      string;
     goals:    Goal[];
     points:    number;

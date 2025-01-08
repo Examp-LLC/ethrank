@@ -107,18 +107,19 @@
 
 .social {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 40% 60%;
   align-items: center;
   margin-top:20px;
    h3 {
     margin: 10px 0;
     white-space: nowrap;
-    font-size:20px;
-    min-width:300px;
+    font-size:19px;
+    min-width:130px;
    }
    ul {
     margin:0;
     padding:0;
+    min-width:330px;
   }
   li {
     display:inline-block; 
@@ -133,6 +134,16 @@
     }
     &.github a {
       background:url(../public/github.svg) no-repeat;
+    }
+    &.bluesky a {
+      background:url(../public/bluesky.svg) no-repeat;
+      width:24px;
+    }
+    &.facebook a {
+      background:url(../public/facebook.svg) no-repeat;
+    }
+    &.instagram a {
+      background:url(../public/instagram.svg) no-repeat;
     }
     span {
       visibility: hidden;;

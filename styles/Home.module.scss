@@ -82,7 +82,7 @@
   display:grid;
   grid-template-columns: 40% 50%;
   margin: 40px auto 0;
-  column-gap: 5vw;
+  column-gap: 4vw;
   align-items: center;
   a.btn {
     margin:20px 0;
@@ -109,7 +109,7 @@
     }
   }
   .colOne {
-    margin:-8vh -3vw -3vh;
+    margin:-8vh -1vw -3vh;
   }
 
   .colTwo {
@@ -193,6 +193,7 @@
       width: 92%;
       grid-area: 1 / 1 / 1 / 1;
       mix-blend-mode: lighten;
+      opacity:.3;
     }
   }
   h1 {
@@ -457,6 +458,7 @@
   border-top: 2px solid var(--main-color2);
   border-radius: 50%;
   width: 15px;
+  height: 15px;
   height: 15px;
   animation: spin 1s linear infinite;
   display:inline-block;

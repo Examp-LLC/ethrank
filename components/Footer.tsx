@@ -58,6 +58,9 @@ function Footer() {
             <li className={styles.discord}><a href="https://discord.gg/CNVQWw6KFU" target="_blank" rel="noreferrer"><span>Discord</span></a></li>
             <li className={styles.github}><a href="https://github.com/Examp-LLC/ethrank" target="_blank" rel="noreferrer"><span>GitHub</span></a></li>
             <li className={styles.telegram}><a href="https://t.me/ExampLLC" target="_blank" rel="noreferrer"><span>Telegram</span></a></li>
+            <li className={styles.bluesky}><a href="https://ethrank.bsky.social" target="_blank" rel="noreferrer"><span>Bluesky</span></a></li>
+            <li className={styles.facebook}><a href="https://www.facebook.com/profile.php?id=61571619963842" target="_blank" rel="noreferrer"><span>Facebook</span></a></li>
+            <li className={styles.instagram}><a href="https://www.instagram.com/ethrank.io/" target="_blank" rel="noreferrer"><span>Instagram</span></a></li>
           </ul>
         </div>
         <div className={`${styles.dot} ${styles.topRight}`} />
