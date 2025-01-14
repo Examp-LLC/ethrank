@@ -1199,7 +1199,7 @@
                         }
                     },
                     {
-                        "name": "Interact with Polygon (MATIC) Bridge",
+                        "name": "Interact with Polygon Bridge",
                         "points": 30,
                         "type": "transaction_to_address_count",
                         "params": {
@@ -1576,6 +1576,15 @@
                         "params": {
                             "count": 1,
                             "address": "0x767FE9EDC9E0dF98E07454847909b5E959D7ca0E"
+                        }
+                    },
+                    {
+                        "name": "Own 1 Nakamoto.Games ($NAKA)",
+                        "points": 20,
+                        "type": "own_token_by_address",
+                        "params": {
+                            "count": 1,
+                            "address": "0x311434160d7537be358930def317afb606c0d737"
                         }
                     }
                 ]
