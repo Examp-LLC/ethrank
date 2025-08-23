@@ -33,9 +33,19 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 const Goal = ({ calcScoreResult, labels }: AddressProps) => {
+  const router = useRouter()
+
+  if (!calcScoreResult) {
+    return (
+      <Page title={`Loading - ETHRank`}>
+        <div className="content">
+          <p>Loading...</p>
+        </div>
+      </Page>
+    );
+  }
 
   const { score, rank, progress, name } = calcScoreResult;
-  const router = useRouter()
   const { address, achievementSlug, goalSlug } = router.query;
 
   const achievementIndex = achievements.findIndex((potentialMatch) => {

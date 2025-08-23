@@ -21,7 +21,7 @@ import styles from '../../styles/Address.module.scss';
 import Link from 'next/link';
 import ProgressBar from '../../components/ProgressBar';
 import prisma from '../../lib/prisma';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { NextPageContext } from 'next';
 import { CURRENT_SEASON, CURRENT_SEASON_ACHIEVEMENTS, CURRENT_SEASON_BADGE_ACHIEVEMENT_INDEX } from '../../lib/constants';
 import Page from '../../components/Page';
@@ -38,6 +38,7 @@ import CollectionConfig from '../../lib/CollectionConfig';
 import { optimism, optimismSepolia } from 'viem/chains';
 import { Web3Button } from '@web3modal/react';
 import ParticlesBackground from '../../components/ParticlesBackground';
+import AddressLoading from '../../components/AddressLoading';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -52,19 +53,68 @@ export const convertToLowerCase = (input: string | Array<string> | undefined) =>
 export async function getServerSideProps(context: NextPageContext) {
   const { address, ud } = context.query;
   if (!address || typeof address !== 'string' || !context.res) return;
+  
   // cache for 12 hours, stale for additional 12
   context.res.setHeader(
     'Cache-Control',
     'public, s-maxage=43200, stale-while-revalidate=86400'
   )
-  let calcScore = getCalcMethod(CURRENT_SEASON.toString());
-  const score = await calcScore(address, prisma, ud);
+  
+  // Check if we have a recent calculation (within 24 hours for production, 1 hour for development)
+  const cacheHours = process.env.NODE_ENV === 'development' ? 1 : 24;
+  const existingCalculation = await prisma.address.findFirst({
+    where: {
+      address: address.toLowerCase(),
+      season: CURRENT_SEASON
+    }
+  });
+
   let labels = await getLabelsForAddress(address);
+
+  // If we have a recent calculation, return it immediately
+  if (existingCalculation && 
+      existingCalculation.updatedAt > new Date(Date.now() - cacheHours * 60 * 60 * 1000)) {
+    
+    // Calculate rank for the cached result
+    const higherRankedAddresses = await prisma.address.count({
+      where: {
+        AND: {
+          score: {
+            gte: existingCalculation.score,
+          },
+          season: CURRENT_SEASON
+        }
+      },
+    });
+
+    const rank = higherRankedAddresses || 0;
+
+    return {
+      props: {
+        calcScoreResult: {
+          address: existingCalculation.address,
+          score: existingCalculation.score,
+          rank: rank,
+          progress: JSON.parse(existingCalculation.progress),
+          name: existingCalculation.name,
+          totalTransactions: existingCalculation.transactions || 0,
+          spentOnGas: existingCalculation.spentOnGas?.toString() || '0',
+          activeSince: existingCalculation.activeSince?.toISOString() || null
+        },
+        error: false,
+        labels,
+        needsCalculation: false
+      }
+    }
+  }
+
+  // If no recent calculation, trigger client-side calculation
   return {
     props: {
-      calcScoreResult: score.props,
-      error: score.props.error,
-      labels
+      calcScoreResult: null,
+      error: false,
+      labels,
+      needsCalculation: true
     }
   }
 }
@@ -82,26 +132,91 @@ export interface CalcScoreProps {
 }
 
 export interface AddressProps {
-  calcScoreResult: CalcScoreProps;
+  calcScoreResult: CalcScoreProps | null;
   labels: Goal[];
   error: boolean | string;
+  needsCalculation: boolean;
 }
 
-const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
-
-  const { address, score, rank, progress, name, totalTransactions, spentOnGas, activeSince } = calcScoreResult;
-
-  const router = useRouter()
-
+const Address = ({ calcScoreResult, labels, error, needsCalculation }: AddressProps) => {
+  const router = useRouter();
+  const [isCalculating, setIsCalculating] = useState(false); // Start as false, not needsCalculation
+  const [calculationResult, setCalculationResult] = useState(calcScoreResult);
+  const [calculationError, setCalculationError] = useState(error);
+  const calculationStartedRef = useRef(false);
   const [ownsNFT, setOwnsNFT] = useState(false);
   const [attestSuccess, setAttestSuccess] = useState(false);
   const [scoreFetched, setScoreFetched] = useState('');
+  const [visible, setVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [newMember, setNewMember] = useState("");
+  const [isOptimism, setIsOptimism] = useState<boolean>(false);
 
   const connectedWallet = useAccount();
+  const { switchChain } = useSwitchChain();
+  const signer = useEthersSigner();
 
+  // Use either the server-side result or the client-side calculation result
+  const result = calculationResult || calcScoreResult;
+
+  // Handle background calculation if needed
+  useEffect(() => {
+    if (needsCalculation && !isCalculating && router.query.address && !calculationResult && !calculationStartedRef.current) {
+      calculationStartedRef.current = true;
+      setIsCalculating(true);
+      
+      const calculateScore = async () => {
+        try {
+          
+          // Create an AbortController for timeout
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minute timeout
+          
+          const response = await fetch('/api/calculate-score/' + router.query.address, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              address: router.query.address,
+              season: CURRENT_SEASON
+            }),
+            signal: controller.signal
+          });
+          
+          clearTimeout(timeoutId);
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data.status === 'completed') {
+              setCalculationResult(data.data);
+              setIsCalculating(false);
+            } else {
+              setCalculationError(data.error || 'Calculation failed');
+              setIsCalculating(false);
+            }
+          } else {
+            const errorText = await response.text();
+            setCalculationError(`Failed to calculate score: ${response.status}`);
+            setIsCalculating(false);
+          }
+        } catch (error: any) {
+          if (error.name === 'AbortError') {
+            setCalculationError('Calculation timed out (5 minutes)');
+          } else {
+            setCalculationError('Calculation error: ' + (error.message || 'Unknown error'));
+          }
+          setIsCalculating(false);
+        }
+      };
+
+      calculateScore();
+    }
+  }, [needsCalculation, router.query.address]); // Simplified dependencies
+
+  // Check if user owns NFT
   useEffect(() => {
     async function fetchData() {
-
       if (error) {
         router.push('/error');
       }
@@ -121,16 +236,30 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
     if (!scoreFetched.length || scoreFetched !== connectedWallet.address) {
       fetchData();
     }
+  }, [connectedWallet, error, router, scoreFetched]);
+
+  // Check if user is on Optimism
+  useEffect(() => {
+    if (connectedWallet.isConnected) {
+      setIsOptimism(connectedWallet.chain?.id === optimism.id || connectedWallet.chain?.id === optimismSepolia.id);
+    } else {
+      setIsOptimism(false);
+    }
   }, [connectedWallet]);
 
+  // If we're still calculating, show loading state
+  if (isCalculating || !result) {
+    return (
+      <Page title={`${router.query.address} - ETHRank`}>
+        <AddressLoading 
+          address={router.query.address as string} 
+          name={router.query.ud as string}
+        />
+      </Page>
+    );
+  }
 
-  const [visible, setVisible] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [newMember, setNewMember] = useState("");
-
-  const { switchChain } = useSwitchChain();
-
-  const signer = useEthersSigner();
+  const { address, score, rank, progress, name, totalTransactions, spentOnGas, activeSince } = result;
 
   const EASContractAddress = "0x4200000000000000000000000000000000000021";
   const eas = new EAS(EASContractAddress);
@@ -188,16 +317,6 @@ const Address = ({ calcScoreResult, labels, error }: AddressProps) => {
       }
     }
   };
-
-  const [isOptimism, setIsOptimism] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (connectedWallet.isConnected) {
-      setIsOptimism(connectedWallet.chain?.id === optimism.id || connectedWallet.chain?.id === optimismSepolia.id);
-    } else {
-      setIsOptimism(false);
-    }
-  }, [connectedWallet]);
 
   const convertBigNumberToShorthand = (n: number) => {
     if (n < 1e3) return n % 1 != 0 ? n.toFixed(2) : n;
