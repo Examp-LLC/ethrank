@@ -5,6 +5,7 @@ import { WagmiProvider } from 'wagmi'
 import { mainnet, optimism, optimismSepolia} from 'wagmi/chains'
 import { createWeb3Modal } from '@web3modal/wagmi/react'
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
+import { Analytics } from '@vercel/analytics/react'
 
 const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID || ''
 const queryClient = new QueryClient()
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </WagmiProvider>
       </QueryClientProvider>
+      <Analytics />
     </>
   )
 }

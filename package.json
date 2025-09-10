@@ -19,6 +19,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.5.0",
     "@unstoppabledomains/resolution": "^9.2.2",
+    "@vercel/analytics": "^1.5.0",
     "@web3modal/ethereum": "^2.4.7",
     "@web3modal/react": "^2.4.7",
     "@web3modal/wagmi": "^4.0.11",
