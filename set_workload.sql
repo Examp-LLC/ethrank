@@ -1,1 +1,0 @@
-SET workload = OLAP;
