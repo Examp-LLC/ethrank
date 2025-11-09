@@ -42,6 +42,21 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## MCP Server
+
+ETHRank now has a Model Context Protocol (MCP) server that allows AI assistants like Claude to query address scores, rankings, and leaderboard data. See the [MCP server documentation](./mcp-server/README.md) for more information.
+
+To use with Claude Desktop:
+```bash
+npx -y @ethrank/mcp-server
+```
+
+The MCP server provides tools for:
+- Getting address scores and rankings
+- Calculating fresh scores
+- Comparing multiple addresses
+- Accessing season information
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
