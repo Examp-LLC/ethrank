@@ -502,6 +502,40 @@ const Address = ({ calcScoreResult, labels, error, needsCalculation }: AddressPr
         </div>
       </div>
 
+      <div className={styles.networksWrapper}>
+        <h3>Supported Networks <span className="pill">Season V</span></h3>
+        <p className={styles.networksDescription}>
+          Your score is calculated across multiple blockchain networks
+        </p>
+        <div className={styles.networks}>
+          <div className={`${styles.network} greybox`}>
+            <div className={styles.networkIcon}>⟠</div>
+            <h4>Ethereum</h4>
+            <p>Mainnet</p>
+          </div>
+          <div className={`${styles.network} greybox`}>
+            <div className={styles.networkIcon}>⬢</div>
+            <h4>Polygon</h4>
+            <p>Matic</p>
+          </div>
+          <div className={`${styles.network} greybox`}>
+            <div className={styles.networkIcon}>◈</div>
+            <h4>Arbitrum</h4>
+            <p>Layer 2</p>
+          </div>
+          <div className={`${styles.network} greybox`}>
+            <div className={styles.networkIcon}>🔴</div>
+            <h4>Optimism</h4>
+            <p>Layer 2</p>
+          </div>
+          <div className={`${styles.network} greybox`}>
+            <div className={styles.networkIcon}>🔵</div>
+            <h4>Base</h4>
+            <p>Layer 2</p>
+          </div>
+        </div>
+      </div>
+
       <div>
         <h3>Achievements <span className="pill">Season V</span></h3>
         <div className={`${styles.cellParent} ${styles.achievements}`}>
