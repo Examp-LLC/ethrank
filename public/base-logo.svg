@@ -1,6 +1,11 @@
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="128" cy="128" r="128" fill="#0052FF"/>
-  <path fill="#FFF" d="M128 224c53.019 0 96-42.981 96-96 0-53.02-42.981-96-96-96C74.98 32 32 74.98 32 128c0 53.019 42.98 96 96 96zm0-176c44.183 0 80 35.817 80 80s-35.817 80-80 80c-44.184 0-80-35.817-80-80s35.816-80 80-80z"/>
-  <path fill="#FFF" d="M168 128c0 22.091-17.909 40-40 40s-40-17.909-40-40h-16c0 30.928 25.072 56 56 56s56-25.072 56-56h-16z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="base-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#0052FF"/>
+      <stop offset="100%" stopColor="#0045D8"/>
+    </linearGradient>
+  </defs>
+  <circle cx="16" cy="16" r="16" fill="url(#base-gradient)"/>
+  <circle cx="16" cy="16" r="13" fill="none" stroke="#FFF" strokeWidth="2"/>
+  <path fill="#FFF" d="M10 16c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
 </svg>
-
