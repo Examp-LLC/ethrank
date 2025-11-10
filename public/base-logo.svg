@@ -1,11 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="base-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#0052FF"/>
-      <stop offset="100%" stopColor="#0045D8"/>
-    </linearGradient>
-  </defs>
-  <circle cx="16" cy="16" r="16" fill="url(#base-gradient)"/>
-  <circle cx="16" cy="16" r="13" fill="none" stroke="#FFF" strokeWidth="2"/>
-  <path fill="#FFF" d="M10 16c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path fill="#00F" d="M3 4.706c0-.585 0-.877.11-1.101.106-.215.28-.39.496-.495C3.83 3 4.122 3 4.706 3h14.588c.585 0 .876 0 1.101.11.215.105.389.28.494.495.111.225.111.517.111 1.101v14.588c0 .585 0 .876-.11 1.101-.106.215-.28.389-.495.494-.225.111-.517.111-1.101.111H4.706c-.585 0-.876 0-1.101-.11a1.08 1.08 0 0 1-.494-.495C3 20.17 3 19.878 3 19.294z"/>
 </svg>
