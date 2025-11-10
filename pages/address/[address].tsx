@@ -503,35 +503,24 @@ const Address = ({ calcScoreResult, labels, error, needsCalculation }: AddressPr
       </div>
 
       <div className={styles.networksWrapper}>
-        <h3>Supported Networks <span className="pill">Season V</span></h3>
-        <p className={styles.networksDescription}>
-          Your score is calculated across multiple blockchain networks
-        </p>
-        <div className={styles.networks}>
-          <div className={`${styles.network} greybox`}>
-            <div className={styles.networkIcon}>⟠</div>
-            <h4>Ethereum</h4>
-            <p>Mainnet</p>
-          </div>
-          <div className={`${styles.network} greybox`}>
-            <div className={styles.networkIcon}>⬢</div>
-            <h4>Polygon</h4>
-            <p>Matic</p>
-          </div>
-          <div className={`${styles.network} greybox`}>
-            <div className={styles.networkIcon}>◈</div>
-            <h4>Arbitrum</h4>
-            <p>Layer 2</p>
-          </div>
-          <div className={`${styles.network} greybox`}>
-            <div className={styles.networkIcon}>🔴</div>
-            <h4>Optimism</h4>
-            <p>Layer 2</p>
-          </div>
-          <div className={`${styles.network} greybox`}>
-            <div className={styles.networkIcon}>🔵</div>
-            <h4>Base</h4>
-            <p>Layer 2</p>
+        <div className={styles.networksCompact}>
+          <span className={styles.networksLabel}>Multi-chain scoring across</span>
+          <div className={styles.networkLogos}>
+            <div className={styles.networkLogo} data-network="Ethereum">
+              <img src="/ethereum-logo.svg" alt="Ethereum" />
+            </div>
+            <div className={styles.networkLogo} data-network="Polygon">
+              <img src="/polygon-logo.svg" alt="Polygon" />
+            </div>
+            <div className={styles.networkLogo} data-network="Arbitrum">
+              <img src="/arbitrum-logo.svg" alt="Arbitrum" />
+            </div>
+            <div className={styles.networkLogo} data-network="Optimism">
+              <img src="/optimism-logo.svg" alt="Optimism" />
+            </div>
+            <div className={styles.networkLogo} data-network="Base">
+              <img src="/base-logo.svg" alt="Base" />
+            </div>
           </div>
         </div>
       </div>

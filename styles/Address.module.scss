@@ -464,85 +464,130 @@
 }
 
 .networksWrapper {
-  margin: 40px 0;
+  margin: 30px 0;
+  text-align: center;
+}
+
+.networksCompact {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   
-  h3 {
-    margin-bottom: 10px;
-  }
-  
-  .networksDescription {
-    text-align: center;
+  .networksLabel {
+    font-size: 14px;
     color: var(--white);
     opacity: 0.7;
-    margin: 0 0 30px 0;
-    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
   }
 }
 
-.networks {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  text-align: center;
+.networkLogos {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 40px;
   
-  .network {
-    padding: 30px 20px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #CF6EFF 0%, #923AFF 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    &:hover {
-      transform: translateY(-5px);
-      filter: brightness(1.15);
+  &:hover {
+    .networkLogo {
+      margin-right: 8px;
       
-      &::before {
+      &:last-child {
+        margin-right: 0;
+      }
+      
+      &::after {
         opacity: 1;
+        transform: translateY(-35px) scale(1);
       }
     }
+  }
+}
+
+.networkLogo {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  
+  &:last-child {
+    margin-right: 0;
+  }
+  
+  &:hover {
+    transform: translateY(-3px) scale(1.15);
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(207, 110, 255, 0.4);
     
-    .networkIcon {
-      font-size: 48px;
-      margin-bottom: 15px;
-      line-height: 1;
+    &::after {
+      opacity: 1;
+      transform: translateY(-40px) scale(1);
     }
-    
-    h4 {
-      margin: 10px 0 5px;
-      font-size: 18px;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: 0.5px;
-    }
-    
-    p {
-      margin: 0;
-      font-size: 12px;
-      color: var(--white);
-      opacity: 0.6;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+  }
+  
+  // Tooltip on hover
+  &::after {
+    content: attr(data-network);
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-30px) scale(0.8);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.1);
   }
 }
 
 @include tablet {
-  .networks {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+  .networksCompact {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 20px;
+    
+    .networksLabel {
+      font-size: 12px;
+    }
+  }
+  
+  .networkLogos {
+    margin-right: 0;
   }
 }
 
@@ -571,21 +616,18 @@
     }
   }
   
-  .networks {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  .networksCompact {
+    flex-direction: column;
+    padding: 12px 18px;
     
-    .network {
-      padding: 20px 15px;
-      
-      .networkIcon {
-        font-size: 36px;
-      }
-      
-      h4 {
-        font-size: 16px;
-      }
+    .networksLabel {
+      font-size: 11px;
     }
+  }
+  
+  .networkLogo {
+    width: 35px;
+    height: 35px;
   }
 }
 
