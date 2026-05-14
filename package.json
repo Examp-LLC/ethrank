@@ -55,7 +55,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^5.0.6",
-    "@types/node": "17.0.5",
+    "@types/node": "^20.19.41",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.14",
     "@vitest/coverage-v8": "^4.1.0",
