@@ -88,6 +88,138 @@
   color: var(--white);
 }
 
+.detailPanel {
+  border-radius: 10px;
+  margin: 0 0 26px;
+  text-align: left;
+
+  h4 {
+    color: var(--white);
+    font-size: 20px;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+
+  p {
+    color: var(--main-color5);
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+    opacity: .88;
+  }
+}
+
+.detailMetrics {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 18px 0 0;
+}
+
+.detailMetric {
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 8px;
+  padding: 12px;
+
+  span {
+    color: var(--main-color5);
+    display: block;
+    font-size: 11px;
+    opacity: .7;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: var(--white);
+    display: block;
+    font-size: 19px;
+    margin-top: 4px;
+    overflow-wrap: anywhere;
+  }
+}
+
+.detailTags,
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detailTags {
+  margin-top: 16px;
+}
+
+.detailTag,
+.cardMeta span {
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 999px;
+  color: var(--main-color5);
+  font-size: 11px;
+  line-height: 1;
+  padding: 7px 10px;
+  text-transform: uppercase;
+}
+
+.cardMeta {
+  margin: 0 0 12px;
+}
+
+.stepDetails {
+  color: var(--main-color5);
+  margin: 0 0 14px;
+
+  p {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 12px;
+    opacity: .9;
+  }
+}
+
+.addressList {
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 8px;
+  margin: 12px 0 0;
+  overflow: hidden;
+}
+
+.addressListLabel {
+  background: rgba(255, 255, 255, .08);
+  color: var(--white);
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 10px 12px;
+  text-transform: uppercase;
+}
+
+.addressItem {
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 10px 12px;
+
+  code {
+    color: var(--white);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+}
+
+.sourceLink {
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
 .address {
   text-align: center;
 }
@@ -96,6 +228,8 @@
   padding: 10px;
   display: inline-block;
   margin: 0 auto;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   text-transform: uppercase;
   font-size:38px;
 }
@@ -576,6 +710,10 @@
 }
 
 @include tablet {
+  .detailMetrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .networksCompact {
     flex-direction: column;
     gap: 10px;
@@ -595,6 +733,14 @@
 
   .cellParent,
   .categoryRow {
+    grid-template-columns: 100%;
+  }
+
+  .detailMetrics {
+    grid-template-columns: 100%;
+  }
+
+  .addressItem {
     grid-template-columns: 100%;
   }
 
@@ -642,4 +788,3 @@
     transform: translateY(-2px); // Adjust the height of the bounce here
   }
 }
-

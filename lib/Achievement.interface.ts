@@ -16,6 +16,8 @@
 
 export interface Achievement { 
     name:      string;
+    category?: Category;
+    slug:      string;
     goals:    Goal[];
     points:    number;
 }
@@ -54,6 +56,8 @@ export interface Params {
 }
 
 export enum StepType {
+    DeployContractCount = "deploy_contract_count",
+    MineBlocksCount = "mine_blocks_count",
     OwnPoapCount = "own_poap_count",
     OwnTokenByAddress = "own_token_by_address",
     OwnTokenCount = "own_token_count",

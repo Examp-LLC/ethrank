@@ -25,6 +25,13 @@ import { NextPageContext } from 'next';
 import Page from '../../../../components/Page';
 import Link from 'next/link';
 import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../../lib/constants';
+import {
+  DetailMetric,
+  DetailTags,
+  StepDetails,
+  getAddressCount,
+  getAchievementCategories,
+} from '../../../../components/AchievementDetails';
 
 const achievements = CURRENT_SEASON_ACHIEVEMENTS;
 
@@ -54,10 +61,26 @@ const Goal = ({ calcScoreResult, labels }: AddressProps) => {
 
   const achievement = achievements[achievementIndex];
 
+  if (!achievement) {
+    return <Page title={`${address} - ETHRank`}>
+      <div className="content">
+        <p>Achievement not found.</p>
+      </div>
+    </Page>
+  }
+
   const goalIndex = achievement.goals.findIndex((potentialMatch) => {
     return potentialMatch.slug === goalSlug as string;
   })
   const goal = achievement.goals[goalIndex];
+
+  if (!goal) {
+    return <Page title={`${address} - ETHRank`}>
+      <div className="content">
+        <p>Goal not found.</p>
+      </div>
+    </Page>
+  }
 
   const calculateProgress = function (i: number) {
     const results = progress.filter((item) => {
@@ -67,6 +90,9 @@ const Goal = ({ calcScoreResult, labels }: AddressProps) => {
       return results.length;
     } else return 0;
   };
+
+  const completedSteps = goal.steps.reduce((sum, _, i) => sum + calculateProgress(i), 0);
+  const eligibleAddressCount = getAddressCount(goal);
 
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
@@ -81,17 +107,31 @@ const Goal = ({ calcScoreResult, labels }: AddressProps) => {
           <li className="on">{goal.name}</li>
         </ul>
         <h3>{goal && goal.name}</h3>
+        <div className={`${styles.detailPanel} greybox`}>
+          <div>
+            <h4>Goal details</h4>
+            <p>
+              These steps are matched against the JSON scoring rules for {achievement.name}. Eligible token, contract, or wallet addresses are shown exactly as configured.
+            </p>
+          </div>
+          <div className={styles.detailMetrics}>
+            <DetailMetric label="Goal points" value={goal.points} />
+            <DetailMetric label="Achievement points" value={achievement.points} />
+            <DetailMetric label="Steps completed" value={`${completedSteps}/${goal.steps.length}`} />
+            <DetailMetric label="Eligible addresses" value={eligibleAddressCount} />
+          </div>
+          <DetailTags tags={[goal.category].concat(getAchievementCategories(achievement).filter((category) => category !== goal.category))} />
+        </div>
         <div className={goalStyles.list}>
           {goal && goal.steps.map((step, i) => {
             const percent = calculateProgress(i) / 1;
             return <div className={`${styles.achievement} greybox ${percent === 1 && styles.completed} animate__animated`} key={i}>
               <h4>{
                 step.url && (
-                  <a href={
-                    step.url
-                  }>{step.name}</a>
+                  <a href={step.url} target="_blank" rel="noreferrer">{step.name}</a>
                 ) || step.name
               }</h4>
+              <StepDetails step={step} />
               <ProgressBar percent={percent} />
             </div>
           })}

@@ -24,6 +24,13 @@ import Score from '../../../components/Score';
 import { NextPageContext } from 'next';
 import Page from '../../../components/Page';
 import { CURRENT_SEASON_ACHIEVEMENTS } from '../../../lib/constants';
+import {
+  DetailMetric,
+  DetailTags,
+  getAchievementCategories,
+  getAchievementStepCount,
+  getAddressCount,
+} from '../../../components/AchievementDetails';
 
 export async function getServerSideProps(context: NextPageContext) {
   return await getServerProps(context);
@@ -63,6 +70,18 @@ const Achievement = ({ calcScoreResult, labels }: AddressProps) => {
     } else return 0;
   };
 
+  if (!achievement) {
+    return <Page title={`${address} - ETHRank`}>
+      <div className="content">
+        <p>Achievement not found.</p>
+      </div>
+    </Page>
+  }
+
+  const completedSteps = achievement.goals.reduce((sum, goal, i) => sum + calculateProgress(i), 0);
+  const totalSteps = getAchievementStepCount(achievement);
+  const categories = getAchievementCategories(achievement);
+
   return <Page title={`${address} - ETHRank`}>
     <div className="content">
       <div className={styles.address}>
@@ -75,15 +94,36 @@ const Achievement = ({ calcScoreResult, labels }: AddressProps) => {
           <li className="on">{achievement.name}</li>
         </ul>
         <h3>{achievement && achievement.name}</h3>
+        <div className={`${styles.detailPanel} greybox`}>
+          <div>
+            <h4>Achievement details</h4>
+            <p>
+              Complete the goals below to earn achievement points. Review each goal before taking action; token and contract-specific requirements are shown on the goal detail page.
+            </p>
+          </div>
+          <div className={styles.detailMetrics}>
+            <DetailMetric label="Achievement points" value={achievement.points} />
+            <DetailMetric label="Goals" value={achievement.goals.length} />
+            <DetailMetric label="Steps completed" value={`${completedSteps}/${totalSteps}`} />
+          </div>
+          <DetailTags tags={categories} />
+        </div>
         <div className={styles.cellParent}>
           {achievement && achievement.goals.map((goal, i) => {
             const percent = calculateProgress(i) / goal.steps.length;
+            const eligibleAddressCount = getAddressCount(goal);
             return <Link key={i} href={{
               pathname: '/address/[address]/[achievement]/[goal]',
               query: { address, achievement: achievement.slug, goal: goal.slug },
             }}>
               <div className={`${styles.achievement} ${percent === 1 && styles.completed} achievement greybox animate__animated`} key={i}>
                 <h4>{goal.name}</h4>
+                <div className={styles.cardMeta}>
+                  <span>{goal.category}</span>
+                  <span>{goal.points} points</span>
+                  <span>{calculateProgress(i)}/{goal.steps.length} steps</span>
+                  {eligibleAddressCount > 0 && <span>{eligibleAddressCount} eligible address{eligibleAddressCount === 1 ? '' : 'es'}</span>}
+                </div>
                 <ProgressBar percent={percent} />
               </div>
             </Link>
