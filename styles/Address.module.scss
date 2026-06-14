@@ -207,10 +207,51 @@
     overflow-wrap: anywhere;
   }
 
-  a {
-    font-size: 12px;
-    text-transform: uppercase;
+}
+
+.addressActions {
+  display: flex;
+  gap: 8px;
+
+  .addressIconButton {
+    border-bottom: 1px solid rgba(255, 255, 255, .18);
   }
+}
+
+.addressIconButton {
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 8px;
+  color: var(--main-color5);
+  cursor: pointer;
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+  width: 34px;
+
+  svg {
+    fill: none;
+    height: 18px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    width: 18px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, .1);
+    border-color: var(--main-color3);
+    color: var(--white);
+  }
+}
+
+.copied {
+  border-color: var(--main-color3);
+  color: var(--main-color3);
 }
 
 .sourceLink {

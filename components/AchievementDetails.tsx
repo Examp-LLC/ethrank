@@ -16,6 +16,7 @@
 
 import styles from '../styles/Address.module.scss';
 import { StepType } from '../lib/Achievement.interface';
+import { useState } from 'react';
 
 type DetailValue = string | number | undefined;
 
@@ -174,6 +175,83 @@ interface StepDetailsProps {
   step: DetailStep;
 }
 
+const CopyIcon = () => (
+  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+    <path d="M8 8h11v11H8z" />
+    <path d="M5 16H4V4h12v1" />
+  </svg>
+)
+
+const CheckIcon = () => (
+  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+    <path d="m5 12 4 4L19 6" />
+  </svg>
+)
+
+const ExternalLinkIcon = () => (
+  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+    <path d="M14 5h5v5" />
+    <path d="m10 14 9-9" />
+    <path d="M19 14v5H5V5h5" />
+  </svg>
+)
+
+interface AddressRowProps {
+  address: string;
+}
+
+const AddressRow = ({ address }: AddressRowProps) => {
+  const [copied, setCopied] = useState(false);
+
+  const copyAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(address);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = address;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1500);
+  }
+
+  const copyLabel = copied ? 'Copied address' : 'Copy address';
+
+  return (
+    <div className={styles.addressItem}>
+      <code>{address}</code>
+      <div className={styles.addressActions}>
+        <button
+          type="button"
+          className={`${styles.addressIconButton} ${copied ? styles.copied : ''}`}
+          aria-label={copyLabel}
+          title={copyLabel}
+          onClick={copyAddress}
+        >
+          {copied ? <CheckIcon /> : <CopyIcon />}
+        </button>
+        <a
+          className={styles.addressIconButton}
+          href={`https://blockscan.com/address/${address}`}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Verify ${address}`}
+          title="Verify address"
+        >
+          <ExternalLinkIcon />
+        </a>
+      </div>
+    </div>
+  )
+}
+
 export const StepDetails = ({ step }: StepDetailsProps) => {
   const addresses = getStepAddresses(step);
 
@@ -191,12 +269,7 @@ export const StepDetails = ({ step }: StepDetailsProps) => {
         <div className={styles.addressList}>
           <span className={styles.addressListLabel}>Eligible address{addresses.length === 1 ? '' : 'es'}</span>
           {addresses.map((address) => (
-            <div className={styles.addressItem} key={address}>
-              <code>{address}</code>
-              <a href={`https://blockscan.com/address/${address}`} target="_blank" rel="noreferrer">
-                Verify
-              </a>
-            </div>
+            <AddressRow address={address} key={address} />
           ))}
         </div>
       )}
